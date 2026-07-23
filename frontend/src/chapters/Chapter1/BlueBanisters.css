@@ -3,7 +3,7 @@
 .chapter-light-container {
   min-height: 100vh;
   /* Un gris azulado sumamente claro, casi blanco, manteniendo la vibra "fría" de Blue Banisters */
-  background-color: #f2f5f8; 
+  background-color: #C5C6C7; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,8 +23,8 @@
 /* --- TEXTO DE LA CARTA --- */
 .letra-cursiva-oscura {
   font-family: 'Pinyon Script', 'Great Vibes', 'Shelley Allegro Script', cursive;
-  font-size: 1.7rem; /* Ajustado para no ser masivo en celular */
-  line-height: 1.5;
+  font-size: 0.7rem; /* Ajustado para no ser masivo en celular */
+  line-height: 0.5;
   color: #1a1c23; /* Un azul/negro muy oscuro, más suave que el negro puro */
   text-align: justify; /* Justificado como solicitaste */
   hyphens: auto; /* Ayuda a que el justificado no deje huecos gigantes en el móvil */
