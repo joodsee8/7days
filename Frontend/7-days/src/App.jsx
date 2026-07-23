@@ -1,7 +1,7 @@
 import Intro from "./chapters/Intro/Intro";
 
 function App() {
-    return <Intro />;
+  return <Intro />;
 }
 
 export default App;
