@@ -1,28 +1,36 @@
-.intro{
-    width:100%;
-    height:100vh;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    background:#111111;
+.intro-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
 }
 
-.cursor{
-
-    color:white;
-
-    font-size:52px;
-
-    animation:blink 1s infinite;
+.open-letter-container {
+  position: absolute;
+  bottom: 15vh; /* Lo colocamos en la parte inferior de la pantalla */
+  cursor: pointer;
+  padding: 1rem 2rem;
+  opacity: 0.7;
+  transition: opacity 0.5s ease;
 }
 
-@keyframes blink{
+.open-letter-container:hover {
+  opacity: 1; /* Brilla un poco al pasar el mouse/dedo */
+}
 
-    50%{
+.open-letter-text {
+  font-family: 'Georgia', serif; /* Manteniendo la tipografía elegante */
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #a0a0a0; /* Un gris muy tenue */
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 0.5s ease, color 0.5s ease;
+}
 
-        opacity:0;
-    }
-
+.open-letter-container:hover .open-letter-text {
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5); /* Aparece una línea muy sutil al hacer hover */
 }
