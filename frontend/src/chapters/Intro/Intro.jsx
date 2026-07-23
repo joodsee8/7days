@@ -2,28 +2,56 @@ import React from 'react';
 import Typewriter from '../../components/Typewriter/Typewriter';
 
 const Intro = () => {
-  // El guion controla la narrativa, velocidad de escritura y tiempo de "pensamiento"
   const introScript = [
     { 
       text: "Hola, Montse.", 
-      speed: 120, // Velocidad normal-lenta
-      pauseAfter: 2000 // (pausa)
+      speed: 120, 
+      pauseAfter: 2500 
+    },
+    { 
+      text: "Ocho años desde que nos conocimos en la secundaria...", 
+      speed: 100, 
+      pauseAfter: 3000 
     },
     { 
       text: "Quiero pedirte siete días.", 
-      speed: 100, 
-      pauseAfter: 3000 // (pausa más larga)
+      speed: 110, 
+      pauseAfter: 2500 
+    },
+    { 
+      text: "Siete días, siete canciones, antes de tu cumpleaños.", 
+      speed: 95, 
+      pauseAfter: 3500 
+    },
+    { 
+      text: "Sabes que para mí, la música siempre ha sido la forma de decir lo que a veces callo.", 
+      speed: 90, 
+      pauseAfter: 3500 
+    },
+    { 
+      text: "Hay cosas que nunca dije... hasta ahora.", 
+      speed: 95, 
+      pauseAfter: 3000 
+    },
+    { 
+      text: "El verdadero regalo no son las canciones, sino las historias detrás de ellas.", 
+      speed: 90, 
+      pauseAfter: 3500 
     },
     { 
       text: "Nada de esto necesita una respuesta.", 
-      speed: 90, 
-      pauseAfter: 4000 // Da tiempo a asimilar antes de continuar
+      speed: 110, 
+      pauseAfter: 2500 
+    },
+    { 
+      text: "Solo es mi manera de decirte: gracias por estar ahí.", 
+      speed: 100, 
+      pauseAfter: 4000 
     }
   ];
 
   const handleIntroComplete = () => {
-    // Aquí más adelante desencadenaremos la transición a la siguiente parte de la introducción
-    console.log("Terminó de escribir la primera parte.");
+    console.log("Terminó la introducción. Transición hacia el Día 1: Blue Banisters.");
   };
 
   return (
