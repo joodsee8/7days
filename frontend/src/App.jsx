@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Intro from './chapters/Intro/Intro';
-import BlueBanisters from './chapters/Day1/BlueBanisters'; // Ajusta la ruta si es necesario
+import BlueBanisters from './chapters/Chapter1/BlueBanisters'; // Ajusta la ruta si es necesario
 import './styles/global.css'; // Asegúrate de importar tus estilos globales
 
 const App = () => {
