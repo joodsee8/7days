@@ -1,0 +1,29 @@
+.typewriter{
+
+    white-space:pre-wrap;
+
+    font-size:2rem;
+
+    line-height:1.8;
+
+    color:#ECE8E1;
+
+    max-width:750px;
+
+}
+
+.cursor{
+
+    animation:blink 1s infinite;
+
+}
+
+@keyframes blink{
+
+    50%{
+
+        opacity:0;
+
+    }
+
+}
