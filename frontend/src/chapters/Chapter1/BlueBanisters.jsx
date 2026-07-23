@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './BlueBanisters.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
 import coverImg from '../../assets/images/IMG_0105.jpeg'
-import audioFile from '../../assets/images/Lana%20Del%20Rey%20-%20Blue%20Banisters%20(Official%20Video).mp3'
+import audioFile from '../../assets/music/Blue-Banisters.mp3'
 
 const letterParagraphs = [
   "Veinte años.",
