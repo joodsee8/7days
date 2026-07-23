@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './BlueBanisters.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
+import coverImg from '../../assets/images/IMG_0105.jpeg'
+import audioFile from '../../assets/images/Lana%20Del%20Rey%20-%20Blue%20Banisters%20(Official%20Video).mp3'
 
 const letterParagraphs = [
   "Veinte años.",
@@ -92,8 +94,8 @@ const BlueBanisters = () => {
           <MusicPlayer 
             title="Blue Banisters"
             artist="Lana Del Rey"
-            cover="../../assets/images/IMG_0105.jpeg" /* Asegúrate de poner tu imagen real aquí */
-            audioSrc="../../assets/music/Lana%20Del%20Rey%20-%20Blue%20Banisters%20(Official%20Video).mp3"     /* Asegúrate de poner tu audio real aquí */
+            cover={coverImg}
+            audioSrc={audioFile}
             accentColor="#4a5d73"
             onContinue={handleContinueToDay2}
           />
