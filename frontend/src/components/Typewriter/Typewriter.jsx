@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Typewriter.css';
 
 const Typewriter = ({ script, onComplete }) => {
@@ -6,9 +6,11 @@ const Typewriter = ({ script, onComplete }) => {
   const [currentText, setCurrentText] = useState('');
   const [scriptIndex, setScriptIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
+  
+  // Usamos un ref para controlar los timeouts y evitar que se crucen en React StrictMode
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
-    // Si ya terminamos el guion, avisamos al componente padre
     if (scriptIndex >= script.length) {
       if (onComplete) onComplete();
       return;
@@ -16,20 +18,26 @@ const Typewriter = ({ script, onComplete }) => {
 
     const currentLine = script[scriptIndex];
     let charIndex = 0;
-    setIsTyping(true);
+    let isCancelled = false; // Bandera de seguridad para desmontajes
 
-    // Función para escribir carácter por carácter
+    setIsTyping(true);
+    setCurrentText('');
+
     const typeChar = () => {
+      if (isCancelled) return; // Si el componente se desmontó, cancelamos la escritura
+
       if (charIndex < currentLine.text.length) {
         setCurrentText((prev) => prev + currentLine.text.charAt(charIndex));
         charIndex++;
-        // Variación de velocidad para que se sienta más humano
-        const humanVariance = Math.random() * 30 - 15; 
-        setTimeout(typeChar, currentLine.speed + humanVariance);
+        
+        const humanVariance = Math.random() * 30 - 15;
+        // Guardamos el timeout en la referencia
+        timeoutRef.current = setTimeout(typeChar, currentLine.speed + humanVariance);
       } else {
-        // Terminó de escribir la línea, inicia la pausa de pensamiento
         setIsTyping(false);
-        setTimeout(() => {
+        // Guardamos el timeout de la pausa
+        timeoutRef.current = setTimeout(() => {
+          if (isCancelled) return;
           setCompletedLines((prev) => [...prev, currentLine.text]);
           setCurrentText('');
           setScriptIndex((prev) => prev + 1);
@@ -37,10 +45,13 @@ const Typewriter = ({ script, onComplete }) => {
       }
     };
 
-    // Pequeño retraso inicial antes de empezar a escribir cada línea
-    const initialDelay = setTimeout(typeChar, 500);
+    timeoutRef.current = setTimeout(typeChar, 500);
 
-    return () => clearTimeout(initialDelay);
+    // Función de limpieza: si React ejecuta el efecto de nuevo, matamos el timeout anterior
+    return () => {
+      isCancelled = true;
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, [scriptIndex, script, onComplete]);
 
   return (
@@ -49,7 +60,6 @@ const Typewriter = ({ script, onComplete }) => {
         <p key={index} className="typewriter-text">{line}</p>
       ))}
       
-      {/* Línea actual en proceso de escritura */}
       {(currentText || isTyping || scriptIndex === 0) && (
         <p className="typewriter-text">
           {currentText}
