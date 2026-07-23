@@ -1,29 +1,40 @@
-.typewriter{
-
-    white-space:pre-wrap;
-
-    font-size:2rem;
-
-    line-height:1.8;
-
-    color:#ECE8E1;
-
-    max-width:750px;
-
+.typewriter-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #000000; /* Pantalla negra inicial */
+  color: #e0e0e0; /* Texto claro */
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
-.cursor{
-
-    animation:blink 1s infinite;
-
+.typewriter-text {
+  font-family: 'Georgia', serif; /* Tipografía elegante */
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  margin: 0.8rem 0;
+  text-align: center;
+  line-height: 1.6;
+  opacity: 0.9;
 }
 
-@keyframes blink{
+/* El cursor que solicitaste */
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  font-weight: normal;
+  color: #ffffff;
+}
 
-    50%{
+/* Animación de parpadeo para cuando está "pensando" */
+.cursor.blinking {
+  animation: blink 1s step-end infinite;
+}
 
-        opacity:0;
-
-    }
-
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
