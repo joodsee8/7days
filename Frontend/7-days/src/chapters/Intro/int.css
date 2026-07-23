@@ -1,0 +1,28 @@
+.intro{
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#111111;
+}
+
+.cursor{
+
+    color:white;
+
+    font-size:52px;
+
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+
+    50%{
+
+        opacity:0;
+    }
+
+}
