@@ -92,8 +92,8 @@ const BlueBanisters = () => {
           <MusicPlayer 
             title="Blue Banisters"
             artist="Lana Del Rey"
-            cover="/assets/images/IMG_0105.jpeg" /* Asegúrate de poner tu imagen real aquí */
-            audioSrc="/assets/music/Lana%20Del%20Rey%20-%20Blue%20Banisters%20(Official%20Video).mp3"     /* Asegúrate de poner tu audio real aquí */
+            cover="../../assets/images/IMG_0105.jpeg" /* Asegúrate de poner tu imagen real aquí */
+            audioSrc="../../assets/music/Lana%20Del%20Rey%20-%20Blue%20Banisters%20(Official%20Video).mp3"     /* Asegúrate de poner tu audio real aquí */
             accentColor="#4a5d73"
             onContinue={handleContinueToDay2}
           />
