@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './BlueBanisters.css';
+import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
 
 const letterParagraphs = [
   "Veinte años.",
@@ -21,46 +22,52 @@ const BlueBanisters = () => {
   const [currentTypingText, setCurrentTypingText] = useState('');
   const [paragraphIndex, setParagraphIndex] = useState(0);
   const [showButton, setShowButton] = useState(false);
+  
+  // NUEVO ESTADO: Controla si se muestra el reproductor de música
+  const [showPlayer, setShowPlayer] = useState(false);
 
-  // Lógica del Typewriter acumulativo para la carta
   useEffect(() => {
     if (paragraphIndex < letterParagraphs.length) {
       const fullText = letterParagraphs[paragraphIndex];
       
       if (currentTypingText.length < fullText.length) {
-        // Escribe letra por letra (muy rápido para no desesperar al lector)
         const timeout = setTimeout(() => {
           setCurrentTypingText(fullText.slice(0, currentTypingText.length + 1));
-        }, 100); // 20ms por letra
-        
+        }, 20);
         return () => clearTimeout(timeout);
       } else {
-        // Cuando termina un párrafo, lo guarda, hace una pausa y pasa al siguiente
         const timeout = setTimeout(() => {
           setCompletedParagraphs(prev => [...prev, fullText]);
           setCurrentTypingText('');
           setParagraphIndex(prev => prev + 1);
-        }, 600); // Pausa de 600ms entre párrafos
-        
+        }, 600);
         return () => clearTimeout(timeout);
       }
     } else {
-      // Cuando termina toda la carta, muestra el botón
       setTimeout(() => setShowButton(true), 1500);
     }
   }, [currentTypingText, paragraphIndex]);
+
+  // Función que se ejecuta al tocar "Escuchar canción"
+  const handleRevealPlayer = () => {
+    setShowButton(false); // Ocultamos el botón
+    setShowPlayer(true);  // Mostramos el reproductor
+  };
+
+  // Función puente (placeholder por ahora) para cuando termine la canción
+  const handleContinueToDay2 = () => {
+    console.log("Aquí conectaremos con el Día 2");
+  };
 
   return (
     <div className="chapter-light-container fade-in-chapter">
       <div className="letter-content-mobile">
         
         <div className="letra-cursiva-oscura">
-          {/* Párrafos ya completados */}
           {completedParagraphs.map((text, index) => (
             <p key={index}>{text}</p>
           ))}
           
-          {/* Párrafo que se está escribiendo actualmente */}
           {paragraphIndex < letterParagraphs.length && (
             <p className="typing-paragraph">
               {currentTypingText}
@@ -71,11 +78,25 @@ const BlueBanisters = () => {
         
         <div className="espacio-vacio"></div>
 
-        {/* El Botón Sutil */}
-        {showButton && (
+        {/* El Botón Sutil - Solo se muestra si el reproductor AÚN NO está visible */}
+        {showButton && !showPlayer && (
           <div className="sutil-action-container fade-in-button">
-            <span className="sutil-button-dark">Escuchar canción</span>
+            <span className="sutil-button-dark" onClick={handleRevealPlayer}>
+              Escuchar canción
+            </span>
           </div>
+        )}
+
+        {/* El Reproductor de Música - Aparece cuando se oculta el botón */}
+        {showPlayer && (
+          <MusicPlayer 
+            title="Blue Banisters"
+            artist="Lana Del Rey"
+            cover="/assets/images/blue-banisters-cover.jpg" /* Asegúrate de poner tu imagen real aquí */
+            audioSrc="/assets/music/blue-banisters.mp3"     /* Asegúrate de poner tu audio real aquí */
+            accentColor="#4a5d73"
+            onContinue={handleContinueToDay2}
+          />
         )}
 
       </div>
