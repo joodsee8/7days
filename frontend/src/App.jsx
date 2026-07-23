@@ -1,31 +1,33 @@
 import React, { useState } from 'react';
 import Intro from './chapters/Intro/Intro';
-import BlueBanisters from './chapters/Chapter1/BlueBanisters'; // Ajusta la ruta si es necesario
-import './styles/global.css'; // Asegúrate de importar tus estilos globales
+import BlueBanisters from './chapters/Chapter1/BlueBanisters'; // Asegúrate de que la ruta sea correcta
+import './styles/global.css';
 
-const App = () => {
-  // Estados: 'intro' -> 'transitioning' -> 'day1'
-  const [stage, setStage] = useState('intro');
+function App() {
+  // El estado inicia en la introducción
+  const [currentChapter, setCurrentChapter] = useState('intro');
+  // Estado para manejar el fundido a negro (el suspiro visual)
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const handleTransitionToDay1 = () => {
-    // Iniciamos la transición al negro total
-    setStage('transitioning');
+  const handleGoToNext = () => {
+    // 1. Inicia el fundido a negro
+    setIsTransitioning(true);
     
-    // Esperamos 2 segundos en la oscuridad antes de mostrar la carta
+    // 2. Espera 2 segundos en total silencio/oscuridad
     setTimeout(() => {
-      setStage('chapter1');
+      // 3. Cambia el componente al Capítulo 1
+      setCurrentChapter('chapter1');
+      // 4. Quita el fundido para que el Capítulo 1 emerja
+      setIsTransitioning(false);
     }, 2000); 
   };
 
   return (
-    // La clase app-container manejará el color de fondo base
-    <div className="app-container">
-      {/* Dependiendo del estado, mostramos un componente u otro. 
-          Si es 'transitioning', no renderizamos nada, dejando la pantalla negra. */}
-      {stage === 'intro' && <Intro onGoToNext={handleTransitionToDay1} />}
-      {stage === 'chapter1' && <BlueBanisters />}
+    <div className={`app-container ${isTransitioning ? 'fade-to-black' : ''}`}>
+      {currentChapter === 'intro' && <Intro onGoToNext={handleGoToNext} />}
+      {currentChapter === 'chapter1' && <BlueBanisters />}
     </div>
   );
-};
+}
 
 export default App;
