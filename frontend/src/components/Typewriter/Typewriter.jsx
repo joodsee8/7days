@@ -27,15 +27,20 @@ const Typewriter = ({ script, onComplete }) => {
       if (isCancelled) return; // Si el componente se desmontó, cancelamos la escritura
 
       if (charIndex < currentLine.text.length) {
-        setCurrentText((prev) => prev + currentLine.text.charAt(charIndex));
+        
+        // 1. CAPTURAMOS EL CARÁCTER EXACTO AQUÍ ANTES DE ACTUALIZAR NADA
+        const charToType = currentLine.text.charAt(charIndex);
+        
+        // 2. USAMOS LA VARIABLE CONGELADA PARA ACTUALIZAR EL TEXTO
+        setCurrentText((prev) => prev + charToType);
+        
+        // 3. AHORA SÍ, INCREMENTAMOS EL ÍNDICE TRANQUILAMENTE
         charIndex++;
         
         const humanVariance = Math.random() * 30 - 15;
-        // Guardamos el timeout en la referencia
         timeoutRef.current = setTimeout(typeChar, currentLine.speed + humanVariance);
       } else {
         setIsTyping(false);
-        // Guardamos el timeout de la pausa
         timeoutRef.current = setTimeout(() => {
           if (isCancelled) return;
           setCompletedLines((prev) => [...prev, currentLine.text]);
@@ -71,3 +76,4 @@ const Typewriter = ({ script, onComplete }) => {
 };
 
 export default Typewriter;
+
