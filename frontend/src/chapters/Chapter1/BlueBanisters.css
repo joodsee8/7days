@@ -1,73 +1,85 @@
-/* Contenedor principal: oscuro, frío y azul grisáceo */
+/* src/chapters/Day1/BlueBanisters.css */
+
 .chapter-container {
-  background-color: #0f172a; /* Un azul muy oscuro y grisáceo */
-  color: #e2e8f0; /* Texto claro pero no blanco puro, para no lastimar la vista */
   min-height: 100vh;
-  padding: 10vh 5vw 20vh 5vw;
-  font-family: 'Georgia', serif;
+  background-color: #0a0e17; /* Azul grisáceo muy oscuro */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 2rem;
 }
 
-/* Secciones: Mucho espacio vacío entre párrafos e ideas */
-.chapter-section {
-  max-width: 600px;
-  width: 100%;
-  margin-bottom: 15vh; /* Silencios visuales largos entre cada parte de la historia */
-  line-height: 1.8;
-  font-size: 1.15rem;
-  font-weight: 300;
-  letter-spacing: 0.03em;
+/* --- ESTILOS DEL SELLO DIGITAL --- */
+.digital-seal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 1s ease-in-out;
 }
 
-.chapter-section p {
-  margin-bottom: 2rem; /* Pausas entre párrafos */
+.seal-letter {
+  font-family: serif;
+  font-size: 3rem;
+  color: #4a5d73; /* Tono frío y sutil */
+  border: 1px solid #4a5d73;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
-/* Detalles tipográficos */
-.date {
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+.seal-instruction {
+  font-size: 0.8rem;
+  color: #4a5d73;
   opacity: 0.6;
-  margin-bottom: 3rem !important;
-  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
-.farewell {
-  margin-top: 10vh;
-  font-style: italic;
-  opacity: 0.8;
-  text-align: center;
+/* --- ANIMACIONES --- */
+.fade-out {
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Espacio temporal para el reproductor */
-.song-placeholder {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 3rem 2rem;
-  text-align: center;
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-.song-title {
-  font-size: 1.3rem;
-  margin-bottom: 1rem !important;
-}
-
-.song-note {
-  font-size: 0.9rem;
-  opacity: 0.5;
-  font-style: italic;
-}
-
-/* Una sutil animación de entrada para que el texto aparezca suavemente */
 .fade-in {
-  animation: fadeIn 2s ease-in-out forwards;
+  animation: fadeIn 1.5s ease-in-out forwards;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- CONTENIDO DE LA CARTA Y BOTÓN --- */
+.letter-content {
+  max-width: 600px;
+  text-align: center;
+}
+
+.espacio-vacio {
+  height: 10vh; /* El silencio visual antes de la acción */
+}
+
+.sutil-action-container {
+  margin-top: 2rem;
+}
+
+.sutil-button {
+  font-size: 1rem;
+  color: #e0e0e0;
+  opacity: 0.5;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: opacity 0.3s ease;
+}
+
+.sutil-button:hover {
+  opacity: 1;
 }
