@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Typewriter from '../../components/Typewriter/Typewriter';
-import './Intro.css';
 
-// Agregamos onGoToNext a las propiedades (props)
+// 1. Agregamos { onGoToNext } como parámetro para recibir la función de App.jsx
 const Intro = ({ onGoToNext }) => {
-  const [isFinished, setIsFinished] = useState(false);
-}
   const introScript = [
     { text: "Hola, Montse.", speed: 120, pauseAfter: 2500 },
     // { text: "Ocho años desde que nos conocimos en la secundaria...", speed: 100, pauseAfter: 3000 },
@@ -18,31 +15,24 @@ const Intro = ({ onGoToNext }) => {
     //{ text: "Solo es mi manera de decirte: gracias por estar ahí.", speed: 100, pauseAfter: 4000 }
   ];
 
-  const handleScriptComplete = () => {
-    // Esperamos un momento después de la última palabra antes de mostrar el botón
-    setTimeout(() => {
-      setIsFinished(true);
-    }, 2000);
+  const handleIntroComplete = () => {
+    // Mantenemos tu console.log porque es útil para saber que todo va bien
+    console.log("Terminó la introducción. Transición hacia el Día 1: Blue Banisters.");
+    
+    // 2. Ejecutamos la función que nos mandó App.jsx para cambiar el estado
+    if (onGoToNext) {
+      onGoToNext();
+    }
   };
 
   return (
-    <div className="intro-container">
-      <Typewriter script={tuGuion} onComplete={handleScriptComplete} />
-      
-      {/* El botón sutil que detona la transición en App.jsx */}
-      {isFinished && (
-        <div className="continue-wrapper fade-in-button">
-          <span className="sutil-button" onClick={onGoToNext}>
-            Abrir 1 de agosto
-          </span>
-        </div>
-      )}
+    <div className="intro-screen">
+      <Typewriter 
+        script={introScript} 
+        onComplete={handleIntroComplete} 
+      />
     </div>
   );
 };
 
 export default Intro;
-
-
-
-  
