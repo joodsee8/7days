@@ -1,0 +1,73 @@
+/* Contenedor principal: oscuro, frío y azul grisáceo */
+.chapter-container {
+  background-color: #0f172a; /* Un azul muy oscuro y grisáceo */
+  color: #e2e8f0; /* Texto claro pero no blanco puro, para no lastimar la vista */
+  min-height: 100vh;
+  padding: 10vh 5vw 20vh 5vw;
+  font-family: 'Georgia', serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Secciones: Mucho espacio vacío entre párrafos e ideas */
+.chapter-section {
+  max-width: 600px;
+  width: 100%;
+  margin-bottom: 15vh; /* Silencios visuales largos entre cada parte de la historia */
+  line-height: 1.8;
+  font-size: 1.15rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+}
+
+.chapter-section p {
+  margin-bottom: 2rem; /* Pausas entre párrafos */
+}
+
+/* Detalles tipográficos */
+.date {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+  margin-bottom: 3rem !important;
+  text-align: center;
+}
+
+.farewell {
+  margin-top: 10vh;
+  font-style: italic;
+  opacity: 0.8;
+  text-align: center;
+}
+
+/* Espacio temporal para el reproductor */
+.song-placeholder {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3rem 2rem;
+  text-align: center;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.song-title {
+  font-size: 1.3rem;
+  margin-bottom: 1rem !important;
+}
+
+.song-note {
+  font-size: 0.9rem;
+  opacity: 0.5;
+  font-style: italic;
+}
+
+/* Una sutil animación de entrada para que el texto aparezca suavemente */
+.fade-in {
+  animation: fadeIn 2s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
