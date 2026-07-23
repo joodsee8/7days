@@ -17,65 +17,68 @@ const letterParagraphs = [
 ];
 
 const BlueBanisters = () => {
-  const [isSealed, setIsSealed] = useState(true);
-  const [showLetter, setShowLetter] = useState(false);
-  const [visibleParagraphs, setVisibleParagraphs] = useState([]);
+  const [completedParagraphs, setCompletedParagraphs] = useState([]);
+  const [currentTypingText, setCurrentTypingText] = useState('');
+  const [paragraphIndex, setParagraphIndex] = useState(0);
   const [showButton, setShowButton] = useState(false);
 
-  // Maneja la ruptura del sello
-  const handleBreakSeal = () => {
-    setIsSealed(false);
-    setTimeout(() => {
-      setShowLetter(true);
-    }, 1000); // Espera a que el sello se desvanezca
-  };
-
-  // Lógica para revelar la carta párrafo por párrafo
+  // Lógica del Typewriter acumulativo para la carta
   useEffect(() => {
-    if (showLetter && visibleParagraphs.length < letterParagraphs.length) {
-      const timer = setTimeout(() => {
-        setVisibleParagraphs(prev => [...prev, letterParagraphs[prev.length]]);
-      }, 2500); // Tiempo de lectura/escritura entre cada párrafo
+    if (paragraphIndex < letterParagraphs.length) {
+      const fullText = letterParagraphs[paragraphIndex];
       
-      return () => clearTimeout(timer);
-    } else if (showLetter && visibleParagraphs.length === letterParagraphs.length) {
-      // Cuando termina la carta, muestra el botón
+      if (currentTypingText.length < fullText.length) {
+        // Escribe letra por letra (muy rápido para no desesperar al lector)
+        const timeout = setTimeout(() => {
+          setCurrentTypingText(fullText.slice(0, currentTypingText.length + 1));
+        }, 20); // 20ms por letra
+        
+        return () => clearTimeout(timeout);
+      } else {
+        // Cuando termina un párrafo, lo guarda, hace una pausa y pasa al siguiente
+        const timeout = setTimeout(() => {
+          setCompletedParagraphs(prev => [...prev, fullText]);
+          setCurrentTypingText('');
+          setParagraphIndex(prev => prev + 1);
+        }, 600); // Pausa de 600ms entre párrafos
+        
+        return () => clearTimeout(timeout);
+      }
+    } else {
+      // Cuando termina toda la carta, muestra el botón
       setTimeout(() => setShowButton(true), 1500);
     }
-  }, [showLetter, visibleParagraphs]);
+  }, [currentTypingText, paragraphIndex]);
 
   return (
-    <div className="chapter-container">
-      {/* El Sello Digital */}
-      {!showLetter && (
-        <div 
-          className={`digital-seal ${!isSealed ? 'fade-out' : ''}`} 
-          onClick={handleBreakSeal}
-        >
-          <span className="seal-letter">M</span>
-          <p className="seal-instruction">Toca para abrir</p>
-        </div>
-      )}
-
-      {/* La Carta */}
-      {showLetter && (
-        <div className="letter-content fade-in">
-          <div className="letra-cursiva">
-            {visibleParagraphs.map((text, index) => (
-              <p key={index} className="fade-in-paragraph">{text}</p>
-            ))}
-          </div>
+    <div className="chapter-light-container fade-in-chapter">
+      <div className="letter-content-mobile">
+        
+        <div className="letra-cursiva-oscura">
+          {/* Párrafos ya completados */}
+          {completedParagraphs.map((text, index) => (
+            <p key={index}>{text}</p>
+          ))}
           
-          <div className="espacio-vacio"></div>
-
-          {/* El Botón Sutil para reproducir la canción */}
-          {showButton && (
-            <div className="sutil-action-container fade-in">
-              <span className="sutil-button">Escuchar canción</span>
-            </div>
+          {/* Párrafo que se está escribiendo actualmente */}
+          {paragraphIndex < letterParagraphs.length && (
+            <p className="typing-paragraph">
+              {currentTypingText}
+              <span className="blinking-cursor">|</span>
+            </p>
           )}
         </div>
-      )}
+        
+        <div className="espacio-vacio"></div>
+
+        {/* El Botón Sutil */}
+        {showButton && (
+          <div className="sutil-action-container fade-in-button">
+            <span className="sutil-button-dark">Escuchar canción</span>
+          </div>
+        )}
+
+      </div>
     </div>
   );
 };
