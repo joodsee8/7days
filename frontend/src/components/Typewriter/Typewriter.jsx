@@ -2,12 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Typewriter.css';
 
 const Typewriter = ({ script, onComplete }) => {
-  const [completedLines, setCompletedLines] = useState([]);
   const [currentText, setCurrentText] = useState('');
   const [scriptIndex, setScriptIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false); // Nuevo estado para el efecto TTPD
   
-  // Usamos un ref para controlar los timeouts y evitar que se crucen en React StrictMode
   const timeoutRef = useRef(null);
 
   useEffect(() => {
@@ -18,41 +17,44 @@ const Typewriter = ({ script, onComplete }) => {
 
     const currentLine = script[scriptIndex];
     let charIndex = 0;
-    let isCancelled = false; // Bandera de seguridad para desmontajes
+    let isCancelled = false; 
 
     setIsTyping(true);
     setCurrentText('');
+    setIsFadingOut(false); // Reiniciamos el estado al empezar una nueva línea
 
     const typeChar = () => {
-      if (isCancelled) return; // Si el componente se desmontó, cancelamos la escritura
+      if (isCancelled) return; 
 
       if (charIndex < currentLine.text.length) {
-        
-        // 1. CAPTURAMOS EL CARÁCTER EXACTO AQUÍ ANTES DE ACTUALIZAR NADA
         const charToType = currentLine.text.charAt(charIndex);
-        
-        // 2. USAMOS LA VARIABLE CONGELADA PARA ACTUALIZAR EL TEXTO
         setCurrentText((prev) => prev + charToType);
-        
-        // 3. AHORA SÍ, INCREMENTAMOS EL ÍNDICE TRANQUILAMENTE
         charIndex++;
         
         const humanVariance = Math.random() * 30 - 15;
         timeoutRef.current = setTimeout(typeChar, currentLine.speed + humanVariance);
       } else {
         setIsTyping(false);
+        
+        // 1. Pausa para que Montse lea y asimile la frase
         timeoutRef.current = setTimeout(() => {
           if (isCancelled) return;
-          setCompletedLines((prev) => [...prev, currentLine.text]);
-          setCurrentText('');
-          setScriptIndex((prev) => prev + 1);
+          
+          // 2. Iniciamos el desvanecimiento gradual
+          setIsFadingOut(true);
+          
+          // 3. Esperamos a que termine la animación CSS (1.2s) para cambiar la línea
+          timeoutRef.current = setTimeout(() => {
+            if (isCancelled) return;
+            setScriptIndex((prev) => prev + 1);
+          }, 1200); 
+
         }, currentLine.pauseAfter);
       }
     };
 
     timeoutRef.current = setTimeout(typeChar, 500);
 
-    // Función de limpieza: si React ejecuta el efecto de nuevo, matamos el timeout anterior
     return () => {
       isCancelled = true;
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -61,14 +63,10 @@ const Typewriter = ({ script, onComplete }) => {
 
   return (
     <div className="typewriter-container">
-      {completedLines.map((line, index) => (
-        <p key={index} className="typewriter-text">{line}</p>
-      ))}
-      
-      {(currentText || isTyping || scriptIndex === 0) && (
-        <p className="typewriter-text">
+      {scriptIndex < script.length && (
+        <p className={`typewriter-text ${isFadingOut ? 'fade-out' : ''}`}>
           {currentText}
-          <span className={`cursor ${!isTyping ? 'blinking' : ''}`}>|</span>
+          <span className={`cursor ${!isTyping ? 'blinking' : ''} ${isFadingOut ? 'fade-out' : ''}`}>|</span>
         </p>
       )}
     </div>
@@ -76,4 +74,3 @@ const Typewriter = ({ script, onComplete }) => {
 };
 
 export default Typewriter;
-
