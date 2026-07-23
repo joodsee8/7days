@@ -13,7 +13,7 @@ const App = () => {
     
     // Esperamos 2 segundos en la oscuridad antes de mostrar la carta
     setTimeout(() => {
-      setStage('day1');
+      setStage('chapter1');
     }, 2000); 
   };
 
@@ -23,7 +23,7 @@ const App = () => {
       {/* Dependiendo del estado, mostramos un componente u otro. 
           Si es 'transitioning', no renderizamos nada, dejando la pantalla negra. */}
       {stage === 'intro' && <Intro onGoToNext={handleTransitionToDay1} />}
-      {stage === 'day1' && <BlueBanisters />}
+      {stage === 'chapter1' && <BlueBanisters />}
     </div>
   );
 };
