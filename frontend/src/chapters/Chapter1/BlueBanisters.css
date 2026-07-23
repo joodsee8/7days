@@ -83,3 +83,10 @@
 .sutil-button:hover {
   opacity: 1;
 }
+
+.fade-in-paragraph {
+  animation: fadeIn 1.5s ease-in-out forwards;
+  opacity: 0;
+  margin-bottom: 1.5rem; /* Separación elegante entre ideas */
+}
+
