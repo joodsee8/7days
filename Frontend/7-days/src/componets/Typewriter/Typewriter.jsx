@@ -1,62 +1,49 @@
 import { useEffect, useState } from "react";
 import "./Typewriter.css";
 
-function Typewriter({ script = [] }) {
-    const [displayText, setDisplayText] = useState("");
+function Typewriter({ script }) {
+  const [text, setText] = useState("");
 
-    useEffect(() => {
+  useEffect(() => {
+    let cancelled = false;
 
-        if (script.length === 0) return;
+    async function run() {
+      let output = "";
 
-        let line = 0;
-        let char = 0;
+      for (const line of script) {
+        for (const char of line.text) {
+          if (cancelled) return;
 
-        function write() {
+          output += char;
+          setText(output);
 
-            const current = script[line];
-
-            if (!current) return;
-
-            if (char < current.text.length) {
-
-                setDisplayText(prev => prev + current.text[char]);
-
-                char++;
-
-                setTimeout(write, 65 + Math.random() * 50);
-
-            } else {
-
-                setTimeout(() => {
-
-                    line++;
-
-                    char = 0;
-
-                    if (line < script.length) {
-
-                        setDisplayText(prev => prev + "\n\n");
-
-                        write();
-
-                    }
-
-                }, current.pause);
-
-            }
-
+          await new Promise((resolve) =>
+            setTimeout(resolve, line.speed ?? 70)
+          );
         }
 
-        write();
+        output += "\n\n";
+        setText(output);
 
-    }, [script]);
+        await new Promise((resolve) =>
+          setTimeout(resolve, line.pause ?? 2000)
+        );
+      }
+    }
 
-    return (
-        <p className="typewriter">
-            {displayText}
-            <span className="cursor">|</span>
-        </p>
-    );
+    run();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [script]);
+
+  return (
+    <p className="typewriter">
+      {text}
+      <span className="cursor">|</span>
+    </p>
+  );
 }
 
 export default Typewriter;
