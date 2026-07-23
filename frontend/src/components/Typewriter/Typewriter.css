@@ -3,21 +3,25 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* Mantenemos una altura mínima para que la pantalla no "brinque" al desaparecer el texto */
-  min-height: 100px; 
+  min-height: 100vh; /* Ocupa el alto completo de la pantalla para centrar verticalmente */
+  width: 100%;
+  padding: 0 2rem;   /* Espaciado interno para que no llegue a los bordes de la pantalla */
+  box-sizing: border-box;
 }
 
 .typewriter-text {
-  color: #eaeaea; /* Texto claro como indicaste en tu estética */
+  color: #eaeaea;
   font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 650px; /* Limita el ancho del texto para centrarlo estéticamente */
+  width: 100%;
   opacity: 1;
-  /* Aquí sucede la magia: una transición de 1.2 segundos suave */
-  transition: opacity 1.2s ease-in-out; 
+  transition: opacity 1.2s ease-in-out;
   margin: 0;
   text-align: center;
+  word-wrap: break-word;
 }
 
-/* Cuando React agrega esta clase, el texto se vuelve transparente gradualmente */
 .typewriter-text.fade-out {
   opacity: 0;
 }
