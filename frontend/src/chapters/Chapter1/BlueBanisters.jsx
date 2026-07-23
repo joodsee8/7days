@@ -31,7 +31,7 @@ const BlueBanisters = () => {
         // Escribe letra por letra (muy rápido para no desesperar al lector)
         const timeout = setTimeout(() => {
           setCurrentTypingText(fullText.slice(0, currentTypingText.length + 1));
-        }, 20); // 20ms por letra
+        }, 100); // 20ms por letra
         
         return () => clearTimeout(timeout);
       } else {
