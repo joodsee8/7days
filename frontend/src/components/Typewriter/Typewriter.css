@@ -1,36 +1,39 @@
 .typewriter-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: #000000; /* Pantalla negra inicial */
-  color: #e0e0e0; /* Texto claro */
-  padding: 2rem;
-  box-sizing: border-box;
+  justify-content: center;
+  /* Mantenemos una altura mínima para que la pantalla no "brinque" al desaparecer el texto */
+  min-height: 100px; 
 }
 
 .typewriter-text {
-  font-family: 'Georgia', serif; /* Tipografía elegante */
-  font-size: 1.5rem;
-  font-weight: 300;
-  letter-spacing: 0.05em;
-  margin: 0.8rem 0;
+  color: #eaeaea; /* Texto claro como indicaste en tu estética */
+  font-size: 1.2rem;
+  opacity: 1;
+  /* Aquí sucede la magia: una transición de 1.2 segundos suave */
+  transition: opacity 1.2s ease-in-out; 
+  margin: 0;
   text-align: center;
-  line-height: 1.6;
-  opacity: 0.9;
 }
 
-/* El cursor que solicitaste */
+/* Cuando React agrega esta clase, el texto se vuelve transparente gradualmente */
+.typewriter-text.fade-out {
+  opacity: 0;
+}
+
 .cursor {
   display: inline-block;
   margin-left: 2px;
-  font-weight: normal;
-  color: #ffffff;
+  opacity: 1;
+  transition: opacity 1.2s ease-in-out;
 }
 
-/* Animación de parpadeo para cuando está "pensando" */
-.cursor.blinking {
+.cursor.fade-out {
+  opacity: 0;
+}
+
+.blinking {
   animation: blink 1s step-end infinite;
 }
 
