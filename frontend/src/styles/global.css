@@ -1,19 +1,29 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+body, html {
+  margin: 0;
+  padding: 0;
+  background-color: #000000; /* La base siempre es negra */
+  transition: background-color 2s ease-in-out;
 }
 
-html,
-body,
-#root {
-    width: 100%;
-    height: 100%;
+.app-container {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #000000; 
+  /* Todo dentro del app container tendrá una transición suave de opacidad */
+  animation: globalFadeIn 2s ease-in-out forwards; 
 }
 
-body {
-    background: #111111;
-    color: white;
-    font-family: "Georgia", serif;
-    overflow: hidden;
+@keyframes globalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Reutilizable en todo el proyecto */
+.fade-in-slow {
+  animation: slowFadeIn 3s ease-in-out forwards;
+}
+
+@keyframes slowFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
