@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-
+import './MusicPlayer.css';
 // Base de datos de la letra con los tiempos exactos en segundos
 const lyricsData = [
   {
