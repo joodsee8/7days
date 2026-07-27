@@ -1,80 +1,129 @@
 .music-player-wrapper {
   width: 100%;
-  height: 90vh; /* Ocupa casi toda la pantalla para el scroll */
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  background-color: transparent;
+}
+
+/* --- REPRODUCTOR FLOTANTE TIPO CÁPSULA --- */
+.floating-player-capsule {
+  position: sticky;
+  top: 40px; /* Bajamos el reproductor de la parte superior */
+  margin: 0 auto;
+  width: 90%;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.7); /* Fondo traslúcido */
+  backdrop-filter: blur(15px);
+  border-radius: 100px; /* Forma de cápsula */
+  padding: 8px 12px;
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 
+              0 1px 1px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  overflow: hidden;
+}
+
+.capsule-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.capsule-cover {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%; /* Portada circular */
+  object-fit: cover;
+  animation: rotate 20s linear infinite;
+  animation-play-state: paused;
+}
+
+/* La portada gira suavemente cuando suena la música */
+.music-player-wrapper:has(.capsule-play-btn svg path[d*="M6"]) .capsule-cover {
+  animation-play-state: running;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.capsule-info {
+  flex-grow: 1;
+}
+
+.capsule-info h4 {
+  font-family: serif;
+  font-size: 0.85rem;
+  margin: 0;
   color: #1a1c23;
 }
 
-/* --- CARD COMPACTA (APPLE MUSIC STYLE) --- */
-.compact-player-card {
-  position: sticky;
-  top: 0;
-  background: rgba(242, 245, 248, 0.9); /* Transparencia sutil */
-  backdrop-filter: blur(10px);
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  gap: 15px;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+.capsule-info p {
+  font-size: 0.65rem;
+  color: #718096;
+  margin: 1px 0 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.mini-cover {
-  width: 45px;
-  height: 45px;
-  border-radius: 6px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.mini-info h4 { font-family: serif; font-size: 0.9rem; margin: 0; }
-.mini-info p { font-size: 0.7rem; color: #718096; margin: 2px 0 0; text-transform: uppercase; letter-spacing: 1px; }
-
-.mini-play-btn {
-  margin-left: auto;
+.capsule-play-btn {
   background: #1a1c23;
   color: white;
   border: none;
-  width: 35px;
-  height: 35px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
 }
 
-.mini-progress-bar {
+.capsule-play-btn:active {
+  transform: scale(0.9);
+}
+
+/* Barra de progreso integrada en el borde inferior de la cápsula */
+.capsule-progress-bg {
   position: absolute;
   bottom: 0;
-  left: 0;
-  width: 100%;
+  left: 10%;
+  width: 80%;
   height: 2px;
-  background: rgba(0,0,0,0.05);
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
 }
 
-.mini-progress-fill { height: 100%; transition: width 0.2s linear; }
+.capsule-progress-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.2s linear;
+}
 
-/* --- CONTENEDOR DE SCROLL --- */
+/* --- CONTENEDOR DE LETRAS --- */
 .lyrics-scroll-container {
   flex-grow: 1;
   overflow-y: scroll;
-  padding: 40vh 20px; /* Padding top/bottom para que la primera/última línea lleguen al centro */
+  padding: 35vh 25px 45vh; /* Ajustamos espacio para que el centro sea el foco */
   scroll-behavior: smooth;
-  scrollbar-width: none; /* Ocultar scrollbar */
+  scrollbar-width: none;
 }
 
 .lyrics-scroll-container::-webkit-scrollbar { display: none; }
 
 .lyric-line-block {
-  margin-bottom: 60px;
-  transition: all 0.6s ease;
-  transform-origin: left center;
+  margin-bottom: 70px;
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Efecto Apple Music: Lo que no se canta es muy tenue */
 .is-idle {
-  opacity: 0.15;
-  filter: blur(1px);
-  transform: scale(0.95);
+  opacity: 0.1;
+  filter: blur(2px);
+  transform: scale(0.92);
 }
 
 .is-focused {
@@ -83,35 +132,63 @@
   transform: scale(1.05);
 }
 
-/* PALABRAS INDIVIDUALES */
 .lyric-en-script {
   font-family: 'Shelley Allegro Script', 'Pinyon Script', cursive;
-  font-size: 2.2rem;
-  line-height: 1.2;
-  margin-bottom: 10px;
+  font-size: 2.3rem;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  color: #1a1c23;
 }
 
 .lyric-word {
-  transition: color 0.3s ease, opacity 0.3s ease;
+  transition: color 0.4s ease, opacity 0.4s ease;
 }
 
 .lyric-word.dimmed {
-  color: #a0aec0;
-  opacity: 0.3;
+  color: #cbd5e0;
 }
 
 .lyric-word.active {
   color: #1a1c23;
-  opacity: 1;
-  text-shadow: 0 0 15px rgba(26, 28, 35, 0.1);
 }
 
 .lyric-es-translation {
   font-family: sans-serif;
-  font-size: 0.8rem;
-  color: #718096;
+  font-size: 0.75rem;
+  color: #a0aec0;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 300;
+}
+
+/* --- OUTRO --- */
+.player-outro {
+  text-align: center;
+  margin: auto;
+  padding: 0 20px;
+}
+
+.outro-message {
+  font-family: 'Shelley Allegro Script', cursive;
+  font-size: 2rem;
+  color: #1a1c23;
+  margin-bottom: 40px;
+}
+
+.continue-chapter-btn {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #1a1c23;
+  color: #1a1c23;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 0.8rem;
+  padding: 10px 0;
+  cursor: pointer;
   opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.continue-chapter-btn:hover {
+  opacity: 1;
 }
