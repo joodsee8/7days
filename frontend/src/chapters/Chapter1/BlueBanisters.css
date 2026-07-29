@@ -1,73 +1,90 @@
-/* Contenedor principal: oscuro, frío y azul grisáceo */
-.chapter-container {
-  background-color: #0f172a; /* Un azul muy oscuro y grisáceo */
-  color: #e2e8f0; /* Texto claro pero no blanco puro, para no lastimar la vista */
+/* src/chapters/Day1/BlueBanisters.css */
+
+.chapter-light-container {
   min-height: 100vh;
-  padding: 10vh 5vw 20vh 5vw;
-  font-family: 'Georgia', serif;
+  /* Un gris azulado sumamente claro, casi blanco, manteniendo la vibra "fría" de Blue Banisters */
+  background-color: #C5C6C7; 
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 3rem 1.5rem; /* Padding pensado en móviles */
+  overflow-x: hidden;
 }
 
-/* Secciones: Mucho espacio vacío entre párrafos e ideas */
-.chapter-section {
-  max-width: 600px;
-  width: 100%;
-  margin-bottom: 15vh; /* Silencios visuales largos entre cada parte de la historia */
-  line-height: 1.8;
-  font-size: 1.15rem;
-  font-weight: 300;
-  letter-spacing: 0.03em;
-}
-
-.chapter-section p {
-  margin-bottom: 2rem; /* Pausas entre párrafos */
-}
-
-/* Detalles tipográficos */
-.date {
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.6;
-  margin-bottom: 3rem !important;
-  text-align: center;
-}
-
-.farewell {
-  margin-top: 10vh;
-  font-style: italic;
-  opacity: 0.8;
-  text-align: center;
-}
-
-/* Espacio temporal para el reproductor */
-.song-placeholder {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 3rem 2rem;
-  text-align: center;
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-.song-title {
-  font-size: 1.3rem;
-  margin-bottom: 1rem !important;
-}
-
-.song-note {
-  font-size: 0.9rem;
-  opacity: 0.5;
-  font-style: italic;
-}
-
-/* Una sutil animación de entrada para que el texto aparezca suavemente */
-.fade-in {
+.fade-in-chapter {
   animation: fadeIn 2s ease-in-out forwards;
 }
 
+.letter-content-mobile {
+  width: 100%;
+  max-width: 500px; /* Perfecto para móviles y tablets pequeñas */
+}
+
+/* --- TEXTO DE LA CARTA --- */
+.letra-cursiva-oscura {
+  font-family: 'Pinyon Script', 'Great Vibes', 'Shelley Allegro Script', cursive;
+  font-size: 1.2rem; /* Ajustado para no ser masivo en celular */
+  line-height: 1;
+  color: #1a1c23; /* Un azul/negro muy oscuro, más suave que el negro puro */
+  text-align: justify; /* Justificado como solicitaste */
+  hyphens: auto; /* Ayuda a que el justificado no deje huecos gigantes en el móvil */
+}
+
+.letra-cursiva-oscura p {
+  margin-bottom: 1.5rem;
+}
+
+/* El cursor parpadeante que acompaña a la escritura */
+.blinking-cursor {
+  font-family: Arial, sans-serif;
+  font-weight: 300;
+  opacity: 1;
+  animation: blink 1s step-end infinite;
+  color: #666;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- BOTÓN SUTIL --- */
+.espacio-vacio {
+  height: 8vh; 
+}
+
+.sutil-action-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.fade-in-button {
+  animation: fadeIn 2s ease-in-out forwards;
+  opacity: 0;
+}
+
+.sutil-button-dark {
+  font-family: serif;
+  font-size: 0.9rem;
+  color: #4a5568;
+  opacity: 0.7;
+  cursor: pointer;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: opacity 0.4s ease, letter-spacing 0.4s ease;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 4px;
+}
+
+.sutil-button-dark:hover {
+  opacity: 1;
+  letter-spacing: 3px;
+  border-bottom: 1px solid #4a5568;
 }
