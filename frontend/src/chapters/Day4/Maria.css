@@ -1,0 +1,96 @@
+.day4-container {
+  min-height: 100vh;
+  /* Un crema suave y cálido, más luminoso que el Día 2 */
+  background-color: #f9f6f0; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10vh 20px 15vh 20px;
+  box-sizing: border-box;
+}
+
+.day4-content {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.day4-title {
+  font-family: 'Playfair Display', serif; 
+  color: #4a453f; 
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 3rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.day4-letter {
+  /* Respetando nuestra decisión: Shelley Allegro Script o su gemela gratuita Pinyon Script */
+  font-family: 'Shelley Allegro Script', 'Pinyon Script', 'Great Vibes', cursive; 
+  color: #2b2825; 
+  font-size: 1.6rem; /* Aumenté un poco el tamaño porque estas fuentes cursivas suelen ser más pequeñas */
+  line-height: 1.8;
+  white-space: pre-wrap;
+  text-align: justify;
+  hyphens: auto;
+  margin-bottom: 3rem;
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+  font-weight: bold;
+}
+
+.subtle-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.subtle-text-button {
+  background: none;
+  border: none;
+  color: #8c8275;
+  font-family: inherit;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  padding: 10px 20px;
+}
+
+.subtle-text-button:hover {
+  color: #332f2b;
+}
+
+.player-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.day4-reflection {
+  margin-top: 3rem;
+  text-align: center;
+  font-family: 'Caveat', 'Shelley Allegro Script', cursive;
+  font-size: 1.4rem;
+  color: #332f2b;
+}
+
+.fade-in-soft {
+  animation: fadeInSoft 1.5s ease-in-out forwards;
+}
+
+@keyframes fadeInSoft {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
