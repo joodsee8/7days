@@ -1,65 +1,110 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
-import './Ribs.css';
+// import Polaroid from '../../components/Polaroid/Polaroid';
+import './Ribs.css'; 
 
-// Importa tus recursos directamente para que Vite los procese
-import ribsCover from '../../assets/images/ribs-cover.jpg'; // Ajusta el nombre
-import ribsAudio from '../../assets/music/ribs.mp3'; // Ajusta el nombre
+// Importa tus recursos directamente
+import ribsCover from '../../assets/images/ribs-cover.jpg'; 
+import ribsAudio from '../../assets/music/ribs.mp3'; 
+// import friendsPhoto from '../../assets/images/polaroid-dia2.jpg'; // Reemplaza con tu foto
 
 const Ribs = ({ onGoToNext }) => {
-  const [displayedText, setDisplayedText] = useState('');
+  // Estados para la escritura párrafo por párrafo (Estructura Blue Banisters)
+  const [completedParagraphs, setCompletedParagraphs] = useState([]);
+  const [currentText, setCurrentText] = useState('');
+  const [paragraphIndex, setParagraphIndex] = useState(0);
+  
+  // Estados de la interfaz
   const [showButton, setShowButton] = useState(false);
   const [showPlayer, setShowPlayer] = useState(false);
+  const [showPolaroid, setShowPolaroid] = useState(false);
   
-  const fullText = `Ayer hablamos de los momentos difíciles y de cómo me ayudaste a repararlos. Hoy quiero hablar de algo distinto: el tiempo. Faltan solo cinco días para que cumplas 20 años. Dejar los "diez y algo" atrás siempre da un poco de vértigo.
+  const paragraphs = [
+    "Ayer hablamos de los momentos difíciles y de cómo me ayudaste a repararlos. Hoy quiero hablar de algo distinto: el tiempo. Faltan solo cinco días para que cumplas 20 años. Dejar los \"diez y algo\" atrás siempre da un poco de vértigo.",
+    "Nos estamos haciendo mayores, sí. Pero lo estamos haciendo juntos."
+  ];
 
-A veces me pongo a pensar en nosotros hace ocho años, cuando nos conocimos en la secundaria. Éramos otras personas. Todo parecía más simple, más ruidoso, más urgente. Crecer tiene esta trampa extraña: ganas un montón de cosas maravillosas, pero a cambio, a veces sientes que estás perdiendo esa etapa donde nada importaba demasiado.
+  const songLyrics = [
+    "The drink you spilt all over me",
+    "Lover's Spit left on repeat",
+    "My mom and dad let me stay home",
+    "It drives you crazy getting old",
+    "We can talk it so good",
+    "We can make it so divine",
+    "We can talk it good",
+    "How you wish it would be all the time",
+    "This dream isn't feeling sweet",
+    "We're reeling through the midnight streets",
+    "And I've never felt more alone",
+    "It feels so scary getting old"
+  ];
 
-Hay una canción de Lorde llamada Ribs. Para mí, captura exactamente ese sentimiento. Habla de esa nostalgia intensa, del miedo absoluto que da darse cuenta de que nos estamos haciendo mayores y de que las cosas están cambiando. "It feels so scary getting old", dice la letra.
-
-Y es verdad, asusta un poco. Pero luego me doy cuenta de algo importante: crecer no da tanto miedo si tienes a las personas correctas a tu lado. Conocer versiones antiguas de nosotros mismos, habernos visto madurar y seguir eligiéndonos hoy, es uno de los regalos más grandes que me ha dado la vida.
-
-Nos estamos haciendo mayores, sí. Pero lo estamos haciendo juntos.`;
-
-  const indexRef = useRef(0);
+  const charIndexRef = useRef(0);
   const timeoutRef = useRef(null);
 
   useEffect(() => {
-    const typeLetter = () => {
-      if (indexRef.current < fullText.length) {
-        setDisplayedText((prev) => prev + fullText.charAt(indexRef.current));
-        indexRef.current++;
-        
-        // Velocidad rápida para lectura cómoda, pausas ligeras en los puntos
-        const char = fullText.charAt(indexRef.current - 1);
-        let delay = 25;
-        if (char === '.' || char === ',') delay = 300;
-        if (char === '\n') delay = 600;
+    // Si ya escribimos todos los párrafos, mostramos el botón tras una pausa
+    if (paragraphIndex >= paragraphs.length) {
+      timeoutRef.current = setTimeout(() => setShowButton(true), 1500);
+      return;
+    }
 
-        timeoutRef.current = setTimeout(typeLetter, delay);
+    const typeChar = () => {
+      const currentParagraph = paragraphs[paragraphIndex];
+
+      if (charIndexRef.current < currentParagraph.length) {
+        setCurrentText((prev) => prev + currentParagraph.charAt(charIndexRef.current));
+        charIndexRef.current++;
+        
+        const char = currentParagraph.charAt(charIndexRef.current - 1);
+        let delay = 25; 
+        if (char === '.' || char === ',') delay = 300; 
+
+        // Variación humana para que no se sienta robótico
+        const humanVariance = Math.floor(Math.random() * 30) - 15;
+        timeoutRef.current = setTimeout(typeChar, delay + humanVariance);
       } else {
-        setTimeout(() => setShowButton(true), 1500);
+        // Párrafo completado: lo guardamos y avanzamos al siguiente
+        setCompletedParagraphs((prev) => [...prev, currentParagraph]);
+        setCurrentText('');
+        setParagraphIndex((prev) => prev + 1);
+        charIndexRef.current = 0;
       }
     };
 
-    typeLetter();
+    // Pequeña pausa antes de iniciar cada párrafo para que la carta "respire"
+    timeoutRef.current = setTimeout(typeChar, 400);
 
     return () => clearTimeout(timeoutRef.current);
-  }, []);
+  }, [paragraphIndex]);
 
   const handleRevealPlayer = () => {
     setShowButton(false);
     setShowPlayer(true);
   };
 
+  const handleClosePlayer = () => {
+    setShowPlayer(false);
+    setShowPolaroid(true);
+  };
+
   return (
     <div className="day2-container fade-in-soft">
       <div className="day2-content">
-        <h2 className="day2-title">2 de Agosto — Día 2: El miedo a crecer</h2>
+        <h2 className="day2-title">2 de Agosto — Capítulo II: El miedo a crecer</h2>
         
         <div className="day2-letter">
-          {displayedText}
-          {!showButton && !showPlayer && <span className="cursor-blink">|</span>}
+          {/* Renderizamos los párrafos terminados */}
+          {completedParagraphs.map((text, idx) => (
+            <p key={idx} className="day2-paragraph fade-in-soft">{text}</p>
+          ))}
+          {/* Renderizamos el párrafo que se está escribiendo en vivo */}
+          {paragraphIndex < paragraphs.length && (
+            <p className="day2-paragraph">
+              {currentText}
+              <span className="cursor-blink">|</span>
+            </p>
+          )}
         </div>
 
         {showButton && (
@@ -70,21 +115,26 @@ Nos estamos haciendo mayores, sí. Pero lo estamos haciendo juntos.`;
           </div>
         )}
 
+        {/* Reproductor Oscuro con Letras */}
         {showPlayer && (
-          <div className="player-wrapper fade-in-soft">
-            <MusicPlayer 
-              title="Ribs"
-              artist="Lorde"
-              cover={ribsCover}
-              audioSrc={ribsAudio}
-              accentColor="#8c7a6b"
-              onComplete={onGoToNext} 
-            />
-            <div className="day2-reflection fade-in-soft">
-              <p>Gracias por crecer conmigo. Nos vemos mañana para el día tres.</p>
-              <p>Descansa, Montse.</p>
-            </div>
-          </div>
+          <MusicPlayer 
+            title="Ribs"
+            artist="Lorde"
+            cover={ribsCover}
+            audioSrc={ribsAudio}
+            lyrics={songLyrics}
+            onComplete={handleClosePlayer} 
+          />
+        )}
+
+        {/* Sorpresa Polaroid al cerrar la canción */}
+        {showPolaroid && (
+          <Polaroid 
+            imageSrc={friendsPhoto}
+            message="Crecer a tu lado ha sido mi parte favorita. ¡Casi 20!"
+            friendName="Un amigo incondicional"
+            onSaveMemory={onGoToNext} 
+          />
         )}
       </div>
     </div>

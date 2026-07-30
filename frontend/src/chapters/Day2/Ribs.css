@@ -1,6 +1,6 @@
 .day2-container {
   min-height: 100vh;
-  /* Un gris cálido/sepia muy sutil que evoca nostalgia y no cansa la vista en móvil */
+  /* Un gris cálido/sepia muy sutil que evoca nostalgia */
   background-color: #f2efe9; 
   display: flex;
   flex-direction: column;
@@ -17,24 +17,32 @@
 }
 
 .day2-title {
-  font-family: 'Playfair Display', serif; /* O la tipografía elegante que estés usando */
-  color: #3d3935; /* Gris casi negro, muy suave */
-  font-size: 1.2rem;
-  font-weight: 400;
+  font-family: 'Times New Roman', Times, serif; 
+  color: #7a6e62; /* Gris cálido */
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
   margin-bottom: 3rem;
   text-align: center;
-  letter-spacing: 1px;
 }
 
 .day2-letter {
-  font-family: 'Caveat', 'Shelley Allegro Script', cursive; 
-  color: #2b2825; /* Texto oscuro para legibilidad perfecta */
-  font-size: 1.4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Separación elegante entre los párrafos */
+  margin-bottom: 3rem;
+}
+
+.day2-paragraph {
+  font-family: 'Shelley Allegro Script', 'Pinyon Script', 'Great Vibes', cursive;
+  color: #2b2825;
+  font-size: 1.6rem;
   line-height: 1.8;
-  white-space: pre-wrap;
   text-align: justify;
   hyphens: auto;
-  margin-bottom: 3rem;
+  margin: 0;
 }
 
 .cursor-blink {
@@ -52,9 +60,9 @@
   background: none;
   border: none;
   color: #7a6e62;
-  font-family: inherit;
-  font-size: 1rem;
-  letter-spacing: 2px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.85rem;
+  letter-spacing: 3px;
   cursor: pointer;
   text-transform: uppercase;
   transition: color 0.3s ease;
@@ -62,21 +70,6 @@
 }
 
 .subtle-text-button:hover {
-  color: #2b2825;
-}
-
-.player-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 2rem;
-}
-
-.day2-reflection {
-  margin-top: 3rem;
-  text-align: center;
-  font-family: 'Caveat', 'Shelley Allegro Script', cursive;
-  font-size: 1.4rem;
   color: #2b2825;
 }
 

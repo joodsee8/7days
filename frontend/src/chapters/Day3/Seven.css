@@ -26,10 +26,11 @@
   letter-spacing: 1px;
 }
 
-.day3-letter {
-  font-family: 'Caveat', 'Shelley Allegro Script', cursive; 
-  color: #332f2b; 
-  font-size: 1.4rem;
+.day2-letter {
+  /* Respetando nuestra decisión: Shelley Allegro Script o su gemela gratuita Pinyon Script */
+  font-family: 'Shelley Allegro Script', 'Pinyon Script', 'Great Vibes', cursive; 
+  color: #2b2825; 
+  font-size: 1.6rem; /* Aumenté un poco el tamaño porque estas fuentes cursivas suelen ser más pequeñas */
   line-height: 1.8;
   white-space: pre-wrap;
   text-align: justify;
