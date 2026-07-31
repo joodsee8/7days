@@ -65,7 +65,14 @@
   cursor: pointer;
 }
 
+
 .progress-bar-active {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.1s linear;
+}
+
+.progress-bar-active2 {
   height: 100%;
   border-radius: 2px;
   transition: width 0.1s linear;
@@ -89,11 +96,11 @@
 
 /* --- CARRETE DE LETRAS (MULTILÍNEA INTELIGENTE) --- */
 .lyrics-reel {
-  height: 160px; /* Un poco más alto para acomodar frases largas */
+  height: 120px; /* Un poco más alto para acomodar frases largas */
   width: 100%;
   overflow-y: auto; /* Permite el scroll interno */
   position: relative;
-  padding: 60px 0; /* Espacio crítico para que la primera y última frase puedan centrarse */
+  padding: 20px 0; /* Espacio crítico para que la primera y última frase puedan centrarse */
   mask-image: linear-gradient(transparent, black 20%, black 80%, transparent);
   -webkit-mask-image: linear-gradient(transparent, black 20%, black 80%, transparent);
   
@@ -110,15 +117,15 @@
   font-family: 'Times New Roman', Times, serif;
   font-size: 0.95rem;
   text-align: center;
-  transition: all 0.4s ease;
+  transition: all 0.41s ease;
   text-transform: uppercase; /* Todo en mayúsculas siempre */
-  padding: 6px 10px; /* Separación vertical entre frases */
+  padding: 6px 6px; /* Separación vertical entre frases */
   line-height: 1.4;
   word-wrap: break-word; /* Permite que el texto baje a la siguiente línea */
 }
 
 .lyric-line.active {
-  font-size: 1.15rem;
+  font-size: 0.95rem;
   font-weight: bold;
   letter-spacing: 1px;
   text-shadow: 0 0 10px rgba(255,255,255,0.4); /* Resplandor al iluminarse */

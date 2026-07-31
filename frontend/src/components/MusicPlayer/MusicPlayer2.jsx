@@ -1,15 +1,15 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './MusicPlayer.css';
 
-const MusicPlayer = ({ 
+const MusicPlayer2 = ({ 
   title, 
   artist, 
   cover, 
   audioSrc, 
   lyrics, 
-  bgColor = "#462d2c", 
-  textColor = "#f5e6d9", 
-  accentColor = "#8aa8c4", 
+  bgColor2 = "#444444", 
+  textColor2 = "#000000", 
+  accentColor2 = "#999999", 
   onClose 
 }) => {
   const audioRef = useRef(null);
@@ -84,20 +84,20 @@ const MusicPlayer = ({
   };
 
   return (
-    <div className="music-player-dark fade-in" style={{ backgroundColor: bgColor, color: textColor }}>
+    <div className="music-player-dark fade-in" style={{ backgroundColor: bgColor2, color: textColor2 }}>
       
       {/* Controles y Portada */}
       <div className="player-header">
         <img src={cover} alt="Cover" className="player-album-art" />
         
         <div className="player-details">
-          <h3 className="song-title" style={{ color: textColor }}>{title}</h3>
-          <p className="song-artist" style={{ color: textColor, opacity: 0.7 }}>{artist}</p>
+          <h3 className="song-title" style={{ color: textColor2 }}>{title}</h3>
+          <p className="song-artist" style={{ color: textColor2, opacity: 0.7 }}>{artist}</p>
           
           <div className="progress-bar-bg" onClick={handleProgressClick}>
             <div 
-              className="progress-bar-active" 
-              style={{ width: `${progress}%`, backgroundColor: accentColor }}
+              className="progress-bar-active2" 
+              style={{ width: `${progress}%`, backgroundColor: accentColor2 }}
             ></div>
           </div>
         </div>
@@ -105,7 +105,7 @@ const MusicPlayer = ({
         <button 
           className="svg-play-btn" 
           onClick={togglePlay} 
-          style={{ color: accentColor }}
+          style={{ color: accentColor2 }}
           aria-label={isPlaying ? "Pausar" : "Reproducir"}
         >
           {isPlaying ? (
@@ -127,7 +127,7 @@ const MusicPlayer = ({
             key={index} 
             className={`lyric-line ${index === currentLineIndex ? 'active' : ''}`}
             style={{ 
-              color: index === currentLineIndex ? "#ffffff" : textColor, /* Blanco iluminado al activarse */
+              color: index === currentLineIndex ? "#ffffff" : textColor2, /* Blanco iluminado al activarse */
               opacity: index === currentLineIndex ? 1 : 0.15 /* Resto casi transparente */
             }}
           >
@@ -143,7 +143,7 @@ const MusicPlayer = ({
           <button 
             className="continue-btn" 
             onClick={onClose} 
-            style={{ borderBottomColor: accentColor, color: accentColor }}
+            style={{ borderBottomColor: accentColor2, color: accentColor2 }}
           >
             Siguiente
           </button>
@@ -153,7 +153,6 @@ const MusicPlayer = ({
       <audio 
         ref={audioRef} 
         src={audioSrc} 
-        controls={true}
         onTimeUpdate={handleTimeUpdate} 
         onEnded={handleEnded}
       />
@@ -161,4 +160,4 @@ const MusicPlayer = ({
   );
 };
 
-export default MusicPlayer;
+export default MusicPlayer2;
