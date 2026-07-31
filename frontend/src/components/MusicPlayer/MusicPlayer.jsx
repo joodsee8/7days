@@ -1,14 +1,25 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './MusicPlayer.css';
 
-const MusicPlayer = ({ title, artist, cover, audioSrc, lyrics, accentColor = "#5A6B7C", onClose }) => {
+const MusicPlayer = ({ 
+  title, 
+  artist, 
+  cover, 
+  audioSrc, 
+  lyrics, 
+  bgColor = "#462d2c", // Caoba hermoso
+  textColor = "#f5e6d9", // Crema
+  accentColor = "#8aa8c4", // Azul polvoso para la barra
+  onClose 
+}) => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [parsedLyrics, setParsedLyrics] = useState([]);
-  const [currentLineIndex, setCurrentLineIndex] = useState(-1);
+  const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [showEndMessage, setShowEndMessage] = useState(false);
 
+  // Procesar LRC
   useEffect(() => {
     if (lyrics) {
       const lines = lyrics.split('\n');
@@ -19,7 +30,7 @@ const MusicPlayer = ({ title, artist, cover, audioSrc, lyrics, accentColor = "#5
           return { time, text: match[4].trim() };
         }
         return null;
-      }).filter(item => item !== null);
+      }).filter(item => item !== null && item.text !== '');
       setParsedLyrics(parsed);
     }
   }, [lyrics]);
@@ -35,9 +46,10 @@ const MusicPlayer = ({ title, artist, cover, audioSrc, lyrics, accentColor = "#5
 
   const handleTimeUpdate = () => {
     const current = audioRef.current.currentTime;
-    const duration = audioRef.current.duration;
+    const duration = audioRef.current.duration || 1;
     setProgress((current / duration) * 100);
 
+    // Encontrar la línea activa actual
     const activeIndex = parsedLyrics.findIndex((line, index) => {
       const nextLine = parsedLyrics[index + 1];
       return current >= line.time && (!nextLine || current < nextLine.time);
@@ -59,16 +71,20 @@ const MusicPlayer = ({ title, artist, cover, audioSrc, lyrics, accentColor = "#5
     audioRef.current.currentTime = percentage * audioRef.current.duration;
   };
 
+  // Cálculo para centrar el texto activo en el carrete (asumiendo ~35px por línea)
+  const ITEM_HEIGHT = 35; 
+  const trackOffset = (ITEM_HEIGHT * 2) - (currentLineIndex * ITEM_HEIGHT);
+
   return (
-    <div className="music-player-clean fade-in">
+    <div className="music-player-dark fade-in" style={{ backgroundColor: bgColor, color: textColor }}>
       
       {/* Controles y Portada */}
       <div className="player-header">
         <img src={cover} alt="Cover" className="player-album-art" />
         
         <div className="player-details">
-          <h3 className="song-title">{title}</h3>
-          <p className="song-artist">{artist}</p>
+          <h3 className="song-title" style={{ color: textColor }}>{title}</h3>
+          <p className="song-artist" style={{ color: textColor, opacity: 0.7 }}>{artist}</p>
           
           <div className="progress-bar-bg" onClick={handleProgressClick}>
             <div 
@@ -78,38 +94,56 @@ const MusicPlayer = ({ title, artist, cover, audioSrc, lyrics, accentColor = "#5
           </div>
         </div>
 
+        {/* Íconos SVG puros, nada de emojis */}
         <button 
-          className="clean-play-btn" 
+          className="svg-play-btn" 
           onClick={togglePlay} 
           style={{ color: accentColor }}
+          aria-label={isPlaying ? "Pausar" : "Reproducir"}
         >
-          {isPlaying ? '⏸' : '▶'}
+          {isPlaying ? (
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          )}
         </button>
       </div>
 
-      {/* Letras Sincronizadas */}
-      <div className="lyrics-display">
-        {parsedLyrics.map((line, index) => (
-          <p 
-            key={index} 
-            className={`lyric-text ${index === currentLineIndex ? 'active' : ''}`}
-            style={{ color: index === currentLineIndex ? accentColor : '#999' }}
-          >
-            {line.text}
-          </p>
-        ))}
+      {/* Carrete de Letras (Efecto Teleprompter) */}
+      <div className="lyrics-reel">
+        <div 
+          className="lyrics-track" 
+          style={{ transform: `translateY(${trackOffset}px)` }}
+        >
+          {parsedLyrics.map((line, index) => (
+            <div 
+              key={index} 
+              className={`lyric-line ${index === currentLineIndex ? 'active' : ''}`}
+              style={{ 
+                color: index === currentLineIndex ? textColor : textColor,
+                opacity: index === currentLineIndex ? 1 : 0.3
+              }}
+            >
+              {line.text}
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Mensaje Final */}
       {showEndMessage && (
-        <div className="end-chapter-section fade-in">
-          <p className="end-chapter-text">El capítulo termina aquí.</p>
+        <div className="end-chapter-section fade-in" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+          <p className="end-chapter-text">La canción ha terminado.</p>
           <button 
             className="continue-btn" 
             onClick={onClose} 
             style={{ borderBottomColor: accentColor, color: accentColor }}
           >
-            Ver recuerdos
+            Siguiente
           </button>
         </div>
       )}

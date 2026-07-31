@@ -1,32 +1,34 @@
 /* src/components/MusicPlayer/MusicPlayer.css */
 
-.music-player-clean {
+.music-player-dark {
   width: 100%;
-  max-width: 500px;
-  margin: 3rem auto;
+  max-width: 100%; /* Evita que rompa pantallas en móviles */
+  margin: 3rem 0;
   padding: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-sizing: border-box; /* Crucial para iPhone */
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  overflow: hidden;
 }
 
 /* --- HEADER DEL REPRODUCTOR --- */
 .player-header {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1rem;
+  width: 100%;
 }
 
 .player-album-art {
-  width: 60px;
-  height: 60px;
+  width: 55px;
+  height: 55px;
   border-radius: 4px;
   object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  flex-shrink: 0;
 }
 
 .player-details {
@@ -34,20 +36,22 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden; /* Evita que textos largos rompan el flex */
 }
 
 .song-title {
   font-family: 'Times New Roman', Times, serif;
   font-size: 1.1rem;
-  color: #333;
   margin: 0 0 4px 0;
   letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .song-artist {
   font-family: Arial, sans-serif;
   font-size: 0.7rem;
-  color: #777;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin: 0 0 10px 0;
@@ -56,7 +60,7 @@
 .progress-bar-bg {
   width: 100%;
   height: 4px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.15);
   border-radius: 2px;
   cursor: pointer;
 }
@@ -67,61 +71,70 @@
   transition: width 0.1s linear;
 }
 
-.clean-play-btn {
+.svg-play-btn {
   background: none;
   border: none;
-  font-size: 2rem;
   cursor: pointer;
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
   transition: transform 0.2s ease;
 }
 
-.clean-play-btn:hover {
+.svg-play-btn:hover {
   transform: scale(1.05);
 }
 
-/* --- DISPLAY DE LETRAS --- */
-.lyrics-display {
-  height: 120px;
+/* --- CARRETE DE LETRAS (REEL) --- */
+.lyrics-reel {
+  height: 140px; /* Muestra aprox 4-5 líneas */
+  width: 100%;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  position: relative;
+  /* El degradado superior e inferior para que se desvanezcan */
   mask-image: linear-gradient(transparent, black 25%, black 75%, transparent);
   -webkit-mask-image: linear-gradient(transparent, black 25%, black 75%, transparent);
 }
 
-.lyric-text {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 1rem;
-  margin: 8px 0;
-  transition: all 0.4s ease;
-  opacity: 0;
-  transform: translateY(10px);
-  position: absolute;
+.lyrics-track {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.lyric-text.active {
-  opacity: 1;
-  transform: translateY(0);
-  font-size: 1.2rem;
-  position: relative;
+.lyric-line {
+  height: 35px; /* Debe coincidir con la constante ITEM_HEIGHT de JSX */
+  line-height: 35px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.95rem;
+  text-align: center;
+  transition: all 0.4s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lyric-line.active {
+  font-size: 1.15rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* --- MENSAJE FINAL --- */
 .end-chapter-section {
   text-align: center;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(0,0,0,0.05);
+  padding-top: 1.5rem;
+  border-top: 1px solid;
 }
 
 .end-chapter-text {
   font-family: 'Times New Roman', Times, serif;
   font-style: italic;
-  color: #555;
   margin-bottom: 1rem;
+  opacity: 0.8;
 }
 
 .continue-btn {
