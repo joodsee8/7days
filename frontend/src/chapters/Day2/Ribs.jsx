@@ -1,164 +1,167 @@
 import React, { useState, useEffect } from 'react';
 import './Ribs.css';
-import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
-import coverImg from '../../assets/images/ribs-cover.jpg'
-import audioFile from '../../assets/music/ribs.mp3'
+import MusicPlayer2 from '../../components/MusicPlayer/MusicPlayer2';
+import Polaroid from '../../components/Polaroid/Polaroid';
+
+// Asegúrate de que las rutas a tus imágenes y audio sean correctas
+import coverImg from '../../assets/images/ribs-cover.jpg';
+import audioFile from '../../assets/music/ribs.mp3';
 
 const letterParagraphs = [
-  "Veinte años.",
-  //"Llegar a tu segunda década de vida no es cualquier cosa, Montse. Es un hito enorme: el final de una etapa y el comienzo de otra completamente distinta. Y mientras pensaba en la magnitud de lo que vas a celebrar este 7 de agosto, me di cuenta de algo: un solo día simplemente no era suficiente.",
-  //"De esos veinte años que hoy cumples, he tenido el inmenso privilegio de acompañarte en ocho. Desde la secundaria me has visto crecer, cambiar y atravesar un montón de versiones de mí mismo.",
-  //"Seguro recuerdas que hubo una época en la que las cosas simplemente no salieron como yo esperaba. No fue el fin del mundo, pero sí una etapa en la que sentí que todo empezó a perder color. Y cuando eso pasó, tú decidiste quedarte cerca para asegurarte de que yo no me perdiera por completo.",
-  //"Hay una canción de Lana Del Rey llamada Blue Banisters. En ella, Lana cuenta cómo cada mes de mayo sus “hermanas” vuelan hacia ella para ayudarle a pintar sus barandales. Nunca he sabido exactamente qué significan esos colores para ella. Pero cuando escucho esa parte, para mí el mes cambia. Para mí ya no es mayo.",
-  //"Para mí es abril.",
-  //"Porque cada abril, cuando llegaba mi cumpleaños, tú aparecías para sacarme de ese espacio mental en el que a veces me encerraba. Sin darte cuenta, llegabas con pintura fresca para ayudarme a reparar lo que se sentía roto, a devolverle color a esos barandales que yo veía completamente azules, hasta que poco a poco ese lugar volvía a sentirse como un hogar.",
-  //"Y fue entonces cuando entendí algo.",
-  //"Hay personas que llegan a tu vida y la cambian sin hacer ruido. No porque resuelvan tus problemas, sino porque hacen que enfrentarlos deje de sentirse tan solitario. Tú has sido una de esas personas para mí.",
-  //"Por eso este proyecto existe.",
-  // "Porque alguien que ha significado tanto para mí merece mucho más que un “feliz cumpleaños” enviado a medianoche. Durante los próximos siete días quiero regalarte siete cartas escondidas dentro de siete canciones. Cada una habla de una parte distinta de nuestra historia, de algo que admiro de ti o de algo que nunca había encontrado la manera de decir.",
-  // "Y no podía empezar con otra canción que no fuera esta."
+  "Veinte años. Llegar a tu segunda década de vida no es cualquier cosa, Montse.",
 ];
 
-const songLrc = `[00:00.000] There's a picture on the wall of me on a John Deere
-[00:04.638] Jenny handed me a beer, said, "How the hell did you get there?"
-[00:09.440] Oklahoma
-[00:13.992] Mm, mm
-[00:18.586] There were flowers that were dry, sittin' on the dresser
-[00:23.123] She asked me where they're from, I said, "A place I don't remember"
-[00:28.074] Oklahoma (oh)
-[00:37.084] Jenny jumped into the pool, she was swimmin' with Nikki Lane
-[00:40.937] She said, "Most men don't want a woman with a legacy, it's of age"
-[00:45.762] She said, "You can't be a muse and be happy, too
-[00:50.077] You can't blacken the pages with Russian poetry and be happy"
-[01:02.825] And that scared me
-[01:11.160] 'Cause I met a man who
-[01:13.114] Said he'd come back every May
-[01:17.698] Just to help me if I'd paint
-[01:21.413] My banisters blue
-[01:25.461] Blue banisters, ooh
-[01:30.619] Said he'd fix my weathervane
-[01:35.531] Give me children, take away my pain
-[01:39.314] And paint my banisters blue
-[01:43.895] My banisters blue
-[01:48.171] There's a hole that's in my heart all my women try and heal
-[01:52.345] They're doin' a good job convincin' me that it's not real
-[01:57.385] It's heat lightning
-[02:01.657] Oh, oh
-[02:05.465] 'Cause there's a man that's in my past, there's a man that's still right here
-[02:11.274] He's real enough to touch and in my darkest nights
-[02:14.699] He's shinin'
-[02:20.102] Ooh
-[02:24.618] Jenny was smokin' by the pool, we were writin' with Nikki Lane
-[02:29.344] I said, "I'm scared of the Santa Clarita Fires, I wish that it would rain"
-[02:34.501] I said, "The power of us three can bring absolutely anything
-[02:39.016] Except that one thing, the diamonds, the rust, and the rain
-[02:51.773] The thing that washes away the pain"
-[03:00.125] But that's okay, 'cause
-[03:02.646] Now when weather turns to May
-[03:07.258] All my sisters come to paint
-[03:10.918] My banisters green
-[03:15.064] My blue banisters grey
-[03:20.500] Tex and Mex are in the Bay
-[03:25.648] Chucky's makin' birthday cake
-[03:29.718] Chickens runnin' barefeet, there's a baby on the way
-[03:34.844] And now my blue banisters are green and grey
-[03:43.063] Ah-ah
-[03:47.740] Summer comes, winter goes
-[03:52.445] Spring, I skip, God knows
-[03:57.107] Summer comes, winter goes
-[04:01.668] Spring, I sleep, Heaven knows
-[04:07.395] Every time it turns to May
-[04:11.959] All my sisters fly to me
-[04:15.480] To paint, paint`;
+const songLrc = `
+[00:00.000] ...
+[00:48.779] The drink you spilt all over me
+[00:56.576] "Lover's Spit" left on repeat
+[01:03.424] My mom and dad let me stay home
+[01:11.745] It drives you crazy getting old
+[01:18.635] We can talk it so good
+[01:22.460] We can make it so divine
+[01:26.277] We can talk it good
+[01:27.688] How you wish it would be all the time
+[01:33.654] The drink you spilt all over me
+[01:35.521] "Lover's Spit" left on repeat
+[01:37.287] My mom and dad let me stay home
+[01:38.974] It drives you crazy getting old
+[01:41.175] The drink you spilt all over me
+[01:43.008] "Lover's Spit" left on repeat
+[01:44.834] My mom and dad let me stay home
+[01:46.716] It drives you crazy getting old
+[01:49.023] ...
+[02:03.958] This dream isn't feeling sweet
+[02:10.697] We're reeling through the midnight streets
+[02:17.909] And I've never felt more alone
+[02:27.033] It feels so scary getting old
+[02:33.594] We can talk it so good
+[02:37.472] We can make it so divine
+[02:41.210] We can talk it good
+[02:42.601] How you wish it would be all the time
+[02:48.735] This dream isn't feeling sweet, we're reeling through the midnight streets
+[02:52.243] And I've never felt more alone, feels so scary getting old
+[02:56.195] This dream isn't feeling sweet, we're reeling through the midnight streets
+[02:59.510] And I've never felt more alone, feels so scary getting old
+[03:04.895] ...
+[03:18.041] I want 'em back, I want 'em back
+[03:19.890] The minds we had, the minds we had
+[03:21.784] How all the thoughts, how all the thoughts
+[03:23.684] Moved 'round our heads, moved 'round our heads
+[03:25.486] I want 'em back, I want 'em back
+[03:27.239] The minds we had, the minds we had
+[03:29.310] It's not enough to feel the lack
+[03:31.148] I want 'em back, I want 'em back, I want 'em
+[03:33.610] You're the only friend I need (you're the only friend I need)
+[03:37.375] Sharing beds like little kids (sharing beds like little kids)
+[03:41.074] And laughing 'til our ribs get tough (laughing 'til our ribs get tough)
+[03:44.704] But that will never be enough (but that will never be enough)
+[03:48.527] You're the only friend I need (you're the only friend I need)
+[03:52.398] Sharing beds like little kids (sharing beds like little kids)
+[03:56.112] And laughing 'til our ribs get tough (laughing 'til our ribs get tough)
+[03:59.825] But that will never be enough (but that will never be enough)`;
 
 const Ribs = () => {
   const [completedParagraphs, setCompletedParagraphs] = useState([]);
   const [currentTypingText, setCurrentTypingText] = useState('');
   const [paragraphIndex, setParagraphIndex] = useState(0);
   const [showButton, setShowButton] = useState(false);
-  
-  // NUEVO ESTADO: Controla si se muestra el reproductor de música
   const [showPlayer, setShowPlayer] = useState(false);
+  const [showPolaroid, setShowPolaroid] = useState(false);
+
+  // Lógica del Typewriter
+  useEffect(() => {
+    if (paragraphIndex < letterParagraphs.length) {
+      const fullText = letterParagraphs[paragraphIndex];
+      if (currentTypingText.length < fullText.length) {
+        const timeout = setTimeout(() => {
+          setCurrentTypingText(fullText.slice(0, currentTypingText.length + 1));
+        }, 35); // Velocidad de tipeo
+        return () => clearTimeout(timeout);
+      } else {
+        const timeout = setTimeout(() => {
+          setCompletedParagraphs((prev) => [...prev, fullText]);
+          setCurrentTypingText('');
+          setParagraphIndex((prev) => prev + 1);
+        }, 1200); // Pausa entre párrafos
+        return () => clearTimeout(timeout);
+      }
+    } else {
+      setShowButton(true);
+    }
+  }, [currentTypingText, paragraphIndex]);
+
+  const handleRevealPlayer = () => {
+    setShowButton(false);
+    setShowPlayer(true);
+  };
 
   const handleClosePlayer = () => {
     setShowPlayer(false);
     setShowPolaroid(true);
   };
 
-  useEffect(() => {
-    if (paragraphIndex < letterParagraphs.length) {
-      const fullText = letterParagraphs[paragraphIndex];
-      
-      if (currentTypingText.length < fullText.length) {
-        const timeout = setTimeout(() => {
-          setCurrentTypingText(fullText.slice(0, currentTypingText.length + 1));
-        }, 20);
-        return () => clearTimeout(timeout);
-      } else {
-        const timeout = setTimeout(() => {
-          setCompletedParagraphs(prev => [...prev, fullText]);
-          setCurrentTypingText('');
-          setParagraphIndex(prev => prev + 1);
-        }, 600);
-        return () => clearTimeout(timeout);
-      }
-    } else {
-      setTimeout(() => setShowButton(true), 1500);
-    }
-  }, [currentTypingText, paragraphIndex]);
-
-  // Función que se ejecuta al tocar "Escuchar canción"
-  const handleRevealPlayer = () => {
-    setShowButton(false); // Ocultamos el botón
-    setShowPlayer(true);  // Mostramos el reproductor
-  };
-
-  // Función puente (placeholder por ahora) para cuando termine la canción
-  const handleContinueToDay2 = () => {
-    console.log("Aquí conectaremos con el Día 2");
-  };
-
   return (
-    <div className="chapter-light-container fade-in-chapter">
-      <div className="letter-content-mobile">
-        
-        <div className="letra-cursiva-oscura">
-          {completedParagraphs.map((text, index) => (
-            <p key={index}>{text}</p>
-          ))}
-          
-          {paragraphIndex < letterParagraphs.length && (
-            <p className="typing-paragraph">
-              {currentTypingText}
-              <span className="blinking-cursor">|</span>
-            </p>
-          )}
-        </div>
-        
-        <div className="espacio-vacio"></div>
+    <div className="chapter-light-container">
+      
+      {/* Encabezado del Capítulo */}
+      <header className="chapter-header">
+        <div className="chapter-number">Capítulo II</div>
+        <div className="chapter-song-title">Ribs</div>
+      </header>
 
-        {/* El Botón Sutil - Solo se muestra si el reproductor AÚN NO está visible */}
-        {showButton && !showPlayer && (
+      {/* Contenido de la Carta */}
+      <div className="letter-content-mobile">
+        {completedParagraphs.map((text, index) => (
+          <p key={index} className="letra-cursiva-oscura fade-in-chapter">
+            {text}
+          </p>
+        ))}
+        
+        {paragraphIndex < letterParagraphs.length && (
+          <p className="letra-cursiva-oscura">
+            {currentTypingText}
+            <span className="blinking-cursor">|</span>
+          </p>
+        )}
+        
+        {showButton && (
           <div className="sutil-action-container fade-in-button">
             <span className="sutil-button-dark" onClick={handleRevealPlayer}>
               Escuchar canción
             </span>
           </div>
         )}
-
-        {/* El Reproductor de Música - Aparece cuando se oculta el botón */}
-        {showPlayer && (
-    <MusicPlayer 
-      title="ribs"
-      artist="Lorde"
-      cover={coverImg}
-      audioSrc={audioFile}
-      rawLrc={songLrc} 
-      onComplete={handleClosePlayer} 
-    />
-  )}
-
       </div>
+
+      {/* Reproductor de Música */}
+      {showPlayer && (
+        <MusicPlayer2
+          title="Blue Banisters"
+          artist="Lana Del Rey"
+          cover={coverImg}
+          audioSrc={audioFile}
+          lyrics={songLrc}
+          accentColor="#5A6B7C" /* Color frío asignado a este día */
+          onClose={handleClosePlayer}
+        />
+      )}
+
+      {/* Polaroids Finales */}
+      {showPolaroid && (
+        <div className="polaroids-section fade-in-chapter">
+          <Polaroid 
+            imageSrc="/assets/images/amigo1.jpg" 
+            message="¡Felices 20, Montse! Gracias por siempre estar." 
+            author="Andrea" 
+          />
+          {/* Botón de cierre para regresar al índice */}
+          <div className="sutil-action-container" style={{ marginTop: '3rem' }}>
+             <span className="sutil-button-dark" onClick={() => window.history.back()}>
+              Guardar recuerdo
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

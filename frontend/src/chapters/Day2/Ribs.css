@@ -2,39 +2,58 @@
 
 .chapter-light-container {
   min-height: 100vh;
-  /* Un gris azulado sumamente claro, casi blanco, manteniendo la vibra "fría" de Blue Banisters */
-  background-color: #C5C6C7; 
+  background-color: #f2f3f5;
+  /* Versión segura de la textura */
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3rem 1.5rem; /* Padding pensado en móviles */
+  padding: 4rem 1.5rem;
   overflow-x: hidden;
 }
 
-.fade-in-chapter {
+/* --- ENCABEZADO --- */
+.chapter-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  font-family: 'Times New Roman', Times, serif;
+  opacity: 0;
   animation: fadeIn 2s ease-in-out forwards;
 }
 
-.letter-content-mobile {
-  width: 100%;
-  max-width: 500px; /* Perfecto para móviles y tablets pequeñas */
+.chapter-number {
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  color: #555;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.chapter-song-title {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  color: #222;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: 10px;
 }
 
 /* --- TEXTO DE LA CARTA --- */
-.letra-cursiva-oscura {
-  font-family: 'Pinyon Script', 'Great Vibes', 'Shelley Allegro Script', cursive;
-  font-size: 1.2rem; /* Ajustado para no ser masivo en celular */
-  line-height: 1;
-  color: #1a1c23; /* Un azul/negro muy oscuro, más suave que el negro puro */
-  text-align: justify; /* Justificado como solicitaste */
-  hyphens: auto; /* Ayuda a que el justificado no deje huecos gigantes en el móvil */
+.letter-content-mobile {
+  width: 100%;
+  max-width: 500px;
 }
 
-.letra-cursiva-oscura p {
+.letra-cursiva-oscura {
+  font-family: 'Pinyon Script', 'Great Vibes', 'Shelley Allegro Script', cursive;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #1a1c23;
+  text-align: justify;
+  hyphens: auto;
   margin-bottom: 1.5rem;
 }
 
-/* El cursor parpadeante que acompaña a la escritura */
 .blinking-cursor {
   font-family: Arial, sans-serif;
   font-weight: 300;
@@ -44,25 +63,19 @@
   margin-left: 2px;
 }
 
+/* --- ANIMACIONES Y BOTONES --- */
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- BOTÓN SUTIL --- */
-.espacio-vacio {
-  height: 8vh; 
-}
-
-.sutil-action-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 3rem;
+.fade-in-chapter {
+  animation: fadeIn 1.5s ease-in-out forwards;
 }
 
 .fade-in-button {
@@ -70,8 +83,15 @@
   opacity: 0;
 }
 
+.sutil-action-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
 .sutil-button-dark {
-  font-family: serif;
+  font-family: 'Times New Roman', serif;
   font-size: 0.9rem;
   color: #4a5568;
   opacity: 0.7;
@@ -87,4 +107,12 @@
   opacity: 1;
   letter-spacing: 3px;
   border-bottom: 1px solid #4a5568;
+}
+
+.polaroids-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
 }

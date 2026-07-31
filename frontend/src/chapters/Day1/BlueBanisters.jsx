@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './BlueBanisters.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
 import Polaroid from '../../components/Polaroid/Polaroid';
+import imageSrc from '../../assets/images/Polaroid1.jpg';
 
 // Asegúrate de que las rutas a tus imágenes y audio sean correctas
 import coverImg from '../../assets/images/IMG_0105.jpeg';
@@ -138,7 +139,7 @@ const BlueBanisters = () => {
 
       {/* Reproductor de Música */}
       {showPlayer && (
-        <MusicPlayer 
+        <MusicPlayer
           title="Blue Banisters"
           artist="Lana Del Rey"
           cover={coverImg}
@@ -153,9 +154,9 @@ const BlueBanisters = () => {
       {showPolaroid && (
         <div className="polaroids-section fade-in-chapter">
           <Polaroid 
-            imageSrc="/assets/images/amigo1.jpg" 
-            message="¡Felices 20, Montse! Gracias por siempre estar." 
-            author="Andrea" 
+            imageSrc={imageSrc} 
+            message="¡Felices 20, Montse! Gracias por siempre venir a ayudarme a pintar mis barandales." 
+            friendName="Pancho" 
           />
           {/* Botón de cierre para regresar al índice */}
           <div className="sutil-action-container" style={{ marginTop: '3rem' }}>
