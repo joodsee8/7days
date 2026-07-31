@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './MusicPlayer.css';
 
-const MusicPlayer = ({ title, artist, cover, audioSrc, lyrics, accentColor = "#ffffff", onClose }) => {
+const MusicPlayer = ({ title, artist, cover, audioSrc, lyrics, accentColor = "#5A6B7C", onClose }) => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -9,19 +9,14 @@ const MusicPlayer = ({ title, artist, cover, audioSrc, lyrics, accentColor = "#f
   const [currentLineIndex, setCurrentLineIndex] = useState(-1);
   const [showEndMessage, setShowEndMessage] = useState(false);
 
-  // Procesar LRC
   useEffect(() => {
     if (lyrics) {
       const lines = lyrics.split('\n');
       const parsed = lines.map(line => {
         const match = line.match(/\[(\d{2}):(\d{2})\.(\d{2,3})\](.*)/);
         if (match) {
-          const minutes = parseInt(match[1], 10);
-          const seconds = parseInt(match[2], 10);
-          const ms = parseInt(match[3], 10);
-          const text = match[4].trim();
-          const time = minutes * 60 + seconds + ms / 1000;
-          return { time, text };
+          const time = parseInt(match[1]) * 60 + parseInt(match[2]) + parseInt(match[3]) / 1000;
+          return { time, text: match[4].trim() };
         }
         return null;
       }).filter(item => item !== null);
@@ -43,7 +38,6 @@ const MusicPlayer = ({ title, artist, cover, audioSrc, lyrics, accentColor = "#f
     const duration = audioRef.current.duration;
     setProgress((current / duration) * 100);
 
-    // Sincronizar letra
     const activeIndex = parsedLyrics.findIndex((line, index) => {
       const nextLine = parsedLyrics[index + 1];
       return current >= line.time && (!nextLine || current < nextLine.time);
@@ -61,65 +55,71 @@ const MusicPlayer = ({ title, artist, cover, audioSrc, lyrics, accentColor = "#f
 
   const handleProgressClick = (e) => {
     const bounds = e.target.getBoundingClientRect();
-    const x = e.clientX - bounds.left;
-    const percentage = x / bounds.width;
+    const percentage = (e.clientX - bounds.left) / bounds.width;
     audioRef.current.currentTime = percentage * audioRef.current.duration;
   };
 
   return (
-    <div className="music-player-overlay">
-      <div className="music-player-container fade-in-soft">
+    <div className="music-player-clean fade-in">
+      
+      {/* Controles y Portada */}
+      <div className="player-header">
+        <img src={cover} alt="Cover" className="player-album-art" />
         
-        {/* Sección Superior: Letras sincronizadas */}
-        <div className="lyrics-container">
-          {parsedLyrics.map((line, index) => (
-            <p 
-              key={index} 
-              className={`lyric-line ${index === currentLineIndex ? 'active' : ''}`}
-              style={{ color: index === currentLineIndex ? accentColor : '#555' }}
-            >
-              {line.text}
-            </p>
-          ))}
+        <div className="player-details">
+          <h3 className="song-title">{title}</h3>
+          <p className="song-artist">{artist}</p>
+          
+          <div className="progress-bar-bg" onClick={handleProgressClick}>
+            <div 
+              className="progress-bar-active" 
+              style={{ width: `${progress}%`, backgroundColor: accentColor }}
+            ></div>
+          </div>
         </div>
 
-        {/* Sección Inferior: Controles */}
-        <div className="player-controls-section">
-          <img src={cover} alt="Cover" className="player-cover" />
-          
-          <div className="player-info">
-            <h3 className="player-title">{title}</h3>
-            <p className="player-artist">{artist}</p>
-            
-            <div className="progress-bar-container" onClick={handleProgressClick}>
-              <div 
-                className="progress-bar-fill" 
-                style={{ width: `${progress}%`, backgroundColor: accentColor }}
-              ></div>
-            </div>
-          </div>
+        <button 
+          className="clean-play-btn" 
+          onClick={togglePlay} 
+          style={{ color: accentColor }}
+        >
+          {isPlaying ? '⏸' : '▶'}
+        </button>
+      </div>
 
-          <button className="play-btn" onClick={togglePlay} aria-label="Play/Pause" style={{ color: accentColor }}>
-            {isPlaying ? '⏸' : '▶'}
+      {/* Letras Sincronizadas */}
+      <div className="lyrics-display">
+        {parsedLyrics.map((line, index) => (
+          <p 
+            key={index} 
+            className={`lyric-text ${index === currentLineIndex ? 'active' : ''}`}
+            style={{ color: index === currentLineIndex ? accentColor : '#999' }}
+          >
+            {line.text}
+          </p>
+        ))}
+      </div>
+
+      {/* Mensaje Final */}
+      {showEndMessage && (
+        <div className="end-chapter-section fade-in">
+          <p className="end-chapter-text">El capítulo termina aquí.</p>
+          <button 
+            className="continue-btn" 
+            onClick={onClose} 
+            style={{ borderBottomColor: accentColor, color: accentColor }}
+          >
+            Ver recuerdos
           </button>
         </div>
-
-        {showEndMessage && (
-          <div className="end-message-container fade-in-soft">
-            <p className="end-message-text">Espero que esta canción ahora también signifique algo para ti.</p>
-            <button className="close-chapter-btn" onClick={onClose} style={{ borderColor: accentColor, color: accentColor }}>
-              Cerrar capítulo
-            </button>
-          </div>
-        )}
-        
-        <audio 
-          ref={audioRef} 
-          src={audioSrc} 
-          onTimeUpdate={handleTimeUpdate} 
-          onEnded={handleEnded}
-        />
-      </div>
+      )}
+      
+      <audio 
+        ref={audioRef} 
+        src={audioSrc} 
+        onTimeUpdate={handleTimeUpdate} 
+        onEnded={handleEnded}
+      />
     </div>
   );
 };

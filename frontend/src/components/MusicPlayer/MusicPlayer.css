@@ -1,221 +1,152 @@
-/* El overlay que se ancla abajo y oscurece ligeramente el resto de la pantalla */
-.dark-player-overlay {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(to top, #855b00 80%, rgba(247, 243, 212, 0.9) 90%, rgba(250, 238, 238, 0.973));
-  display: flex;
-  justify-content: center;
-  padding: 40px 20px 30px 20px;
-  box-sizing: border-box;
-  z-index: 1000;
-  font-family: 'Times New Roman', Times, serif;
-  box-shadow: 0 -20px 50px rgb(250, 250, 250);
-}
+/* src/components/MusicPlayer/MusicPlayer.css */
 
-.dark-player-container {
+.music-player-clean {
   width: 100%;
   max-width: 500px;
+  margin: 3rem auto;
+  padding: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
+  gap: 2rem;
 }
 
-/* Cabecera del reproductor */
-.dark-player-header {
-  text-align: center;
-  margin-bottom: 25px;
-}
-
-.dark-player-subtitle {
-  font-size: 0.65rem;
-  letter-spacing: 5px;
-  color: #777777;
-  margin: 0 0 10px 0;
-}
-
-.dark-hairline {
-  width: 100%;
-  height: 1px;
-  background-color: rgba(212, 208, 201, 0.15);
-}
-
-/* Layout del contenido principal */
-.dark-player-content {
+/* --- HEADER DEL REPRODUCTOR --- */
+.player-header {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 1.2rem;
 }
 
-.dark-player-cover {
-  width: 70px;
-  height: 70px;
+.player-album-art {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
   object-fit: cover;
-  border-radius: 2px;
-  filter: grayscale(20%) contrast(120%); /* Le da un toque crudo a la portada */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.dark-player-info {
+.player-details {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.dark-player-title {
+.song-title {
+  font-family: 'Times New Roman', Times, serif;
   font-size: 1.1rem;
-  font-weight: 400;
-  color: #d4d0c9;
-  margin: 0 0 5px 0;
+  color: #333;
+  margin: 0 0 4px 0;
+  letter-spacing: 1px;
+}
+
+.song-artist {
+  font-family: Arial, sans-serif;
+  font-size: 0.7rem;
+  color: #777;
   text-transform: uppercase;
   letter-spacing: 2px;
+  margin: 0 0 10px 0;
 }
 
-.dark-player-artist {
-  font-size: 0.85rem;
-  color: #888888;
-  margin: 0 0 15px 0;
-  font-style: italic;
-}
-
-/* Barra de progreso minimalista */
-.dark-progress-container {
+.progress-bar-bg {
   width: 100%;
+  height: 4px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  cursor: pointer;
 }
 
-.dark-progress-bg {
-  width: 100%;
-  height: 2px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 1px;
-}
-
-.dark-progress-fill {
+.progress-bar-active {
   height: 100%;
-  background-color: #d4d0c9; /* Color claro para contrastar con la oscuridad */
+  border-radius: 2px;
   transition: width 0.1s linear;
 }
 
-/* Botón de Play/Pause */
-.dark-play-btn {
-  background: none;
-  border: 1px solid rgba(212, 208, 201, 0.3);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-}
-
-.dark-play-btn:hover {
-  border-color: #d4d0c9;
-  background-color: rgba(212, 208, 201, 0.05);
-}
-
-.dark-icon {
-  width: 18px;
-  height: 18px;
-  fill: #d4d0c9;
-}
-
-.play-adjust {
-  margin-left: 3px; /* Centra visualmente el triángulo de play */
-}
-
-/* Mensaje Final */
-.dark-completion-message {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.dark-completion-text {
-  font-family: 'Shelley Allegro Script', 'Pinyon Script', cursive;
-  font-size: 1.5rem;
-  color: #d4d0c9;
-  margin-bottom: 20px;
-}
-
-.dark-continue-btn {
+.clean-play-btn {
   background: none;
   border: none;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #888888;
+  font-size: 2rem;
   cursor: pointer;
-  transition: color 0.3s ease;
+  padding: 0;
+  transition: transform 0.2s ease;
 }
 
-.dark-continue-btn:hover {
-  color: #ffffff;
+.clean-play-btn:hover {
+  transform: scale(1.05);
 }
 
-/* Animaciones */
-.slide-up-soft {
-  animation: slideUpSoft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes slideUpSoft {
-  from { transform: translateY(100%); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.fade-in-soft {
-  animation: fadeInSoft 1.5s ease-in-out forwards;
-}
-
-@keyframes fadeInSoft {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Contenedor de Letras Flotantes */
-.dark-lyrics-container {
-  width: 100%;
-  height: 250px;
-  overflow-y: auto; /* Permite el scroll interno */
-  overflow-x: hidden;
-  margin-bottom: 30px;
-  position: relative;
-  /* Esto crea el efecto de sombra/desvanecimiento arriba y abajo */
-  mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
-  /* Ocultar la barra de scroll visualmente */
-  scrollbar-width: none; 
-}
-.dark-lyrics-container::-webkit-scrollbar {
-  display: none;
-}
-
-.dark-lyrics-content {
-  /* Espacio extra arriba y abajo para que el scroll tenga holgura */
-  padding: 110px 0; 
+/* --- DISPLAY DE LETRAS --- */
+.lyrics-display {
+  height: 120px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  mask-image: linear-gradient(transparent, black 25%, black 75%, transparent);
+  -webkit-mask-image: linear-gradient(transparent, black 25%, black 75%, transparent);
 }
 
-/* Letra Inactiva (Apagada) */
-.dark-lyric-line {
+.lyric-text {
   font-family: 'Times New Roman', Times, serif;
-  font-size: 1.1rem;
-  color: #555555; 
-  margin: 18px 0;
-  line-height: 1.5;
-  font-weight: 300;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  font-size: 1rem;
+  margin: 8px 0;
   transition: all 0.4s ease;
-  opacity: 0.4;
+  opacity: 0;
+  transform: translateY(10px);
+  position: absolute;
 }
 
-/* Letra Activa (Iluminada y grande) */
-.dark-lyric-line.active {
-  color: #ffffff;
+.lyric-text.active {
   opacity: 1;
-  transform: scale(1.05); /* Crece un poquito */
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.15); /* Resplandor sutil */
+  transform: translateY(0);
+  font-size: 1.2rem;
+  position: relative;
+}
+
+/* --- MENSAJE FINAL --- */
+.end-chapter-section {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.end-chapter-text {
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.continue-btn {
+  background: none;
+  border: none;
+  border-bottom: 1px solid;
+  padding-bottom: 4px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.continue-btn:hover {
+  opacity: 0.7;
+}
+
+/* --- ANIMACIONES --- */
+.fade-in {
+  animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
