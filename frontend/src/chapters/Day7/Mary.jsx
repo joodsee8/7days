@@ -1,144 +1,138 @@
-import React, { useState, useEffect, useRef } from 'react';
-import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
-// import Polaroid from '../../components/Polaroid/Polaroid';
-import './Ribs.css'; 
+import React, { useState, useEffect } from 'react';
+import './Mary.css';
+import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
+import coverImg from '../../assets/images/femme.jpg'
+import audioFile from '../../assets/music/Mary.mp3'
 
-// Importa tus recursos directamente
-import ribsCover from '../../assets/images/ribs-cover.jpg'; 
-import ribsAudio from '../../assets/music/ribs.mp3'; 
-// import friendsPhoto from '../../assets/images/polaroid-dia2.jpg'; // Reemplaza con tu foto
+const letterParagraphs = [
+  "Veinte años.",
+  //"Llegar a tu segunda década de vida no es cualquier cosa, Montse. Es un hito enorme: el final de una etapa y el comienzo de otra completamente distinta. Y mientras pensaba en la magnitud de lo que vas a celebrar este 7 de agosto, me di cuenta de algo: un solo día simplemente no era suficiente.",
+  //"De esos veinte años que hoy cumples, he tenido el inmenso privilegio de acompañarte en ocho. Desde la secundaria me has visto crecer, cambiar y atravesar un montón de versiones de mí mismo.",
+  //"Seguro recuerdas que hubo una época en la que las cosas simplemente no salieron como yo esperaba. No fue el fin del mundo, pero sí una etapa en la que sentí que todo empezó a perder color. Y cuando eso pasó, tú decidiste quedarte cerca para asegurarte de que yo no me perdiera por completo.",
+  //"Hay una canción de Lana Del Rey llamada Blue Banisters. En ella, Lana cuenta cómo cada mes de mayo sus “hermanas” vuelan hacia ella para ayudarle a pintar sus barandales. Nunca he sabido exactamente qué significan esos colores para ella. Pero cuando escucho esa parte, para mí el mes cambia. Para mí ya no es mayo.",
+  //"Para mí es abril.",
+  //"Porque cada abril, cuando llegaba mi cumpleaños, tú aparecías para sacarme de ese espacio mental en el que a veces me encerraba. Sin darte cuenta, llegabas con pintura fresca para ayudarme a reparar lo que se sentía roto, a devolverle color a esos barandales que yo veía completamente azules, hasta que poco a poco ese lugar volvía a sentirse como un hogar.",
+  //"Y fue entonces cuando entendí algo.",
+  //"Hay personas que llegan a tu vida y la cambian sin hacer ruido. No porque resuelvan tus problemas, sino porque hacen que enfrentarlos deje de sentirse tan solitario. Tú has sido una de esas personas para mí.",
+  //"Por eso este proyecto existe.",
+  // "Porque alguien que ha significado tanto para mí merece mucho más que un “feliz cumpleaños” enviado a medianoche. Durante los próximos siete días quiero regalarte siete cartas escondidas dentro de siete canciones. Cada una habla de una parte distinta de nuestra historia, de algo que admiro de ti o de algo que nunca había encontrado la manera de decir.",
+  // "Y no podía empezar con otra canción que no fuera esta."
+];
 
-const Ribs = ({ onGoToNext }) => {
-  // Estados para la escritura párrafo por párrafo (Estructura Blue Banisters)
+const songLrc = `[00:09.517] (Siempre tienes la razón)
+[00:14.304]
+[00:22.235] (Tu...)
+[00:27.223] (No existe como tú quien entienda)
+[00:35.184] Qué grande que es tu corazón
+[00:40.819] Tu sonrisa es una fiesta
+[00:46.116] Amiga, eres mi gran amor
+[00:51.183] No existe como tú quién me entienda
+[00:58.353] Qué fortuna ha sido coincidir
+[01:05.413] Siempre nos vamos a cuidar
+[01:10.876] No puedo imaginar esta vida sin ti
+[01:17.063] Te mereces ser feliz
+[01:22.558] El mundo entero navegar
+[01:27.981] Si pudiera, te doy un órgano vital
+[01:35.081] Tienes que vivir, mi bella Mary
+[01:41.011]
+[01:55.514] Qué fortuna ha sido coincidir
+[02:02.066] Siempre nos vamos a cuidar
+[02:07.749] No quiero imaginar la vida sin ti
+[02:14.053] Te mereces ser feliz
+[02:19.949] El mundo entero navegar
+[02:24.975] Si pudiera, te doy un órgano vital
+[02:32.072] Tienes que vivir, mi bella Mary`;
+
+const Mary = () => {
   const [completedParagraphs, setCompletedParagraphs] = useState([]);
-  const [currentText, setCurrentText] = useState('');
+  const [currentTypingText, setCurrentTypingText] = useState('');
   const [paragraphIndex, setParagraphIndex] = useState(0);
-  
-  // Estados de la interfaz
   const [showButton, setShowButton] = useState(false);
-  const [showPlayer, setShowPlayer] = useState(false);
-  const [showPolaroid, setShowPolaroid] = useState(false);
   
-  const paragraphs = [
-    "Ayer hablamos de los momentos difíciles y de cómo me ayudaste a repararlos. Hoy quiero hablar de algo distinto: el tiempo. Faltan solo cinco días para que cumplas 20 años. Dejar los \"diez y algo\" atrás siempre da un poco de vértigo.",
-    "Nos estamos haciendo mayores, sí. Pero lo estamos haciendo juntos."
-  ];
-
-  const songLyrics = [
-    "The drink you spilt all over me",
-    "Lover's Spit left on repeat",
-    "My mom and dad let me stay home",
-    "It drives you crazy getting old",
-    "We can talk it so good",
-    "We can make it so divine",
-    "We can talk it good",
-    "How you wish it would be all the time",
-    "This dream isn't feeling sweet",
-    "We're reeling through the midnight streets",
-    "And I've never felt more alone",
-    "It feels so scary getting old"
-  ];
-
-  const charIndexRef = useRef(0);
-  const timeoutRef = useRef(null);
-
-  useEffect(() => {
-    // Si ya escribimos todos los párrafos, mostramos el botón tras una pausa
-    if (paragraphIndex >= paragraphs.length) {
-      timeoutRef.current = setTimeout(() => setShowButton(true), 1500);
-      return;
-    }
-
-    const typeChar = () => {
-      const currentParagraph = paragraphs[paragraphIndex];
-
-      if (charIndexRef.current < currentParagraph.length) {
-        setCurrentText((prev) => prev + currentParagraph.charAt(charIndexRef.current));
-        charIndexRef.current++;
-        
-        const char = currentParagraph.charAt(charIndexRef.current - 1);
-        let delay = 25; 
-        if (char === '.' || char === ',') delay = 300; 
-
-        // Variación humana para que no se sienta robótico
-        const humanVariance = Math.floor(Math.random() * 30) - 15;
-        timeoutRef.current = setTimeout(typeChar, delay + humanVariance);
-      } else {
-        // Párrafo completado: lo guardamos y avanzamos al siguiente
-        setCompletedParagraphs((prev) => [...prev, currentParagraph]);
-        setCurrentText('');
-        setParagraphIndex((prev) => prev + 1);
-        charIndexRef.current = 0;
-      }
-    };
-
-    // Pequeña pausa antes de iniciar cada párrafo para que la carta "respire"
-    timeoutRef.current = setTimeout(typeChar, 400);
-
-    return () => clearTimeout(timeoutRef.current);
-  }, [paragraphIndex]);
-
-  const handleRevealPlayer = () => {
-    setShowButton(false);
-    setShowPlayer(true);
-  };
+  // NUEVO ESTADO: Controla si se muestra el reproductor de música
+  const [showPlayer, setShowPlayer] = useState(false);
 
   const handleClosePlayer = () => {
     setShowPlayer(false);
     setShowPolaroid(true);
   };
 
+  useEffect(() => {
+    if (paragraphIndex < letterParagraphs.length) {
+      const fullText = letterParagraphs[paragraphIndex];
+      
+      if (currentTypingText.length < fullText.length) {
+        const timeout = setTimeout(() => {
+          setCurrentTypingText(fullText.slice(0, currentTypingText.length + 1));
+        }, 20);
+        return () => clearTimeout(timeout);
+      } else {
+        const timeout = setTimeout(() => {
+          setCompletedParagraphs(prev => [...prev, fullText]);
+          setCurrentTypingText('');
+          setParagraphIndex(prev => prev + 1);
+        }, 600);
+        return () => clearTimeout(timeout);
+      }
+    } else {
+      setTimeout(() => setShowButton(true), 1500);
+    }
+  }, [currentTypingText, paragraphIndex]);
+
+  // Función que se ejecuta al tocar "Escuchar canción"
+  const handleRevealPlayer = () => {
+    setShowButton(false); // Ocultamos el botón
+    setShowPlayer(true);  // Mostramos el reproductor
+  };
+
+  // Función puente (placeholder por ahora) para cuando termine la canción
+  const handleContinueToDay2 = () => {
+    console.log("Aquí conectaremos con el Día 2");
+  };
+
   return (
-    <div className="day2-container fade-in-soft">
-      <div className="day2-content">
-        <h2 className="day2-title">2 de Agosto — Capítulo II: El miedo a crecer</h2>
+    <div className="chapter-light-container fade-in-chapter">
+      <div className="letter-content-mobile">
         
-        <div className="day2-letter">
-          {/* Renderizamos los párrafos terminados */}
-          {completedParagraphs.map((text, idx) => (
-            <p key={idx} className="day2-paragraph fade-in-soft">{text}</p>
+        <div className="letra-cursiva-oscura">
+          {completedParagraphs.map((text, index) => (
+            <p key={index}>{text}</p>
           ))}
-          {/* Renderizamos el párrafo que se está escribiendo en vivo */}
-          {paragraphIndex < paragraphs.length && (
-            <p className="day2-paragraph">
-              {currentText}
-              <span className="cursor-blink">|</span>
+          
+          {paragraphIndex < letterParagraphs.length && (
+            <p className="typing-paragraph">
+              {currentTypingText}
+              <span className="blinking-cursor">|</span>
             </p>
           )}
         </div>
+        
+        <div className="espacio-vacio"></div>
 
-        {showButton && (
-          <div className="subtle-button-container fade-in-soft">
-            <button className="subtle-text-button" onClick={handleRevealPlayer}>
+        {/* El Botón Sutil - Solo se muestra si el reproductor AÚN NO está visible */}
+        {showButton && !showPlayer && (
+          <div className="sutil-action-container fade-in-button">
+            <span className="sutil-button-dark" onClick={handleRevealPlayer}>
               Escuchar canción
-            </button>
+            </span>
           </div>
         )}
 
-        {/* Reproductor Oscuro con Letras */}
+        {/* El Reproductor de Música - Aparece cuando se oculta el botón */}
         {showPlayer && (
-          <MusicPlayer 
-            title="Ribs"
-            artist="Lorde"
-            cover={ribsCover}
-            audioSrc={ribsAudio}
-            lyrics={songLyrics}
-            onComplete={handleClosePlayer} 
-          />
-        )}
+    <MusicPlayer 
+      title="Mary"
+      artist="Mon Laferte"
+      cover={coverImg}
+      audioSrc={audioFile}
+      rawLrc={songLrc} 
+      onComplete={handleClosePlayer} 
+    />
+  )}
 
-        {/* Sorpresa Polaroid al cerrar la canción */}
-        {showPolaroid && (
-          <Polaroid 
-            imageSrc={friendsPhoto}
-            message="Crecer a tu lado ha sido mi parte favorita. ¡Casi 20!"
-            friendName="Un amigo incondicional"
-            onSaveMemory={onGoToNext} 
-          />
-        )}
       </div>
     </div>
   );
 };
 
-export default Ribs;
+export default Mary;
