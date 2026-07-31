@@ -2,10 +2,10 @@
 
 .music-player-dark {
   width: 100%;
-  max-width: 100%; /* Evita que rompa pantallas en móviles */
+  max-width: 100%; 
   margin: 3rem 0;
   padding: 1.5rem;
-  box-sizing: border-box; /* Crucial para iPhone */
+  box-sizing: border-box; 
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   display: flex;
@@ -36,7 +36,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden; /* Evita que textos largos rompan el flex */
+  overflow: hidden; 
 }
 
 .song-title {
@@ -87,40 +87,41 @@
   transform: scale(1.05);
 }
 
-/* --- CARRETE DE LETRAS (REEL) --- */
+/* --- CARRETE DE LETRAS (MULTILÍNEA INTELIGENTE) --- */
 .lyrics-reel {
-  height: 140px; /* Muestra aprox 4-5 líneas */
+  height: 160px; /* Un poco más alto para acomodar frases largas */
   width: 100%;
-  overflow: hidden;
+  overflow-y: auto; /* Permite el scroll interno */
   position: relative;
-  /* El degradado superior e inferior para que se desvanezcan */
-  mask-image: linear-gradient(transparent, black 25%, black 75%, transparent);
-  -webkit-mask-image: linear-gradient(transparent, black 25%, black 75%, transparent);
+  padding: 60px 0; /* Espacio crítico para que la primera y última frase puedan centrarse */
+  mask-image: linear-gradient(transparent, black 20%, black 80%, transparent);
+  -webkit-mask-image: linear-gradient(transparent, black 20%, black 80%, transparent);
+  
+  /* Ocultar barra de scroll en distintos navegadores */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.lyrics-track {
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+.lyrics-reel::-webkit-scrollbar {
+  display: none;
 }
 
 .lyric-line {
-  height: 35px; /* Debe coincidir con la constante ITEM_HEIGHT de JSX */
-  line-height: 35px;
   font-family: 'Times New Roman', Times, serif;
   font-size: 0.95rem;
   text-align: center;
   transition: all 0.4s ease;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-transform: uppercase; /* Todo en mayúsculas siempre */
+  padding: 6px 10px; /* Separación vertical entre frases */
+  line-height: 1.4;
+  word-wrap: break-word; /* Permite que el texto baje a la siguiente línea */
 }
 
 .lyric-line.active {
   font-size: 1.15rem;
   font-weight: bold;
-  text-transform: uppercase;
   letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.4); /* Resplandor al iluminarse */
 }
 
 /* --- MENSAJE FINAL --- */
@@ -135,6 +136,7 @@
   font-style: italic;
   margin-bottom: 1rem;
   opacity: 0.8;
+  text-transform: none; /* Que el texto final no sea mayúsculas si no quieres */
 }
 
 .continue-btn {

@@ -7,12 +7,13 @@ const MusicPlayer = ({
   cover, 
   audioSrc, 
   lyrics, 
-  bgColor = "#462d2c", // Caoba hermoso
-  textColor = "#f5e6d9", // Crema
-  accentColor = "#8aa8c4", // Azul polvoso para la barra
+  bgColor = "#462d2c", 
+  textColor = "#f5e6d9", 
+  accentColor = "#8aa8c4", 
   onClose 
 }) => {
   const audioRef = useRef(null);
+  const lyricsContainerRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [parsedLyrics, setParsedLyrics] = useState([]);
@@ -35,6 +36,18 @@ const MusicPlayer = ({
     }
   }, [lyrics]);
 
+  // Hacer scroll automático centrando la frase (incluso si ocupa varias líneas)
+  useEffect(() => {
+    if (lyricsContainerRef.current && currentLineIndex >= 0) {
+      const container = lyricsContainerRef.current;
+      const activeElement = container.children[currentLineIndex];
+      if (activeElement) {
+        const offsetTop = activeElement.offsetTop - (container.clientHeight / 2) + (activeElement.clientHeight / 2);
+        container.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      }
+    }
+  }, [currentLineIndex]);
+
   const togglePlay = () => {
     if (isPlaying) {
       audioRef.current.pause();
@@ -49,7 +62,6 @@ const MusicPlayer = ({
     const duration = audioRef.current.duration || 1;
     setProgress((current / duration) * 100);
 
-    // Encontrar la línea activa actual
     const activeIndex = parsedLyrics.findIndex((line, index) => {
       const nextLine = parsedLyrics[index + 1];
       return current >= line.time && (!nextLine || current < nextLine.time);
@@ -71,10 +83,6 @@ const MusicPlayer = ({
     audioRef.current.currentTime = percentage * audioRef.current.duration;
   };
 
-  // Cálculo para centrar el texto activo en el carrete (asumiendo ~35px por línea)
-  const ITEM_HEIGHT = 35; 
-  const trackOffset = (ITEM_HEIGHT * 2) - (currentLineIndex * ITEM_HEIGHT);
-
   return (
     <div className="music-player-dark fade-in" style={{ backgroundColor: bgColor, color: textColor }}>
       
@@ -94,7 +102,6 @@ const MusicPlayer = ({
           </div>
         </div>
 
-        {/* Íconos SVG puros, nada de emojis */}
         <button 
           className="svg-play-btn" 
           onClick={togglePlay} 
@@ -113,25 +120,20 @@ const MusicPlayer = ({
         </button>
       </div>
 
-      {/* Carrete de Letras (Efecto Teleprompter) */}
-      <div className="lyrics-reel">
-        <div 
-          className="lyrics-track" 
-          style={{ transform: `translateY(${trackOffset}px)` }}
-        >
-          {parsedLyrics.map((line, index) => (
-            <div 
-              key={index} 
-              className={`lyric-line ${index === currentLineIndex ? 'active' : ''}`}
-              style={{ 
-                color: index === currentLineIndex ? textColor : textColor,
-                opacity: index === currentLineIndex ? 1 : 0.3
-              }}
-            >
-              {line.text}
-            </div>
-          ))}
-        </div>
+      {/* Carrete de Letras (Scroll Dinámico) */}
+      <div className="lyrics-reel" ref={lyricsContainerRef}>
+        {parsedLyrics.map((line, index) => (
+          <div 
+            key={index} 
+            className={`lyric-line ${index === currentLineIndex ? 'active' : ''}`}
+            style={{ 
+              color: index === currentLineIndex ? "#ffffff" : textColor, /* Blanco iluminado al activarse */
+              opacity: index === currentLineIndex ? 1 : 0.15 /* Resto casi transparente */
+            }}
+          >
+            {line.text}
+          </div>
+        ))}
       </div>
 
       {/* Mensaje Final */}
