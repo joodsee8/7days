@@ -9,21 +9,22 @@ import audioFile from '../../assets/music/ribs.mp3';
 
 
 const letterParagraphs = [
-“Hay algo extraño en crecer”,
-“Pasamos años deseando ser mayores, imaginando todo lo que podremos hacer cuando llegue el momento, pero cuando finalmente empezamos a crecer, descubrimos que también da miedo.”,
-“De pronto, las cosas cambian, nosotros cambiamos, las personas toman caminos distintos y los momentos que parecían eternos comienzan a convertirse en recuerdos.”,
-“A veces me gustaría poder volver a la forma en la que pensábamos antes, recuperar esa sensación de que teníamos todo el tiempo del mundo, de que la vida todavía estaba lejos y de que nada importante podía terminar.”,
-“Creo que eso es parte de lo que Ribs intenta expresar: el miedo de mirar hacia adelante y no saber qué pasará con todo lo que hoy sentimos tan nuestro.”,
-“Pero también creo que crecer se vuelve diferente cuando tienes a alguien especial caminando contigo.”,
-“Porque quizá no podemos detener el tiempo, no podemos quedarnos para siempre en la misma etapa ni hacer que las cosas permanezcan exactamente como son, pero podemos seguir creando recuerdos mientras avanzamos.”,
-“Podemos reírnos de cosas que probablemente nadie más entendería, podemos hablar durante horas, compartir momentos simples y hacer que una etapa complicada se sienta un poco más ligera.”,
-“Hay una parte de la canción que dice que esa persona es la única amistad que necesita, no lo interpreto de forma literal, no significa que no existan otras personas importantes ni que una amistad tenga que ocupar todos los espacios.”,
-“Para mí significa algo más sencillo:”,
-“Si algún día todo cambiara, si las personas se alejaran y terminara sintiéndome solo, saber que todavía te tengo sería suficiente.”,
-“Porque después de siete años, eres una de esas personas con las que puedo imaginarme atravesando las etapas que todavía no conocemos.”,
-“No sé cómo será nuestra vida dentro de algunos años,no sé cuánto cambiará todo ni qué versiones de nosotros existirán entonces, pero me gusta pensar que, cuando miremos hacia atrás, seguiremos teniendo historias que recordar y motivos para reírnos.”,
-“Quizá todos tenemos miedo de crecer, pero si tengo que hacerlo, me alegra que tú hayas estado conmigo durante una parte tan grande del camino. “,
+  "Hay algo extraño en crecer.",
+  "Pasamos años deseando ser mayores, imaginando todo lo que podremos hacer cuando llegue el momento, pero cuando finalmente empezamos a crecer, descubrimos que también da miedo.",
+  "De pronto, las cosas cambian, nosotros cambiamos, las personas toman caminos distintos y los momentos que parecían eternos comienzan a convertirse en recuerdos.",
+  "A veces me gustaría poder volver a la forma en la que pensábamos antes, recuperar esa sensación de que teníamos todo el tiempo del mundo, de que la vida todavía estaba lejos y de que nada importante podía terminar.",
+  "Creo que eso es parte de lo que Ribs intenta expresar: el miedo de mirar hacia adelante y no saber qué pasará con todo lo que hoy sentimos tan nuestro.",
+  "Pero también creo que crecer se vuelve diferente cuando tienes a alguien especial caminando contigo.",
+  "Porque quizá no podemos detener el tiempo, no podemos quedarnos para siempre en la misma etapa ni hacer que las cosas permanezcan exactamente como son, pero podemos seguir creando recuerdos mientras avanzamos.",
+  "Podemos reírnos de cosas que probablemente nadie más entendería, podemos hablar durante horas, compartir momentos simples y hacer que una etapa complicada se sienta un poco más ligera.",
+  "Hay una parte de la canción que dice que esa persona es la única amistad que necesita, no lo interpreto de forma literal, no significa que no existan otras personas importantes ni que una amistad tenga que ocupar todos los espacios.",
+  "Para mí significa algo más sencillo:",
+  "Si algún día todo cambiara, si las personas se alejaran y terminara sintiéndome solo, saber que todavía te tengo sería suficiente.",
+  "Porque después de siete años, eres una de esas personas con las que puedo imaginarme atravesando las etapas que todavía no conocemos.",
+  "No sé cómo será nuestra vida dentro de algunos años, no sé cuánto cambiará todo ni qué versiones de nosotros existirán entonces, pero me gusta pensar que, cuando miremos hacia atrás, seguiremos teniendo historias que recordar y motivos para reírnos.",
+  "Quizá todos tenemos miedo de crecer, pero si tengo que hacerlo, me alegra que tú hayas estado conmigo durante una parte tan grande del camino."
 ];
+
 
 const songLrc = `
 [00:00.000] ...
