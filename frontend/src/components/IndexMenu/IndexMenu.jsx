@@ -9,7 +9,7 @@ const IndexMenu = () => {
   // Función inteligente para checar si ya es la fecha
   const checkUnlocked = (dayNumber) => {
     const today = new Date();
-    Mes 7 = Agosto. Se desbloquea a la medianoche (00:00:00) de ese día.
+    // Mes 7 = Agosto. Se desbloquea a la medianoche (00:00:00) de ese día.
     const releaseDate = new Date(2026, 7, dayNumber); 
     
     // Si la fecha de hoy es mayor o igual a la de liberación, retorna true
