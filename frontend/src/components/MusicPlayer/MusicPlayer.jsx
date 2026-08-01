@@ -154,7 +154,7 @@ const MusicPlayer = ({
       {/* Mensaje Final */}
       {showEndMessage && (
         <div className="end-chapter-section fade-in" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
-          <p className="end-chapter-text">La canción ha terminado.</p>
+          <p className="end-chapter-text">Espero qye te haya gustado, gracias por estar siempre para mí.</p>
           <button 
             className="continue-btn" 
             onClick={onClose} 
