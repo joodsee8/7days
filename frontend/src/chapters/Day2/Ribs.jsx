@@ -127,7 +127,7 @@ const Ribs = () => {
       {/* Contenido de la Carta */}
       <div className="letter-content-mobile">
         {completedParagraphs.map((text, index) => (
-          <p key={index} className="letra-cursiva-oscura fade-in-chapter">
+          <p key={index} className="letra-cursiva-oscura">
             {text}
           </p>
         ))}
