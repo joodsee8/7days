@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Ribs.css';
-import MusicPlayer2 from '../../components/MusicPlayer/MusicPlayer2';
+import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
 import Polaroid from '../../components/Polaroid/Polaroid';
 
 // Asegúrate de que las rutas a tus imágenes y audio sean correctas
@@ -135,13 +135,15 @@ const Ribs = () => {
 
       {/* Reproductor de Música */}
       {showPlayer && (
-        <MusicPlayer2
-          title="Blue Banisters"
-          artist="Lana Del Rey"
+        <MusicPlayer
+          title="Ribs"
+          artist="Lorde"
           cover={coverImg}
           audioSrc={audioFile}
           lyrics={songLrc}
-          accentColor="#5A6B7C" /* Color frío asignado a este día */
+          accentColor="#aaaaaa" /* Color frío asignado a este día */
+          bgColor = "#222121"
+          textColor = "#f5e6d9"
           onClose={handleClosePlayer}
         />
       )}
