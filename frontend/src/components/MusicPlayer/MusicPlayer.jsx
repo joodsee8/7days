@@ -26,9 +26,20 @@ const MusicPlayer = ({
       const lines = lyrics.split('\n');
       const parsed = lines.map(line => {
         const match = line.match(/\[(\d{2}):(\d{2})\.(\d{2,3})\](.*)/);
+        
         if (match) {
+          // 1. AQUÍ DEFINIMOS EL TIEMPO
           const time = parseInt(match[1]) * 60 + parseInt(match[2]) + parseInt(match[3]) / 1000;
-          return { time, text: match[4].trim() };
+          
+          // 2. SEPARAMOS EL INGLÉS DEL ESPAÑOL
+          const [originalText, translatedText] = match[4].split('|');
+
+          // 3. REGRESAMOS TODO ARMADO
+          return { 
+            time, 
+            text: originalText.trim(), 
+            translation: translatedText ? translatedText.trim() : null 
+          };
         }
         return null;
       }).filter(item => item !== null && item.text !== '');
@@ -123,17 +134,21 @@ const MusicPlayer = ({
       {/* Carrete de Letras (Scroll Dinámico) */}
       <div className="lyrics-reel" ref={lyricsContainerRef}>
         {parsedLyrics.map((line, index) => (
-          <div 
-            key={index} 
-            className={`lyric-line ${index === currentLineIndex ? 'active' : ''}`}
-            style={{ 
-              color: index === currentLineIndex ? "#ffffff" : textColor, /* Blanco iluminado al activarse */
-              opacity: index === currentLineIndex ? 1 : 0.15 /* Resto casi transparente */
-            }}
-          >
-            {line.text}
-          </div>
-        ))}
+  <div 
+    key={index} 
+    className={`lyric-line ${index === currentLineIndex ? 'active' : ''}`}
+    style={{ 
+      color: index === currentLineIndex ? "#ffffff" : textColor,
+      opacity: index === currentLineIndex ? 1 : 0.15
+    }}
+  >
+    <div className="lyric-original">{line.text}</div>
+    {/* Si hay traducción, la imprimimos debajo */}
+    {line.translation && (
+      <div className="lyric-translation">{line.translation}</div>
+    )}
+  </div>
+))}
       </div>
 
       {/* Mensaje Final */}
@@ -153,7 +168,6 @@ const MusicPlayer = ({
       <audio 
         ref={audioRef} 
         src={audioSrc} 
-        controls={true}
         onTimeUpdate={handleTimeUpdate} 
         onEnded={handleEnded}
       />
