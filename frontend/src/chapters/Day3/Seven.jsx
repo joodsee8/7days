@@ -184,12 +184,18 @@ const Seven = () => {
               imageSrc={polaroidImg}
               message="..."
               friendName="pendiente"
+              onSaveMemory={() =>
+                handleSaveMemory(polaroidImg, 'Polaroid3.jpg')
+              }
             />
 
             <Polaroid
               imageSrc={polaroidImg2}
               message="..."
               friendName="Pendiente"
+              onSaveMemory={() =>
+                handleSaveMemory(polaroidImg2, 'Polaroid4.jpg')
+              }
             />
 
             {/* Botón de cierre para regresar al índice */}
