@@ -173,6 +173,7 @@ const Seven = () => {
               Guardar recuerdo
             </span>
           </div>
+          </div>
         </div>
       )}
     </div>
