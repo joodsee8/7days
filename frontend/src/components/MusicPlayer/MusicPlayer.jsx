@@ -7,6 +7,7 @@ const MusicPlayer = ({
   cover, 
   audioSrc, 
   lyrics, 
+  endText,
   bgColor = "#462d2c", 
   textColor = "#f5e6d9", 
   accentColor = "#8aa8c4", 
@@ -154,7 +155,7 @@ const MusicPlayer = ({
       {/* Mensaje Final */}
       {showEndMessage && (
         <div className="end-chapter-section fade-in" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
-          <p className="end-chapter-text">Espero que te haya gustado, gracias por estar siempre para mí.</p>
+          <p className="end-chapter-text">{finalText}</p>
           <button 
             className="continue-btn" 
             onClick={onClose} 
