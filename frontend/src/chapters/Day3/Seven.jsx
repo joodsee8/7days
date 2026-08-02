@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Seven.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
-import coverImg from '../../assets/images/folklore.jpg'
-import audioFile from '../../assets/music/Seven.mp3'
-import polaroidImg from '../../assets/images/Polaroid3.jpg'
-import polaroidImg2 from '../../assets/images/Polaroid4.jpg'
+import Polaroid from '../../components/Polaroid/Polaroid';
+import coverImg from '../../assets/images/folklore.jpg';
+import audioFile from '../../assets/music/Seven.mp3';
+import polaroidImg from '../../assets/images/Polaroid3.jpg';
+import polaroidImg2 from '../../assets/images/Polaroid4.jpg';
 
 const letterParagraphs = [
   "Veinte años.",
@@ -16,7 +17,6 @@ const letterParagraphs = [
   //"Porque cada abril, cuando llegaba mi cumpleaños, tú aparecías para sacarme de ese espacio mental en el que a veces me encerraba. Sin darte cuenta, llegabas con pintura fresca para ayudarme a reparar lo que se sentía roto, a devolverle color a esos barandales que yo veía completamente azules, hasta que poco a poco ese lugar volvía a sentirse como un hogar.",
   //"Y fue entonces cuando entendí algo.",
   //"Hay personas que llegan a tu vida y la cambian sin hacer ruido. No porque resuelvan tus problemas, sino porque hacen que enfrentarlos deje de sentirse tan solitario. Tú has sido una de esas personas para mí.",
-  //"Por eso este proyecto existe.",
   // "Porque alguien que ha significado tanto para mí merece mucho más que un “feliz cumpleaños” enviado a medianoche. Durante los próximos siete días quiero regalarte siete cartas escondidas dentro de siete canciones. Cada una habla de una parte distinta de nuestra historia, de algo que admiro de ti o de algo que nunca había encontrado la manera de decir.",
   // "Y no podía empezar con otra canción que no fuera esta."
 ];
@@ -68,9 +68,12 @@ const Seven = () => {
   const [currentTypingText, setCurrentTypingText] = useState('');
   const [paragraphIndex, setParagraphIndex] = useState(0);
   const [showButton, setShowButton] = useState(false);
-  
+
   // NUEVO ESTADO: Controla si se muestra el reproductor de música
   const [showPlayer, setShowPlayer] = useState(false);
+
+  // Controla si se muestran las polaroids
+  const [showPolaroid, setShowPolaroid] = useState(false);
 
   const handleClosePlayer = () => {
     setShowPlayer(false);
@@ -80,11 +83,14 @@ const Seven = () => {
   useEffect(() => {
     if (paragraphIndex < letterParagraphs.length) {
       const fullText = letterParagraphs[paragraphIndex];
-      
+
       if (currentTypingText.length < fullText.length) {
         const timeout = setTimeout(() => {
-          setCurrentTypingText(fullText.slice(0, currentTypingText.length + 1));
+          setCurrentTypingText(
+            fullText.slice(0, currentTypingText.length + 1)
+          );
         }, 20);
+
         return () => clearTimeout(timeout);
       } else {
         const timeout = setTimeout(() => {
@@ -92,17 +98,22 @@ const Seven = () => {
           setCurrentTypingText('');
           setParagraphIndex(prev => prev + 1);
         }, 600);
+
         return () => clearTimeout(timeout);
       }
     } else {
-      setTimeout(() => setShowButton(true), 1500);
+      const timeout = setTimeout(() => {
+        setShowButton(true);
+      }, 1500);
+
+      return () => clearTimeout(timeout);
     }
   }, [currentTypingText, paragraphIndex]);
 
   // Función que se ejecuta al tocar "Escuchar canción"
   const handleRevealPlayer = () => {
     setShowButton(false); // Ocultamos el botón
-    setShowPlayer(true);  // Mostramos el reproductor
+    setShowPlayer(true); // Mostramos el reproductor
   };
 
   // Función puente (placeholder por ahora) para cuando termine la canción
@@ -113,12 +124,12 @@ const Seven = () => {
   return (
     <div className="chapter-light-container fade-in-chapter">
       <div className="letter-content-mobile">
-        
+
         <div className="letra-cursiva-oscura">
           {completedParagraphs.map((text, index) => (
             <p key={index}>{text}</p>
           ))}
-          
+
           {paragraphIndex < letterParagraphs.length && (
             <p className="typing-paragraph">
               {currentTypingText}
@@ -126,54 +137,67 @@ const Seven = () => {
             </p>
           )}
         </div>
-        
+
         <div className="espacio-vacio"></div>
 
         {/* El Botón Sutil - Solo se muestra si el reproductor AÚN NO está visible */}
         {showButton && !showPlayer && (
           <div className="sutil-action-container fade-in-button">
-            <span className="sutil-button-dark" onClick={handleRevealPlayer}>
+            <span
+              className="sutil-button-dark"
+              onClick={handleRevealPlayer}
+            >
               Escuchar canción
             </span>
           </div>
         )}
 
         {/* Reproductor de Música */}
-      {showPlayer && (
-        <MusicPlayer
-          title="Ribs"
-          artist="Lorde"
-          cover={coverImg}
-          audioSrc={audioFile}
-          lyrics={songLrc}
-          endText="Puede que no podamos traducir literalmente una canción y esperar que transmita la misma emoción, creo que fue una idea un poco mala empezar el proyecto con canciones en inglés... pero bueno, nos vemos mañana :D"
-          accentColor="#C7C1BC" /* Color frío asignado a este día */
-          bgColor = "#616161"
-          textColor = "#E5e5e5"
-          onClose={handleClosePlayer}
-        />
-      )}
-
-      {/* Polaroids Finales */}
-      {showPolaroid && (
-        <div className="polaroids-section fade-in-chapter">
-          <Polaroid 
-            imageSrc={polaroidImg}
-            message="..." 
-            friendName="pendiente" 
+        {showPlayer && (
+          <MusicPlayer
+            title="Ribs"
+            artist="Lorde"
+            cover={coverImg}
+            audioSrc={audioFile}
+            lyrics={songLrc}
+            endText="Puede que no podamos traducir literalmente una canción y esperar que transmita la misma emoción, creo que fue una idea un poco mala empezar el proyecto con canciones en inglés... pero bueno, nos vemos mañana :D"
+            accentColor="#C7C1BC"
+            bgColor="#616161"
+            textColor="#E5E5E5"
+            onClose={handleClosePlayer}
           />
+        )}
+
+        {/* Polaroids Finales */}
+        {showPolaroid && (
           <div className="polaroids-section fade-in-chapter">
+            <Polaroid
+              imageSrc={polaroidImg}
+              message="..."
+              friendName="pendiente"
+            />
+
             <Polaroid
               imageSrc={polaroidImg2}
               message="..."
-              friendName="Pendiente"/>
-          {/* Botón de cierre para regresar al índice */}
-          <div className="sutil-action-container" style={{ marginTop: '3rem' }}>
-             <span className="sutil-button-dark" onClick={() => window.history.back()}>
-              Guardar recuerdo
-            </span>
+              friendName="Pendiente"
+            />
+
+            {/* Botón de cierre para regresar al índice */}
+            <div
+              className="sutil-action-container"
+              style={{ marginTop: '3rem' }}
+            >
+              <span
+                className="sutil-button-dark"
+                onClick={() => window.history.back()}
+              >
+                Guardar recuerdo
+              </span>
+            </div>
           </div>
-        </div>
+        )}
+      </div>
     </div>
   );
 };
