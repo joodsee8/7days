@@ -63,6 +63,15 @@ const songLrc = `[00:01.634] Please picture me
 [02:38.618] Passed down like folk songs
 [02:41.345] Our love lasts so long`;
 
+const handleSaveMemory = (image, fileName) => {
+  const link = document.createElement('a');
+  link.href = image;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
 const Seven = () => {
   const [completedParagraphs, setCompletedParagraphs] = useState([]);
   const [currentTypingText, setCurrentTypingText] = useState('');
