@@ -170,7 +170,7 @@ const Ribs = () => {
           <Polaroid 
             imageSrc="/assets/images/Polaroid2.jpg" 
             message="Montse es la persona que pase lo que pase estará para ti, escuchándote, apoyándote y abrazándote, que haría cualquier cosa por ti, su amistad es de las pocas que quedan sin envidias e hipocresías." 
-            author="Pao" 
+            friendName="Pao" 
           />
           {/* Botón de cierre para regresar al índice */}
           <div className="sutil-action-container" style={{ marginTop: '3rem' }}>
