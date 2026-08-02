@@ -8,26 +8,7 @@ import imageSrc from '../../assets/images/Polaroid1.jpg';
 import coverImg from '../../assets/images/IMG_0105.jpeg';
 import audioFile from '../../assets/music/Blue-Banisters.mp3';
 
-  useEffect(() => {
-    // Validamos que no se envíe el correo cada vez que ella recargue la página
-    if (!localStorage.getItem('notification_sent_day1')) {
-      
-      // Hacemos el ping silencioso a Formspree
-      fetch("https://formspree.io/f/xeeyyoqo", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          alerta: "¡Montse acaba de abrir el Capítulo I: Blue Banisters!",
-          hora: new Date().toLocaleString()
-        })
-      })
-      .then(() => {
-        // Marcamos en SU celular que ya te avisó para no saturar tu correo
-        localStorage.setItem('notification_sent_day1', 'true');
-      })
-      .catch((error) => console.log("Error silencioso:", error));
-    }
-  }, []);
+
 
 
 const letterParagraphs = [
@@ -100,6 +81,27 @@ const BlueBanisters = () => {
   const [showButton, setShowButton] = useState(false);
   const [showPlayer, setShowPlayer] = useState(false);
   const [showPolaroid, setShowPolaroid] = useState(false);
+
+  useEffect(() => {
+    // Validamos que no se envíe el correo cada vez que ella recargue la página
+    if (!localStorage.getItem('notification_sent_day1')) {
+      
+      // Hacemos el ping silencioso a Formspree
+      fetch("https://formspree.io/f/xeeyyoqo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          alerta: "¡Montse acaba de abrir el Capítulo I: Blue Banisters!",
+          hora: new Date().toLocaleString()
+        })
+      })
+      .then(() => {
+        // Marcamos en SU celular que ya te avisó para no saturar tu correo
+        localStorage.setItem('notification_sent_day1', 'true');
+      })
+      .catch((error) => console.log("Error silencioso:", error));
+    }
+  }, []);
 
   // Lógica del Typewriter
   useEffect(() => {
