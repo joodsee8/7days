@@ -152,6 +152,7 @@ const BlueBanisters = () => {
           cover={coverImg}
           audioSrc={audioFile}
           lyrics={songLrc}
+          endText="Espero que te haya gustado, gracias por estar siempre para mí."
           accentColor="#5A6B7C" /* Color frío asignado a este día */
           onClose={handleClosePlayer}
         />
