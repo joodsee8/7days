@@ -9,7 +9,7 @@ import audioFile from '../../assets/music/ribs.mp3';
 
 
 const letterParagraphs = [
-  "Hay algo extraño en crecer."
+  "Hay algo extraño en crecer.",
   "Pasamos años deseando ser mayores, imaginando todo lo que podremos hacer cuando llegue el momento, pero cuando finalmente empezamos a crecer, descubrimos que también da miedo.",
   "De pronto, las cosas cambian, nosotros cambiamos, las personas toman caminos distintos y los momentos que parecían eternos comienzan a convertirse en recuerdos.",
   "A veces me gustaría poder volver a la forma en la que pensábamos antes, recuperar esa sensación de que teníamos todo el tiempo del mundo, de que la vida todavía estaba lejos y de que nada importante podía terminar.",
