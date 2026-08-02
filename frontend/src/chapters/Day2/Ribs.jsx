@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Ribs.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
 import Polaroid from '../../components/Polaroid/Polaroid';
-
+import polaroidImg from '../../assets/images/Polaroid2.jpg';
 // Asegúrate de que las rutas a tus imágenes y audio sean correctas
 import coverImg from '../../assets/images/ribs-cover.jpg';
 import audioFile from '../../assets/music/ribs.mp3';
