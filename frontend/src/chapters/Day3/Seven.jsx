@@ -1,4 +1,4 @@
- import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Seven.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
 import coverImg from '../../assets/images/folklore.jpg'
@@ -172,7 +172,6 @@ const Seven = () => {
              <span className="sutil-button-dark" onClick={() => window.history.back()}>
               Guardar recuerdo
             </span>
-          </div>
           </div>
         </div>
     </div>
