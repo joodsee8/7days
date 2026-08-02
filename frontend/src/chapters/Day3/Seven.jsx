@@ -3,6 +3,8 @@ import './Seven.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
 import coverImg from '../../assets/images/folklore.jpg'
 import audioFile from '../../assets/music/Seven.mp3'
+import polaroidImg from '../../assets/images/Polaroid3.jpg'
+import polaroidImg2 from '../../assets/images/Polaroid4.jpg'
 
 const letterParagraphs = [
   "Veinte años.",
@@ -136,19 +138,43 @@ const Seven = () => {
           </div>
         )}
 
-        {/* El Reproductor de Música - Aparece cuando se oculta el botón */}
-        {showPlayer && (
-    <MusicPlayer 
-      title="Seven"
-      artist="Taylor Swift"
-      cover={coverImg}
-      audioSrc={audioFile}
-      rawLrc={songLrc} 
-      onComplete={handleClosePlayer} 
-    />
-  )}
+        {/* Reproductor de Música */}
+      {showPlayer && (
+        <MusicPlayer
+          title="Ribs"
+          artist="Lorde"
+          cover={coverImg}
+          audioSrc={audioFile}
+          lyrics={songLrc}
+          endText="Puede que no podamos traducir literalmente una canción y esperar que transmita la misma emoción, creo que fue una idea un poco mala empezar el proyecto con canciones en inglés... pero bueno, nos vemos mañana :D"
+          accentColor="#C7C1BC" /* Color frío asignado a este día */
+          bgColor = "#616161"
+          textColor = "#E5e5e5"
+          onClose={handleClosePlayer}
+        />
+      )}
 
-      </div>
+      {/* Polaroids Finales */}
+      {showPolaroid && (
+        <div className="polaroids-section fade-in-chapter">
+          <Polaroid 
+            imageSrc={polaroidImg}
+            message="..." 
+            friendName="pendiente" 
+          />
+          <div className="polaroids-section fade-in-chapter">
+            <Polaroid
+              imageSrc={polaroidImg2}
+              message="..."
+              friendName="Pendiente"/>
+          {/* Botón de cierre para regresar al índice */}
+          <div className="sutil-action-container" style={{ marginTop: '3rem' }}>
+             <span className="sutil-button-dark" onClick={() => window.history.back()}>
+              Guardar recuerdo
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
