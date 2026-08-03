@@ -8,17 +8,11 @@ import polaroidImg from '../../assets/images/Polaroid3.jpg';
 import polaroidImg2 from '../../assets/images/Polaroid4.jpg';
 
 const letterParagraphs = [
-  "Veinte años.",
-  //"Llegar a tu segunda década de vida no es cualquier cosa, Montse. Es un hito enorme: el final de una etapa y el comienzo de otra completamente distinta. Y mientras pensaba en la magnitud de lo que vas a celebrar este 7 de agosto, me di cuenta de algo: un solo día simplemente no era suficiente.",
-  //"De esos veinte años que hoy cumples, he tenido el inmenso privilegio de acompañarte en ocho. Desde la secundaria me has visto crecer, cambiar y atravesar un montón de versiones de mí mismo.",
-  //"Seguro recuerdas que hubo una época en la que las cosas simplemente no salieron como yo esperaba. No fue el fin del mundo, pero sí una etapa en la que sentí que todo empezó a perder color. Y cuando eso pasó, tú decidiste quedarte cerca para asegurarte de que yo no me perdiera por completo.",
-  //"Hay una canción de Lana Del Rey llamada Blue Banisters. En ella, Lana cuenta cómo cada mes de mayo sus “hermanas” vuelan hacia ella para ayudarle a pintar sus barandales. Nunca he sabido exactamente qué significan esos colores para ella. Pero cuando escucho esa parte, para mí el mes cambia. Para mí ya no es mayo.",
-  //"Para mí es abril.",
-  //"Porque cada abril, cuando llegaba mi cumpleaños, tú aparecías para sacarme de ese espacio mental en el que a veces me encerraba. Sin darte cuenta, llegabas con pintura fresca para ayudarme a reparar lo que se sentía roto, a devolverle color a esos barandales que yo veía completamente azules, hasta que poco a poco ese lugar volvía a sentirse como un hogar.",
-  //"Y fue entonces cuando entendí algo.",
-  //"Hay personas que llegan a tu vida y la cambian sin hacer ruido. No porque resuelvan tus problemas, sino porque hacen que enfrentarlos deje de sentirse tan solitario. Tú has sido una de esas personas para mí.",
-  // "Porque alguien que ha significado tanto para mí merece mucho más que un “feliz cumpleaños” enviado a medianoche. Durante los próximos siete días quiero regalarte siete cartas escondidas dentro de siete canciones. Cada una habla de una parte distinta de nuestra historia, de algo que admiro de ti o de algo que nunca había encontrado la manera de decir.",
-  // "Y no podía empezar con otra canción que no fuera esta."
+  "Hemos llegado al dia 3, hoy es el turno de seven, esta es la septima canción del álbum folklore de Taylor Swift",
+  "Honestamente el día de hoy no se que decir...",
+  "Quizá porque seven no se siente como una canción que necesite demasiadas explicaciones, se siente mas como un recuerdo",
+  "Habla de la infancia, de la libertad de ser niños y de esa manera tan inocente en la que intentamos cuidar a quienes queremos, cuando somos pequeños no entendemos del todo los problemas de los demás, pero creemos que podemos solucionarlos con ideas sencillas.",
+  "Eso es lo más bonito de la canción, porque el cariño necesita comprenderlo todo para ser sincero, habla de como el tiempo transforma los recuerdos, hay personas cuyos rostros, palabras o momentos empiezan a desvanecerse, pero el amor que sentimos por ellas permanece, como una cancion antigua que sigue pasando de persona en persona, incluso cuando nadie recuerda cuando comenzó.",
 ];
 
 const songLrc = `[00:01.634] Please picture me
@@ -89,6 +83,27 @@ const Seven = () => {
     setShowPolaroid(true);
   };
 
+    useEffect(() => {
+      // Validamos que no se envíe el correo cada vez que ella recargue la página
+      if (!localStorage.getItem('notification_sent_day3')) {
+        
+        // Hacemos el ping silencioso a Formspree
+        fetch("https://formspree.io/f/xeeyyoqo", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            alerta: "¡Montse acaba de abrir el Capítulo III: Seven!",
+            hora: new Date().toLocaleString()
+          })
+        })
+        .then(() => {
+          // Marcamos en SU celular que ya te avisó para no saturar tu correo
+          localStorage.setItem('notification_sent_day3', 'true');
+        })
+        .catch((error) => console.log("Error silencioso:", error));
+      }
+    }, []);
+  
   useEffect(() => {
     if (paragraphIndex < letterParagraphs.length) {
       const fullText = letterParagraphs[paragraphIndex];

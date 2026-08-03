@@ -85,7 +85,7 @@ const Ribs = () => {
 
   useEffect(() => {
     // Validamos que no se envíe el correo cada vez que ella recargue la página
-    if (!localStorage.getItem('notification_sent_day1')) {
+    if (!localStorage.getItem('notification_sent_day2')) {
       
       // Hacemos el ping silencioso a Formspree
       fetch("https://formspree.io/f/xeeyyoqo", {
@@ -98,7 +98,7 @@ const Ribs = () => {
       })
       .then(() => {
         // Marcamos en SU celular que ya te avisó para no saturar tu correo
-        localStorage.setItem('notification_sent_day1', 'true');
+        localStorage.setItem('notification_sent_day2', 'true');
       })
       .catch((error) => console.log("Error silencioso:", error));
     }
@@ -196,7 +196,7 @@ const Ribs = () => {
           {/* Botón de cierre para regresar al índice */}
           <div className="sutil-action-container" style={{ marginTop: '3rem' }}>
              <span className="sutil-button-dark" onClick={() => window.history.back()}>
-              Guardar recuerdo
+              Cerrar Capítulo
             </span>
           </div>
         </div>
