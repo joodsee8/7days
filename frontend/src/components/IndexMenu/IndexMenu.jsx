@@ -21,7 +21,7 @@ const IndexMenu = () => {
   const days = [
     { id: 1, chapter: "Capítulo I", title: "Blue Banisters", path: "/day1", unlocked: checkUnlocked(1) },
     { id: 2, chapter: "Capítulo II", title: "Ribs", path: "/day2", unlocked: checkUnlocked(2) },
-    { id: 3, chapter: "Capítulo III", title: "Seven", path: "/day3", unlocked: checkUnlocked(3) },
+    { id: 3, chapter: "Capítulo III", title: "Seven", path: "/day3", unlocked: checkUnlocked(4) },
     { id: 4, chapter: "Capítulo IV", title: "María la curandera", path: "/day4", unlocked: checkUnlocked(4) },
     { id: 5, chapter: "Capítulo V", title: "Pajarito colibrí", path: "/day5", unlocked: checkUnlocked(5) },
     { id: 6, chapter: "Capítulo VI", title: "Long Live", path: "/day6", unlocked: checkUnlocked(6) },
