@@ -15,47 +15,47 @@ const letterParagraphs = [
   "Eso es lo más bonito de la canción, porque el cariño necesita comprenderlo todo para ser sincero, habla de como el tiempo transforma los recuerdos, hay personas cuyos rostros, palabras o momentos empiezan a desvanecerse, pero el amor que sentimos por ellas permanece, como una cancion antigua que sigue pasando de persona en persona, incluso cuando nadie recuerda cuando comenzó.",
 ];
 
-const songLrc = `[00:01.634] Please picture me
-[00:06.321] In the trees
-[00:08.371] I hit my peak at seven feet
-[00:13.993] In the swing
-[00:16.354] Over the creek
-[00:18.387] I was too scared to jump in
-[00:21.587] But I, I was high in the sky
-[00:28.431] With Pennsylvania under me
-[00:36.225] Are there still beautiful things?
-[00:42.811] Sweet tea in the summer
-[00:44.683] Cross your heart, won't tell no other
-[00:47.563] And though I can't recall your face
-[00:50.013] I still got love for you
-[00:53.193] Your braids like a pattern
-[00:54.777] Love you to the moon and to Saturn
-[00:57.707] Passed down like folk songs
-[01:00.174] The love lasts so long
-[01:06.373] ...
-[01:23.379] And I've been meaning to tell you
-[01:26.293] I think your house is haunted
-[01:28.893] Your dad is always mad and that must be why
-[01:33.773] And I think you should come live with
-[01:36.787] Me and we can be pirates
-[01:38.959] Then you won't have to cry
-[01:41.846] Or hide in the closet
-[01:44.192] And just like a folk song
-[01:46.679] Our love will be passed on
-[01:52.869] Please picture me
-[01:57.237] In the weeds
-[01:59.512] Before I learned civility
-[02:04.592] I used to scream ferociously
-[02:09.920] Any time I wanted
-[02:13.555] I, I
-[02:23.906] Sweet tea in the summer
-[02:25.700] Cross my heart, won't tell no other
-[02:28.606] And though I can't recall your face
-[02:31.041] I still got love for you
-[02:33.958] Pack your dolls and a sweater
-[02:36.171] We'll move to India forever
-[02:38.618] Passed down like folk songs
-[02:41.345] Our love lasts so long`;
+const songLrc = `[00:01.634] Please picture me | Imagíname
+[00:06.321] In the trees | Entre los árboles
+[00:08.371] I hit my peak at seven feet | Alcanzando mi punto más alto, a siete pies del suelo
+[00:13.993] In the swing | Sobre un columpio
+[00:16.354] Over the creek | Suspendida sobre el arroyo
+[00:18.387] I was too scared to jump in | Aunque me daba demasiado miedo saltar
+[00:21.587] But I, I was high in the sky | Pero yo, yo estaba tan alto en el cielo
+[00:28.431] With Pennsylvania under me | Con Pensilvania extendiéndose debajo de mí
+[00:36.225] Are there still beautiful things? | ¿Todavía existen cosas hermosas?
+[00:42.811] Sweet tea in the summer | Té dulce en las tardes de verano
+[00:44.683] Cross your heart, won’t tell no other | Júralo por tu corazón, este secreto será solo nuestro
+[00:47.563] And though I can’t recall your face | Y aunque ya no logro recordar tu rostro
+[00:50.013] I still got love for you | Todavía guardo cariño por ti
+[00:53.193] Your braids like a pattern | Tus trenzas, dibujando formas en mi memoria
+[00:54.777] Love you to the moon and to Saturn | Te quiero hasta la Luna y mucho más allá, hasta Saturno
+[00:57.707] Passed down like folk songs | Un cariño que se transmite como las canciones antiguas
+[01:00.174] The love lasts so long | Porque hay amores que duran toda una vida
+[01:06.373] …
+[01:23.379] And I’ve been meaning to tell you | Hace tiempo que quería decirte algo
+[01:26.293] I think your house is haunted | Creo que tu casa está embrujada
+[01:28.893] Your dad is always mad and that must be why | Tu papá siempre está enojado, quizá por eso
+[01:33.773] And I think you should come live with | Creo que deberías venir a vivir
+[01:36.787] Me and we can be pirates | Conmigo, y podríamos convertirnos en piratas
+[01:38.959] Then you won’t have to cry | Así ya no tendrías que llorar
+[01:41.846] Or hide in the closet | Ni esconderte dentro del clóset
+[01:44.192] And just like a folk song | Y como esas canciones que sobreviven al tiempo
+[01:46.679] Our love will be passed on | Nuestro cariño seguirá viviendo y pasando de generación en generación
+[01:52.869] Please picture me | Imagíname
+[01:57.237] In the weeds | Entre la hierba crecida
+[01:59.512] Before I learned civility | Antes de aprender a comportarme como esperaban de mí
+[02:04.592] I used to scream ferociously | Solía gritar con toda mi fuerza
+[02:09.920] Any time I wanted | Cada vez que sentía ganas de hacerlo
+[02:13.555] I, I | Yo, yo
+[02:23.906] Sweet tea in the summer | Té dulce en las tardes de verano
+[02:25.700] Cross my heart, won’t tell no other | Lo juro por mi corazón, nunca se lo diré a nadie
+[02:28.606] And though I can’t recall your face | Y aunque ya no pueda recordar tu rostro
+[02:31.041] I still got love for you | Todavía conservo cariño por ti
+[02:33.958] Pack your dolls and a sweater | Empaca tus muñecas y un suéter
+[02:36.171] We’ll move to India forever | Nos iremos a la India y viviremos ahí para siempre
+[02:38.618] Passed down like folk songs | Como una canción antigua que alguien se niega a olvidar
+[02:41.345] Our love lasts so long | Nuestro cariño permanece, incluso después de que pasa el tiempo`;
 
 const handleSaveMemory = (image, fileName) => {
   const link = document.createElement('a');
