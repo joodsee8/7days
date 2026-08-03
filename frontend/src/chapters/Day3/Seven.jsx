@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Seven.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
 import Polaroid from '../../components/Polaroid/Polaroid';
@@ -146,23 +147,28 @@ const Seven = () => {
   };
 
   return (
-    <div className="chapter-light-container fade-in-chapter">
+    <div className="chapter-light-container">
+
+        {/* Encabezado del Capítulo */}
+      <header className="chapter-header">
+        <div className="chapter-number">Capítulo III</div>
+        <div className="chapter-song-title">seven</div>
+      </header>
+
+      {/* Contenido de la Carta */}
       <div className="letter-content-mobile">
+        {completedParagraphs.map((text, index) => (
+          <p key={index} className="letra-cursiva-oscura">
+            {text}
+          </p>
+        ))}
 
-        <div className="letra-cursiva-oscura">
-          {completedParagraphs.map((text, index) => (
-            <p key={index}>{text}</p>
-          ))}
-
-          {paragraphIndex < letterParagraphs.length && (
-            <p className="typing-paragraph">
-              {currentTypingText}
-              <span className="blinking-cursor">|</span>
-            </p>
-          )}
-        </div>
-
-        <div className="espacio-vacio"></div>
+           {paragraphIndex < letterParagraphs.length && (
+          <p className="letra-cursiva-oscura">
+            {currentTypingText}
+            <span className="blinking-cursor">|</span>
+          </p>
+        )}
 
         {/* El Botón Sutil - Solo se muestra si el reproductor AÚN NO está visible */}
         {showButton && !showPlayer && (
@@ -179,12 +185,12 @@ const Seven = () => {
         {/* Reproductor de Música */}
         {showPlayer && (
           <MusicPlayer
-            title="Ribs"
-            artist="Lorde"
+            title="seven"
+            artist="Taylor Swift"
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="Puede que no podamos traducir literalmente una canción y esperar que transmita la misma emoción, creo que fue una idea un poco mala empezar el proyecto con canciones en inglés... pero bueno, nos vemos mañana :D"
+            endText="No podia faltar Taylor Swift jaja, nos vemos mañana <3"
             accentColor="#C7C1BC"
             bgColor="#616161"
             textColor="#E5E5E5"
@@ -197,8 +203,8 @@ const Seven = () => {
           <div className="polaroids-section fade-in-chapter">
             <Polaroid
               imageSrc={polaroidImg}
-              message="..."
-              friendName="pendiente"
+              message="Montse siempre esta ahi para nosotros, incluso cuando no podemos verla, hace mas bonita la experiencia en la U"
+              friendName="Azael & Pao"
               onSaveMemory={() =>
                 handleSaveMemory(polaroidImg, 'Polaroid3.jpg')
               }
@@ -206,13 +212,13 @@ const Seven = () => {
 
             <Polaroid
               imageSrc={polaroidImg2}
-              message="..."
-              friendName="Pendiente"
+              message="Soy un zangano y se me olvido pedirle un mensajito a tu familia jeje, pero se que ellos tambien te quieren mucho."
+              friendName="Pancho"
               onSaveMemory={() =>
                 handleSaveMemory(polaroidImg2, 'Polaroid4.jpg')
               }
             />
-
+          
             {/* Botón de cierre para regresar al índice */}
             <div
               className="sutil-action-container"
@@ -220,9 +226,9 @@ const Seven = () => {
             >
               <span
                 className="sutil-button-dark"
-                onClick={() => window.history.back()}
+                onClick={() => window.location.href = '/index'}
               >
-                Guardar recuerdo
+                Cerrar Capítulo
               </span>
             </div>
           </div>
