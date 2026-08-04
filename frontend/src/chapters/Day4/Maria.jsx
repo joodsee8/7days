@@ -149,7 +149,7 @@ const Maria = () => {
       
       {/* Encabezado del Capítulo */}
       <header className="chapter-header">
-        <div className="chapter-number">Capítulo I</div>
+        <div className="chapter-number">Capítulo IV</div>
         <div className="chapter-song-title">María la Curandera</div>
       </header>
 
