@@ -63,6 +63,15 @@ const songLrc = `
 [04:27.041] Que los queme el fuego, que los queme el fuego y vengan nuevas flores
 [04:30.041] ...`;
 
+const handleSaveMemory = (image, fileName) => {
+  const link = document.createElement('a');
+  link.href = image;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
 const Maria = () => {
   const [completedParagraphs, setCompletedParagraphs] = useState([]);
   const [currentTypingText, setCurrentTypingText] = useState('');
