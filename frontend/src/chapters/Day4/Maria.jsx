@@ -3,7 +3,7 @@ import './Maria.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
 import coverImg from '../../assets/images/pajarito.jpg'
 import audioFile from '../../assets/music/Maria.mp3'
-import polaroid from '../../components/Polaroid/Polaroid.jsx'
+import polaroid from '../../components/Polaroid/Polaroid'
 import polaroidImg from '../../assets/images/Polaroid1.jpg'
 import polaroidImg2 from '../../assets/images/Polaroid2.jpg'
 
