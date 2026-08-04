@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Maria.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
 import Polaroid from '../../components/Polaroid/Polaroid';
 import coverImg from '../../assets/images/pajarito.jpg';
 import audioFile from '../../assets/music/Maria.mp3';
-import polaroidImg from '../../assets/images/Polaroid1.jpg';
-import polaroidImg2 from '../../assets/images/Polaroid2.jpg';
+import polaroidImg from '../../assets/images/Polaroid5.jpg';
 
 const letterParagraphs = [
   "No sé si conocías la historia detrás de esta canción, pero antes de decirte por qué la elegí quiero contarte un poco de ella.",
@@ -201,19 +200,10 @@ const Maria = () => {
           <div className="polaroids-section fade-in-chapter">
             <Polaroid
               imageSrc={polaroidImg}
-              message="..."
-              friendName="pendiente"
+              message="Es de las amigas más importantes para mí, esa amiga que es familia, esa mujer con la que puedo ser yo sin ser juzgada, la que está siempre en las buenas y en las malas, y sin duda una de las mujeres más increíbles que pueden existir! 💓💓"
+              friendName="Romina"
               onSaveMemory={() =>
                 handleSaveMemory(polaroidImg, 'Polaroid1.jpg')
-              }
-            />
-
-            <Polaroid
-              imageSrc={polaroidImg2}
-              message="..."
-              friendName="..."
-              onSaveMemory={() =>
-                handleSaveMemory(polaroidImg2, 'Polaroid2.jpg')
               }
             />
           
