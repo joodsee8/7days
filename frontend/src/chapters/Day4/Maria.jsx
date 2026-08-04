@@ -3,6 +3,8 @@ import './Maria.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
 import coverImg from '../../assets/images/pajarito.jpg'
 import audioFile from '../../assets/music/Maria.mp3'
+import polaroidImg from '../../assets/images/Polaroid.jpg'
+import polaroidImg2 from '../../assets/images/Polaroid2.jpg'
 
 const letterParagraphs = [
   "Veinte años.",
@@ -135,18 +137,57 @@ const Maria = () => {
           </div>
         )}
 
-        {/* El Reproductor de Música - Aparece cuando se oculta el botón */}
+        {/* Reproductor de Música */}
         {showPlayer && (
-    <MusicPlayer 
-      title="maria la curandera"
-      artist="Natalia Lafourcade"
-      cover={coverImg}
-      audioSrc={audioFile}
-      rawLrc={songLrc} 
-      onComplete={handleClosePlayer} 
-    />
-  )}
+          <MusicPlayer
+            title="Maria la Curandera"
+            artist="Natalia Lafourcade"
+            cover={coverImg}
+            audioSrc={audioFile}
+            lyrics={songLrc}
+            endText="No se que tanto te guste Natalia, pero este álbum me gusta mucho"
+            accentColor="#887b6a"
+            bgColor="#000000"
+            textColor="#E5E5E5"
+            onClose={handleClosePlayer}
+          />
+        )}
 
+        {/* Polaroids Finales */}
+        {showPolaroid && (
+          <div className="polaroids-section fade-in-chapter">
+            <Polaroid
+              imageSrc={polaroidImg}
+              message="..."
+              friendName="pendiente"
+              onSaveMemory={() =>
+                handleSaveMemory(polaroidImg, 'Polaroid3.jpg')
+              }
+            />
+
+            <Polaroid
+              imageSrc={polaroidImg2}
+              message="..."
+              friendName="..."
+              onSaveMemory={() =>
+                handleSaveMemory(polaroidImg2, 'Polaroid4.jpg')
+              }
+            />
+          
+            {/* Botón de cierre para regresar al índice */}
+            <div
+              className="sutil-action-container"
+              style={{ marginTop: '3rem' }}
+            >
+              <span
+                className="sutil-button-dark"
+                onClick={() => window.location.href = '/index'}
+              >
+                Cerrar Capítulo
+              </span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
