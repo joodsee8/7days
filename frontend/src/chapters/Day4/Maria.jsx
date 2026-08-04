@@ -11,7 +11,7 @@ import polaroidImg2 from '../../assets/images/Polaroid2.jpg';
 const letterParagraphs = [
   "No sé si conocías la historia detrás de esta canción, pero antes de decirte por qué la elegí quiero contarte un poco de ella.",
   "‘María la Curandera’ está inspirada en María Sabina, la célebre chamana mazateca de Oaxaca; durante gran parte de su vida dedicó sus conocimientos a sanar a quienes acudían a ella utilizando la medicina tradicional y los llamados niños santos, los hongos sagrados que en su cultura eran un medio para encontrar respuestas, aliviar el dolor y reencontrarse con uno mismo, ya que para ella la verdadera curación no venía únicamente de una planta o de un ritual, sino de aquello que despertaba dentro de cada persona.",
-  "Con el paso de los años su historia trascendió las montañas de Oaxaca y llegó al resto del mundo, y aunque eso le trajo reconocimiento también le costó mucho: vio cómo se desvirtuaba el sentido espiritual de aquello que había protegido toda su vida; aun así, su legado permanece como un recordatorio de que la fuerza para sanar siempre ha estado dentro de nosotros."
+  "Con el paso de los años su historia trascendió las montañas de Oaxaca y llegó al resto del mundo, y aunque eso le trajo reconocimiento también le costó mucho: vio cómo se desvirtuaba el sentido espiritual de aquello que había protegido toda su vida; aun así, su legado permanece como un recordatorio de que la fuerza para sanar siempre ha estado dentro de nosotros.",
   "Por eso elegí esta canción.",
   "Puede que al escucharla por primera vez parezca una canción de abuela, de esas que pondrían mientras preparan café o riegan las plantas un domingo por la mañana, pero si uno realmente le presta atención, descubre que guarda un mensaje increíblemente bonito.",
   "Hay un verso que me encanta:",
@@ -20,8 +20,7 @@ const letterParagraphs = [
   "Para mí significa que no necesitas a nadie para ser suficiente, que no necesitas que alguien venga a completarte para poder brillar y que la persona capaz de levantarte cuando caes, de recordarte quién eres cuando lo olvidas y de devolverte la paz cuando todo parece un caos… eres tú.",
   "Claro que las personas que queremos pueden acompañarnos, abrazarnos y hacer el camino más ligero, pero la fuerza que realmente cambia las cosas siempre nace desde adentro.",
   "Eso es justamente lo que deseo para ti.",
-  "Que nunca olvides el valor que tienes incluso cuando tú misma no puedas verlo, que no entregues tu felicidad a las manos de alguien más esperando que la cuide mejor que tú, y que aprendas a reconocerte como alguien completa, fuerte y suficiente, con o sin la validación de los demás.",
-
+  "Que nunca olvides el valor que tienes incluso cuando tú misma no puedas verlo, que no entregues tu felicidad a las manos de alguien más esperando que la cuide mejor que tú, y que aprendas a reconocerte como alguien completa, fuerte y suficiente, con o sin la validación de los demás."
 ];
 
 const songLrc = `[00:28.294] Cúrate, mijita, el dolor con nuestra luz del sol
