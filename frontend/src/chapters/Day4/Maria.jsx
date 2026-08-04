@@ -9,18 +9,19 @@ import polaroidImg from '../../assets/images/Polaroid1.jpg';
 import polaroidImg2 from '../../assets/images/Polaroid2.jpg';
 
 const letterParagraphs = [
-  "Veinte años.",
-  //"Llegar a tu segunda década de vida no es cualquier cosa, Montse. Es un hito enorme: el final de una etapa y el comienzo de otra completamente distinta. Y mientras pensaba en la magnitud de lo que vas a celebrar este 7 de agosto, me di cuenta de algo: un solo día simplemente no era suficiente.",
-  //"De esos veinte años que hoy cumples, he tenido el inmenso privilegio de acompañarte en ocho. Desde la secundaria me has visto crecer, cambiar y atravesar un montón de versiones de mí mismo.",
-  //"Seguro recuerdas que hubo una época en la que las cosas simplemente no salieron como yo esperaba. No fue el fin del mundo, pero sí una etapa en la que sentí que todo empezó a perder color. Y cuando eso pasó, tú decidiste quedarte cerca para asegurarte de que yo no me perdiera por completo.",
-  //"Hay una canción de Lana Del Rey llamada Blue Banisters. En ella, Lana cuenta cómo cada mes de mayo sus “hermanas” vuelan hacia ella para ayudarle a pintar sus barandales. Nunca he sabido exactamente qué significan esos colores para ella. Pero cuando escucho esa parte, para mí el mes cambia. Para mí ya no es mayo.",
-  //"Para mí es abril.",
-  //"Porque cada abril, cuando llegaba mi cumpleaños, tú aparecías para sacarme de ese espacio mental en el que a veces me encerraba. Sin darte cuenta, llegabas con pintura fresca para ayudarme a reparar lo que se sentía roto, a devolverle color a esos barandales que yo veía completamente azules, hasta que poco a poco ese lugar volvía a sentirse como un hogar.",
-  //"Y fue entonces cuando entendí algo.",
-  //"Hay personas que llegan a tu vida y la cambian sin hacer ruido. No porque resuelvan tus problemas, sino porque hacen que enfrentarlos deje de sentirse tan solitario. Tú has sido una de esas personas para mí.",
-  //"Por eso este proyecto existe.",
-  // "Porque alguien que ha significado tanto para mí merece mucho más que un “feliz cumpleaños” enviado a medianoche. Durante los próximos siete días quiero regalarte siete cartas escondidas dentro de siete canciones. Cada una habla de una parte distinta de nuestra historia, de algo que admiro de ti o de algo que nunca había encontrado la manera de decir.",
-  // "Y no podía empezar con otra canción que no fuera esta."
+  "No sé si conocías la historia detrás de esta canción, pero antes de decirte por qué la elegí quiero contarte un poco de ella.",
+  "‘María la Curandera’ está inspirada en María Sabina, la célebre chamana mazateca de Oaxaca; durante gran parte de su vida dedicó sus conocimientos a sanar a quienes acudían a ella utilizando la medicina tradicional y los llamados niños santos, los hongos sagrados que en su cultura eran un medio para encontrar respuestas, aliviar el dolor y reencontrarse con uno mismo, ya que para ella la verdadera curación no venía únicamente de una planta o de un ritual, sino de aquello que despertaba dentro de cada persona.",
+  "Con el paso de los años su historia trascendió las montañas de Oaxaca y llegó al resto del mundo, y aunque eso le trajo reconocimiento también le costó mucho: vio cómo se desvirtuaba el sentido espiritual de aquello que había protegido toda su vida; aun así, su legado permanece como un recordatorio de que la fuerza para sanar siempre ha estado dentro de nosotros."
+  "Por eso elegí esta canción.",
+  "Puede que al escucharla por primera vez parezca una canción de abuela, de esas que pondrían mientras preparan café o riegan las plantas un domingo por la mañana, pero si uno realmente le presta atención, descubre que guarda un mensaje increíblemente bonito.",
+  "Hay un verso que me encanta:",
+  "‘Recuerda siempre que tú eres la medicina’.",
+  "Y creo que esa es una de las cosas más importantes que alguien puede escuchar.",
+  "Para mí significa que no necesitas a nadie para ser suficiente, que no necesitas que alguien venga a completarte para poder brillar y que la persona capaz de levantarte cuando caes, de recordarte quién eres cuando lo olvidas y de devolverte la paz cuando todo parece un caos… eres tú.",
+  "Claro que las personas que queremos pueden acompañarnos, abrazarnos y hacer el camino más ligero, pero la fuerza que realmente cambia las cosas siempre nace desde adentro.",
+  "Eso es justamente lo que deseo para ti.",
+  "Que nunca olvides el valor que tienes incluso cuando tú misma no puedas verlo, que no entregues tu felicidad a las manos de alguien más esperando que la cuide mejor que tú, y que aprendas a reconocerte como alguien completa, fuerte y suficiente, con o sin la validación de los demás.",
+
 ];
 
 const songLrc = `[00:28.294] Cúrate, mijita, el dolor con nuestra luz del sol
