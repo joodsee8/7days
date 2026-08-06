@@ -89,7 +89,7 @@ const Pajarito = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
-          alerta: "¡Montse acaba de abrir el Capítulo I: Pajarito Colibrí!",
+          alerta: "¡Montse acaba de abrir el Capítulo V: Pajarito Colibrí!",
           hora: new Date().toLocaleString()
         })
       })
