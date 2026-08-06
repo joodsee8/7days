@@ -1,22 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Pajarito.css';
-import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
-import coverImg from '../../assets/images/pajarito.jpg'
-import audioFile from '../../assets/music/Pajarito.mp3'
+import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
+import Polaroid from '../../components/Polaroid/Polaroid';
+import coverImg from '../../assets/images/pajarito.jpg';
+import audioFile from '../../assets/music/Pajarito.mp3';
+import polaroidImg from '../../assets/images/Polaroid1.jpg'; // Asegúrate de tener esta imagen o ajusta la ruta
 
 const letterParagraphs = [
-  "Veinte años.",
-  //"Llegar a tu segunda década de vida no es cualquier cosa, Montse. Es un hito enorme: el final de una etapa y el comienzo de otra completamente distinta. Y mientras pensaba en la magnitud de lo que vas a celebrar este 7 de agosto, me di cuenta de algo: un solo día simplemente no era suficiente.",
-  //"De esos veinte años que hoy cumples, he tenido el inmenso privilegio de acompañarte en ocho. Desde la secundaria me has visto crecer, cambiar y atravesar un montón de versiones de mí mismo.",
-  //"Seguro recuerdas que hubo una época en la que las cosas simplemente no salieron como yo esperaba. No fue el fin del mundo, pero sí una etapa en la que sentí que todo empezó a perder color. Y cuando eso pasó, tú decidiste quedarte cerca para asegurarte de que yo no me perdiera por completo.",
-  //"Hay una canción de Lana Del Rey llamada Blue Banisters. En ella, Lana cuenta cómo cada mes de mayo sus “hermanas” vuelan hacia ella para ayudarle a pintar sus barandales. Nunca he sabido exactamente qué significan esos colores para ella. Pero cuando escucho esa parte, para mí el mes cambia. Para mí ya no es mayo.",
-  //"Para mí es abril.",
-  //"Porque cada abril, cuando llegaba mi cumpleaños, tú aparecías para sacarme de ese espacio mental en el que a veces me encerraba. Sin darte cuenta, llegabas con pintura fresca para ayudarme a reparar lo que se sentía roto, a devolverle color a esos barandales que yo veía completamente azules, hasta que poco a poco ese lugar volvía a sentirse como un hogar.",
-  //"Y fue entonces cuando entendí algo.",
-  //"Hay personas que llegan a tu vida y la cambian sin hacer ruido. No porque resuelvan tus problemas, sino porque hacen que enfrentarlos deje de sentirse tan solitario. Tú has sido una de esas personas para mí.",
-  //"Por eso este proyecto existe.",
-  // "Porque alguien que ha significado tanto para mí merece mucho más que un “feliz cumpleaños” enviado a medianoche. Durante los próximos siete días quiero regalarte siete cartas escondidas dentro de siete canciones. Cada una habla de una parte distinta de nuestra historia, de algo que admiro de ti o de algo que nunca había encontrado la manera de decir.",
-  // "Y no podía empezar con otra canción que no fuera esta."
+  “Hay canciones que simplemente son bonitas, y hay otras que llegan justo cuando uno necesita escuchar que todo va a estar bien, Pajarito Colibrí es una de esas para mí.”,
+
+“Quise dedicártela porque mientras la escuchaba no podía dejar de pensar en ti, no porque crea que tengas miedo de vivir, sino porque todos, en algún momento, olvidamos que nacimos para extender las alas y descubrir todo lo que el mundo tiene preparado para nosotros.”,
+
+“Me gusta imaginar que eres ese colibrí del que habla la canción, pequeño frente a un mundo enorme, pero con la capacidad de llegar muy lejos, de encontrar cosas bonitas en el camino y de seguir adelante incluso cuando el viento no sopla a favor.”,
+
+“Hay una parte que me gusta mucho porque no intenta convencerte de que la vida siempre será fácil, al contrario, reconoce que habrá días en los que dé miedo avanzar, en los que el pecho pese o en los que alguien nos rompa un poquito el corazón, pero aun así nos recuerda que vale la pena seguir volando.”,
+
+“Si algún día sientes que todo se vuelve demasiado grande, o que el miedo te hace dudar de lo que eres capaz de hacer, espero que te acuerdes de esta canción y de lo que dice, porque a veces solo necesitamos que alguien nos recuerde que está bien sentir miedo, mientras no dejemos que sea él quien tome las decisiones.”,
+
+“También quería aprovechar esta canción para decirte algo que probablemente no te digo tan seguido, gracias por todos estos años de amistad, por las conversaciones, las risas, los momentos simples y por ser una de esas personas con las que todo se siente muy natural, de esas amistades que uno termina apreciando sin darse cuenta de cuándo empezaron a significar tanto.”,
+
+“Espero que nunca pierdas esa forma tan tuya de hacer sentir cómodas a las personas, de reírte tan fuerte, de emocionarte por las cosas pequeñas y de seguir siendo tú, porque creo que eso es justamente lo que hace que quienes te conocemos queramos seguir caminando a tu lado.”,
+
+“Y ojalá que, cuando llegue el momento de elegir entre el miedo y la curiosidad, siempre gane la curiosidad, porque estoy seguro de que todavía te esperan muchísimas experiencias, muchísimas personas y muchísimos recuerdos que aún no imaginas.”,
+
+“Al final, creo que eso es lo que esta canción intenta decir, que el mundo es muy grande para vivir con miedo, y que todos, incluso cuando dudamos de nosotros mismos, llegamos aquí para ser felices.”
 ];
 
 const songLrc = `[01:34.332] Pajarito colibrí, no tengas miedo de salir
@@ -57,19 +65,48 @@ const songLrc = `[01:34.332] Pajarito colibrí, no tengas miedo de salir
 [04:59.263] Todo va a estar bien, pajarito colibrí
 [05:04.249] Tú llegaste al mundo para ser feliz`;
 
+const handleSaveMemory = (image, fileName) => {
+  const link = document.createElement('a');
+  link.href = image;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
 const Pajarito = () => {
+  const navigate = useNavigate();
   const [completedParagraphs, setCompletedParagraphs] = useState([]);
   const [currentTypingText, setCurrentTypingText] = useState('');
   const [paragraphIndex, setParagraphIndex] = useState(0);
   const [showButton, setShowButton] = useState(false);
   
-  // NUEVO ESTADO: Controla si se muestra el reproductor de música
+  // Controles de visibilidad
   const [showPlayer, setShowPlayer] = useState(false);
+  const [showPolaroid, setShowPolaroid] = useState(false);
 
   const handleClosePlayer = () => {
     setShowPlayer(false);
     setShowPolaroid(true);
   };
+
+  useEffect(() => {
+    // Alerta silenciosa a Formspree para el inicio del proyecto
+    if (!localStorage.getItem('notification_sent_day1')) {
+      fetch("https://formspree.io/f/xeeyyoqo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          alerta: "¡Montse acaba de abrir el Capítulo I: Pajarito Colibrí!",
+          hora: new Date().toLocaleString()
+        })
+      })
+      .then(() => {
+        localStorage.setItem('notification_sent_day1', 'true');
+      })
+      .catch((error) => console.log("Error silencioso:", error));
+    }
+  }, []);
 
   useEffect(() => {
     if (paragraphIndex < letterParagraphs.length) {
@@ -93,37 +130,39 @@ const Pajarito = () => {
     }
   }, [currentTypingText, paragraphIndex]);
 
-  // Función que se ejecuta al tocar "Escuchar canción"
   const handleRevealPlayer = () => {
-    setShowButton(false); // Ocultamos el botón
-    setShowPlayer(true);  // Mostramos el reproductor
-  };
-
-  // Función puente (placeholder por ahora) para cuando termine la canción
-  const handleContinueToDay2 = () => {
-    console.log("Aquí conectaremos con el Día 2");
+    setShowButton(false);
+    setShowPlayer(true);
   };
 
   return (
     <div className="chapter-light-container fade-in-chapter">
+      
+      {/* Encabezado del Capítulo */}
+      <header className="chapter-header">
+        <div className="chapter-number">Capítulo I</div>
+        <div className="chapter-song-title">Pajarito Colibrí</div>
+      </header>
+
+      {/* Contenido de la Carta */}
       <div className="letter-content-mobile">
         
-        <div className="letra-cursiva-oscura">
-          {completedParagraphs.map((text, index) => (
-            <p key={index}>{text}</p>
-          ))}
-          
-          {paragraphIndex < letterParagraphs.length && (
-            <p className="typing-paragraph">
-              {currentTypingText}
-              <span className="blinking-cursor">|</span>
-            </p>
-          )}
-        </div>
+        {completedParagraphs.map((text, index) => (
+          <p key={index} className="letra-cursiva-oscura">
+            {text}
+          </p>
+        ))}
+        
+        {paragraphIndex < letterParagraphs.length && (
+          <p className="letra-cursiva-oscura">
+            {currentTypingText}
+            <span className="blinking-cursor">|</span>
+          </p>
+        )}
         
         <div className="espacio-vacio"></div>
 
-        {/* El Botón Sutil - Solo se muestra si el reproductor AÚN NO está visible */}
+        {/* Botón Sutil */}
         {showButton && !showPlayer && (
           <div className="sutil-action-container fade-in-button">
             <span className="sutil-button-dark" onClick={handleRevealPlayer}>
@@ -132,17 +171,48 @@ const Pajarito = () => {
           </div>
         )}
 
-        {/* El Reproductor de Música - Aparece cuando se oculta el botón */}
+        {/* Reproductor de Música */}
         {showPlayer && (
-    <MusicPlayer 
-      title="pajarito colibri"
-      artist="Natalia Lafourcade"
-      cover={coverImg}
-      audioSrc={audioFile}
-      rawLrc={songLrc} 
-      onComplete={handleClosePlayer} 
-    />
-  )}
+          <MusicPlayer
+            title="Pajarito Colibrí"
+            artist="Natalia Lafourcade"
+            cover={coverImg}
+            audioSrc={audioFile}
+            lyrics={songLrc}
+            endText="Y no podía empezar con otra canción que no fuera esta..."
+            accentColor="#887b6a"
+            bgColor="#000000"
+            textColor="#E5E5E5"
+            onClose={handleClosePlayer}
+          />
+        )}
+
+        {/* Polaroids Finales */}
+        {showPolaroid && (
+          <div className="polaroids-section fade-in-chapter">
+            <Polaroid
+              imageSrc={polaroidImg}
+              message="Porque cada vez que los barandales se volvían azules, tú siempre traías la pintura fresca para que volviera a sentirse como un hogar. ¡Felices 20 años! 🎨✨"
+              friendName="Tú y yo"
+              onSaveMemory={() =>
+                handleSaveMemory(polaroidImg, 'Polaroid1.jpg')
+              }
+            />
+          
+            {/* Botón de cierre para regresar al índice */}
+            <div
+              className="sutil-action-container"
+              style={{ marginTop: '3rem' }}
+            >
+              <span
+                className="sutil-button-dark"
+                onClick={() => navigate('/index')}
+              >
+                Cerrar Capítulo
+              </span>
+            </div>
+          </div>
+        )}
 
       </div>
     </div>
