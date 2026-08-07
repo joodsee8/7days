@@ -3,7 +3,7 @@ import './Long.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
 import coverImg from '../../assets/images/long.jpg'
 import audioFile from '../../assets/music/Long.mp3'
-
+import polaroid from '../../Components/Polaroid/Polaroid'
 const letterParagraphs = [
   "Veinte años.",
   //"Llegar a tu segunda década de vida no es cualquier cosa, Montse. Es un hito enorme: el final de una etapa y el comienzo de otra completamente distinta. Y mientras pensaba en la magnitud de lo que vas a celebrar este 7 de agosto, me di cuenta de algo: un solo día simplemente no era suficiente.",
