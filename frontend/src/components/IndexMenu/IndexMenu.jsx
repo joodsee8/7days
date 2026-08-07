@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './IndexMenu.css';
 
@@ -24,8 +24,8 @@ const IndexMenu = () => {
     { id: 3, chapter: "Capítulo III", title: "Seven", path: "/day3", unlocked: checkUnlocked(3) },
     { id: 4, chapter: "Capítulo IV", title: "María la curandera", path: "/day4", unlocked: checkUnlocked(4) },
     { id: 5, chapter: "Capítulo V", title: "Pajarito colibrí", path: "/day5", unlocked: checkUnlocked(6) },
-    { id: 6, chapter: "Capítulo VI", title: "Long Live", path: "/day6", unlocked: checkUnlocked(7) },
-    { id: 7, chapter: "Capítulo VII", title: "Mary", path: "/day7", unlocked: checkUnlocked(7) },
+    { id: 6, chapter: "Capítulo VI", title: "Long Live", path: "/day6", unlocked: checkUnlocked(8) },
+    { id: 7, chapter: "Capítulo VII", title: "Mary", path: "/day7", unlocked: checkUnlocked(8) },
   ];
 
   const handleDayClick = (day) => {
