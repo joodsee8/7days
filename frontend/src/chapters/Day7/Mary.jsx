@@ -5,7 +5,7 @@ import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
 import Polaroid from '../../components/Polaroid/Polaroid';
 import coverImg from '../../assets/images/femme.jpg';
 import audioFile from '../../assets/music/Mary.mp3';
-import polaroidImg from '../../assets/images/Polaroid7.jpg'; // Ajusta la ruta de la imagen
+import polaroidImg from '../../assets/images/Polaroid8.jpg'; // Ajusta la ruta de la imagen
 
 const letterParagraphs = [
   "Esta canción no necesita tarjeta de presentación, te quiero mucho Montse, Feliz Vida, Ojala la vida te devuelva toda la felicidad que me has dado 💖.",
@@ -177,7 +177,7 @@ const Mary = () => {
               message="Qué fortuna ha sido coincidi.Te quiero con el Alma ¡Felices 20 años!"
               friendName="Pancho"
               onSaveMemory={() =>
-                handleSaveMemory(polaroidImg, 'Polaroid7.jpg')
+                handleSaveMemory(polaroidImg, 'Polaroid8.jpg')
               }
             />
           
