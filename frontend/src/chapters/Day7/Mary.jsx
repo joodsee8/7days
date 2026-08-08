@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Mary.css';
-import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
-import coverImg from '../../assets/images/femme.jpg'
-import audioFile from '../../assets/music/Mary.mp3'
+import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
+import Polaroid from '../../components/Polaroid/Polaroid';
+import coverImg from '../../assets/images/femme.jpg';
+import audioFile from '../../assets/music/Mary.mp3';
+import polaroidImg from '../../assets/images/Polaroid2.jpg'; // Ajusta la ruta de la imagen
 
 const letterParagraphs = [
   "Veinte años.",
@@ -19,7 +22,7 @@ const letterParagraphs = [
   // "Y no podía empezar con otra canción que no fuera esta."
 ];
 
-const songLrc = `[00:09.517] (Siempre tienes la razón)
+const songLrc = const songLrc = `[00:09.517] (Siempre tienes la razón)
 [00:14.304]
 [00:22.235] (Tu...)
 [00:27.223] (No existe como tú quien entienda)
@@ -42,20 +45,50 @@ const songLrc = `[00:09.517] (Siempre tienes la razón)
 [02:19.949] El mundo entero navegar
 [02:24.975] Si pudiera, te doy un órgano vital
 [02:32.072] Tienes que vivir, mi bella Mary`;
+// Pega aquí el resto de la letra sincronizada
+
+const handleSaveMemory = (image, fileName) => {
+  const link = document.createElement('a');
+  link.href = image;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
 const Mary = () => {
+  const navigate = useNavigate();
   const [completedParagraphs, setCompletedParagraphs] = useState([]);
   const [currentTypingText, setCurrentTypingText] = useState('');
   const [paragraphIndex, setParagraphIndex] = useState(0);
   const [showButton, setShowButton] = useState(false);
   
-  // NUEVO ESTADO: Controla si se muestra el reproductor de música
+  // Controles de visibilidad
   const [showPlayer, setShowPlayer] = useState(false);
+  const [showPolaroid, setShowPolaroid] = useState(false);
 
   const handleClosePlayer = () => {
     setShowPlayer(false);
     setShowPolaroid(true);
   };
+
+  useEffect(() => {
+    // Alerta silenciosa a Formspree para este capítulo
+    if (!localStorage.getItem('notification_sent_mary')) {
+      fetch("https://formspree.io/f/xeeyyoqo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          alerta: "¡Montse acaba de abrir el Capítulo de Mary!",
+          hora: new Date().toLocaleString()
+        })
+      })
+      .then(() => {
+        localStorage.setItem('notification_sent_mary', 'true');
+      })
+      .catch((error) => console.log("Error silencioso:", error));
+    }
+  }, []);
 
   useEffect(() => {
     if (paragraphIndex < letterParagraphs.length) {
@@ -79,37 +112,39 @@ const Mary = () => {
     }
   }, [currentTypingText, paragraphIndex]);
 
-  // Función que se ejecuta al tocar "Escuchar canción"
   const handleRevealPlayer = () => {
-    setShowButton(false); // Ocultamos el botón
-    setShowPlayer(true);  // Mostramos el reproductor
-  };
-
-  // Función puente (placeholder por ahora) para cuando termine la canción
-  const handleContinueToDay2 = () => {
-    console.log("Aquí conectaremos con el Día 2");
+    setShowButton(false);
+    setShowPlayer(true);
   };
 
   return (
     <div className="chapter-light-container fade-in-chapter">
+      
+      {/* Encabezado del Capítulo */}
+      <header className="chapter-header">
+        <div className="chapter-number">Capítulo II</div> {/* Ajusta el número según el orden */}
+        <div className="chapter-song-title">Mary</div>
+      </header>
+
+      {/* Contenido de la Carta */}
       <div className="letter-content-mobile">
         
-        <div className="letra-cursiva-oscura">
-          {completedParagraphs.map((text, index) => (
-            <p key={index}>{text}</p>
-          ))}
-          
-          {paragraphIndex < letterParagraphs.length && (
-            <p className="typing-paragraph">
-              {currentTypingText}
-              <span className="blinking-cursor">|</span>
-            </p>
-          )}
-        </div>
+        {completedParagraphs.map((text, index) => (
+          <p key={index} className="letra-cursiva-oscura">
+            {text}
+          </p>
+        ))}
+        
+        {paragraphIndex < letterParagraphs.length && (
+          <p className="letra-cursiva-oscura">
+            {currentTypingText}
+            <span className="blinking-cursor">|</span>
+          </p>
+        )}
         
         <div className="espacio-vacio"></div>
 
-        {/* El Botón Sutil - Solo se muestra si el reproductor AÚN NO está visible */}
+        {/* Botón Sutil */}
         {showButton && !showPlayer && (
           <div className="sutil-action-container fade-in-button">
             <span className="sutil-button-dark" onClick={handleRevealPlayer}>
@@ -118,17 +153,48 @@ const Mary = () => {
           </div>
         )}
 
-        {/* El Reproductor de Música - Aparece cuando se oculta el botón */}
+        {/* Reproductor de Música */}
         {showPlayer && (
-    <MusicPlayer 
-      title="Mary"
-      artist="Mon Laferte"
-      cover={coverImg}
-      audioSrc={audioFile}
-      rawLrc={songLrc} 
-      onComplete={handleClosePlayer} 
-    />
-  )}
+          <MusicPlayer 
+            title="Mary"
+            artist="Mon Laferte"
+            cover={coverImg}
+            audioSrc={audioFile}
+            lyrics={songLrc} 
+            endText="Si pudiera, te doy un órgano vital..."
+            accentColor="#887b6a"
+            bgColor="#000000"
+            textColor="#E5E5E5"
+            onClose={handleClosePlayer} 
+          />
+        )}
+
+        {/* Polaroids Finales */}
+        {showPolaroid && (
+          <div className="polaroids-section fade-in-chapter">
+            <Polaroid
+              imageSrc={polaroidImg}
+              message="Qué fortuna ha sido coincidi.Te quiero con el Alma ¡Felices 20 años!"
+              friendName="Pancho"
+              onSaveMemory={() =>
+                handleSaveMemory(polaroidImg, 'Polaroid7.jpg')
+              }
+            />
+          
+            {/* Botón de cierre para regresar al índice */}
+            <div
+              className="sutil-action-container"
+              style={{ marginTop: '3rem' }}
+            >
+              <span
+                className="sutil-button-dark"
+                onClick={() => navigate('/index')}
+              >
+                Cerrar Capítulo
+              </span>
+            </div>
+          </div>
+        )}
 
       </div>
     </div>
