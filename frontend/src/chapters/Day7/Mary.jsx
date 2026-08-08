@@ -22,7 +22,7 @@ const letterParagraphs = [
   // "Y no podía empezar con otra canción que no fuera esta."
 ];
 
-const songLrc = const songLrc = `[00:09.517] (Siempre tienes la razón)
+const songLrc = `[00:09.517] (Siempre tienes la razón)
 [00:14.304]
 [00:22.235] (Tu...)
 [00:27.223] (No existe como tú quien entienda)
