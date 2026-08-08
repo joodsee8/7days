@@ -177,7 +177,7 @@ const Mary = () => {
               message="Qué fortuna ha sido coincidi.Te quiero con el Alma ¡Felices 20 años!"
               friendName="Pancho"
               onSaveMemory={() =>
-                handleSaveMemory(polaroidImg, 'Polaroid7.jpg')
+                handleSaveMemory(polaroidImg, 'Polaroid7.heic')
               }
             />
           
