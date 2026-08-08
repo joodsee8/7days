@@ -120,7 +120,7 @@ const Mary = () => {
     <div className="chapter-light-container fade-in-chapter">
 
       <header className="chapter-header">
-        <div className="chapter-number">Capítulo II</div>
+        <div className="chapter-number">Capítulo VII</div>
         <div className="chapter-song-title">Mary</div>
       </header>
 
