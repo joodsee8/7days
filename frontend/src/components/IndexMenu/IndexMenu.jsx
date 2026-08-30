@@ -10,7 +10,7 @@ const IndexMenu = () => {
   const checkUnlocked = (dayNumber) => {
     const today = new Date();
     // Mes 7 = Agosto. Se desbloquea a la medianoche (00:00:00) de ese día.
-    const releaseDate = new Date(2026, 7, dayNumber); 
+    const releaseDate = new Date(2026, 9, dayNumber); 
     
     // Si la fecha de hoy es mayor o igual a la de liberación, retorna true
     return today >= releaseDate;
