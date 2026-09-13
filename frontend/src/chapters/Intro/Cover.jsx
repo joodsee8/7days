@@ -23,12 +23,12 @@ const Cover = ({ onGoToNext }) => {
 
       <header className="cover-masthead">
         <p className="cover-kicker">Edición de cumpleaños</p>
-        <h1 className="cover-logo">É C L A T </h1>
+        <h1 className="cover-logo">E U N O I A</h1>
         <div className="cover-hairline" />
       </header>
 
       <div className="cover-coverline cover-coverline-left">
-        <p>Capítulo I<br />Blue Banisters</p>
+        <p>Sillage<br />Aquello que permanece despues de ti</p>
       </div>
 
       <div className="cover-coverline cover-coverline-right">
