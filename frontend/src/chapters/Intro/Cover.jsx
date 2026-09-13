@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Cover.css';
-import coverPhoto from '../../assets/images/Portada.heic';
+import coverPhoto from '../../assets/images/Portad.png';
 
 const Cover = ({ onGoToNext }) => {
   const [isLeaving, setIsLeaving] = useState(false);
