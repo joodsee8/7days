@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
-import Intro from './chapters/Intro/Intro';
+import Intro from './chapters/Intro/Cover';
 import IndexMenu from './components/IndexMenu/IndexMenu';
 import BlueBanisters from './chapters/Day1/BlueBanisters';
 import Ribs from './chapters/Day2/Ribs';
