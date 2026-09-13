@@ -43,7 +43,7 @@ const IndexMenu = () => {
       <div className="editorial-wrapper">
         <header className="index-header">
           <p className="index-subtitle">Índice</p>
-          <h1 className="index-main-title">SEPTENARIO</h1>
+          <h1 className="index-main-title">E U N O I A</h1>
           <div className="index-hairline"></div>
         </header>
 
