@@ -31,10 +31,6 @@ const Cover = ({ onGoToNext }) => {
         <p>Sillage<br />Aquello que permanece despues de ti</p>
       </div>
 
-      <div className="cover-coverline cover-coverline-right">
-        <p>Siete cartas.<br />Siete canciones.<br />Una amiga.</p>
-      </div>
-
       <div className="cover-star">
         <p className="cover-star-eyebrow">En portada</p>
         <h2 className="cover-star-name">MONTSE</h2>
