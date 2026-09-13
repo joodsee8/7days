@@ -23,7 +23,7 @@ const Cover = ({ onGoToNext }) => {
 
       <header className="cover-masthead">
         <p className="cover-kicker">Edición de cumpleaños</p>
-        <h1 className="cover-logo">Septenario</h1>
+        <h1 className="cover-logo">É C L A T </h1>
         <div className="cover-hairline" />
       </header>
 
@@ -37,7 +37,7 @@ const Cover = ({ onGoToNext }) => {
 
       <div className="cover-star">
         <p className="cover-star-eyebrow">En portada</p>
-        <h2 className="cover-star-name">Montse</h2>
+        <h2 className="cover-star-name">MONTSE</h2>
         <p className="cover-star-caption">veinte años de ser exactamente tú</p>
       </div>
 
