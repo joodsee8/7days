@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Ribs.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
-import Polaroid from '../../components/Polaroid/Polaroid';
+import FriendsSpread from '../../components/FriendsSpread/FriendsSpread';
 import polaroidImg from '../../assets/images/Polaroid2.jpg';
-// Asegúrate de que las rutas a tus imágenes y audio sean correctas
 import coverImg from '../../assets/images/ribs-cover.jpg';
 import audioFile from '../../assets/music/ribs.mp3';
 
+const CHAPTER_INDEX = 2;
+const CHAPTER_TOTAL = 7;
+const ACCENT = '#aaaaaa';
+const PLAYER_BG = '#222121';
+const PLAYER_TEXT = '#f5e6d9';
+const LETTER_SEEN_KEY = 'day2_letter_typed';
+
+const pullQuote = "Si algún día todo cambiara, si las personas se alejaran y terminara sintiéndome solo, saber que todavía te tengo sería suficiente.";
 
 const letterParagraphs = [
   "Hay algo extraño en crecer.",
@@ -24,7 +32,6 @@ const letterParagraphs = [
   "No sé cómo será nuestra vida dentro de algunos años, no sé cuánto cambiará todo ni qué versiones de nosotros existirán entonces, pero me gusta pensar que, cuando miremos hacia atrás, seguiremos teniendo historias que recordar y motivos para reírnos.",
   "Quizá todos tenemos miedo de crecer, pero si tengo que hacerlo, me alegra que tú hayas estado conmigo durante una parte tan grande del camino."
 ];
-
 
 const songLrc = `
 [00:00.000] ...
@@ -76,55 +83,63 @@ const songLrc = `
 [03:59.825] But that will never be enough (but that will never be enough) | Pero eso nunca será suficiente (pero eso nunca será suficiente)`;
 
 const Ribs = () => {
-  const [completedParagraphs, setCompletedParagraphs] = useState([]);
+  const navigate = useNavigate();
+
+  const [hasSeenLetter] = useState(() => localStorage.getItem(LETTER_SEEN_KEY) === 'true');
+
+  const [completedParagraphs, setCompletedParagraphs] = useState(() =>
+    hasSeenLetter ? letterParagraphs : []
+  );
   const [currentTypingText, setCurrentTypingText] = useState('');
-  const [paragraphIndex, setParagraphIndex] = useState(0);
-  const [showButton, setShowButton] = useState(false);
+  const [paragraphIndex, setParagraphIndex] = useState(() =>
+    hasSeenLetter ? letterParagraphs.length : 0
+  );
+  const [showButton, setShowButton] = useState(() => hasSeenLetter);
+
   const [showPlayer, setShowPlayer] = useState(false);
-  const [showPolaroid, setShowPolaroid] = useState(false);
+  const [showFriends, setShowFriends] = useState(false);
 
   useEffect(() => {
-    // Validamos que no se envíe el correo cada vez que ella recargue la página
     if (!localStorage.getItem('notification_sent_day2')) {
-      
-      // Hacemos el ping silencioso a Formspree
       fetch("https://formspree.io/f/xeeyyoqo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           alerta: "¡Montse acaba de abrir el Capítulo II: Ribs!",
           hora: new Date().toLocaleString()
         })
       })
-      .then(() => {
-        // Marcamos en SU celular que ya te avisó para no saturar tu correo
-        localStorage.setItem('notification_sent_day2', 'true');
-      })
-      .catch((error) => console.log("Error silencioso:", error));
+        .then(() => {
+          localStorage.setItem('notification_sent_day2', 'true');
+        })
+        .catch((error) => console.log("Error silencioso:", error));
     }
   }, []);
 
-  // Lógica del Typewriter
+  // Lógica del Typewriter — solo corre si no se ha visto antes
   useEffect(() => {
+    if (hasSeenLetter) return;
+
     if (paragraphIndex < letterParagraphs.length) {
       const fullText = letterParagraphs[paragraphIndex];
       if (currentTypingText.length < fullText.length) {
         const timeout = setTimeout(() => {
           setCurrentTypingText(fullText.slice(0, currentTypingText.length + 1));
-        }, 35); // Velocidad de tipeo
+        }, 35);
         return () => clearTimeout(timeout);
       } else {
         const timeout = setTimeout(() => {
           setCompletedParagraphs((prev) => [...prev, fullText]);
           setCurrentTypingText('');
           setParagraphIndex((prev) => prev + 1);
-        }, 1200); // Pausa entre párrafos
+        }, 1200);
         return () => clearTimeout(timeout);
       }
     } else {
       setShowButton(true);
+      localStorage.setItem(LETTER_SEEN_KEY, 'true');
     }
-  }, [currentTypingText, paragraphIndex]);
+  }, [currentTypingText, paragraphIndex, hasSeenLetter]);
 
   const handleRevealPlayer = () => {
     setShowButton(false);
@@ -133,17 +148,34 @@ const Ribs = () => {
 
   const handleClosePlayer = () => {
     setShowPlayer(false);
-    setShowPolaroid(true);
+    setShowFriends(true);
   };
 
   return (
-    <div className="chapter-light-container">
-      
-      {/* Encabezado del Capítulo */}
-      <header className="chapter-header">
-        <div className="chapter-number">Capítulo II</div>
-        <div className="chapter-song-title">Ribs</div>
-      </header>
+    <div className="day2-magazine">
+
+      {/* Folio superior */}
+      <div className="day2-folio-bar">
+        <span>Cap. {CHAPTER_INDEX} / {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
+        <span>Ribs</span>
+      </div>
+
+      {/* Hero: foto + título superpuesto */}
+      <div className="day2-hero">
+        <img src={coverImg} alt="" className="day2-hero-photo" />
+        <div className="day2-hero-gradient" />
+        <div className="day2-hero-text">
+          <p className="day2-hero-eyebrow">Capítulo II</p>
+          <h1 className="day2-hero-title">Ribs</h1>
+          <p className="day2-hero-artist">Lorde</p>
+        </div>
+      </div>
+
+      {/* Pull quote */}
+      <div className="day2-pull-quote">
+        <span className="day2-quote-mark" aria-hidden="true">&ldquo;</span>
+        <p>{pullQuote}</p>
+      </div>
 
       {/* Contenido de la Carta */}
       <div className="letter-content-mobile">
@@ -152,55 +184,77 @@ const Ribs = () => {
             {text}
           </p>
         ))}
-        
-        {paragraphIndex < letterParagraphs.length && (
+
+        {!hasSeenLetter && paragraphIndex < letterParagraphs.length && (
           <p className="letra-cursiva-oscura">
             {currentTypingText}
             <span className="blinking-cursor">|</span>
           </p>
         )}
-        
-        {showButton && (
-          <div className="sutil-action-container fade-in-button">
-            <span className="sutil-button-dark" onClick={handleRevealPlayer}>
-              Escuchar canción
-            </span>
+
+        {showButton && !showPlayer && (
+          <div className="day2-cta-wrap fade-in-button">
+            <button className="day2-cta-ticket" onClick={handleRevealPlayer}>
+              <span className="day2-ticket-disc" aria-hidden="true">
+                <svg viewBox="0 0 40 40" width="28" height="28">
+                  <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
+                  <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
+                  <circle cx="20" cy="20" r="3" fill={ACCENT} />
+                </svg>
+              </span>
+              <span className="day2-ticket-divider" />
+              <span className="day2-ticket-text">
+                <span className="day2-ticket-title">Ribs</span>
+                <span className="day2-ticket-subtitle">Lorde</span>
+              </span>
+              <span className="day2-ticket-action">Escuchar</span>
+            </button>
           </div>
         )}
       </div>
 
       {/* Reproductor de Música */}
       {showPlayer && (
-        <MusicPlayer
-          title="Ribs"
-          artist="Lorde"
-          cover={coverImg}
-          audioSrc={audioFile}
-          lyrics={songLrc}
-          endText="Puede que no podamos traducir literalmente una canción y esperar que transmita la misma emoción, creo que fue una idea un poco mala empezar el proyecto con canciones en inglés... pero bueno, nos vemos mañana :D"
-          accentColor="#aaaaaa" /* Color frío asignado a este día */
-          bgColor = "#222121"
-          textColor = "#f5e6d9"
-          onClose={handleClosePlayer}
+        <div className="day2-player-wrap">
+          <MusicPlayer
+            title="Ribs"
+            artist="Lorde"
+            cover={coverImg}
+            audioSrc={audioFile}
+            lyrics={songLrc}
+            endText="Puede que no podamos traducir literalmente una canción y esperar que transmita la misma emoción, creo que fue una idea un poco mala empezar el proyecto con canciones en inglés... pero bueno, nos vemos mañana :D"
+            bgColor={PLAYER_BG}
+            textColor={PLAYER_TEXT}
+            accentColor={ACCENT}
+            onClose={handleClosePlayer}
+          />
+        </div>
+      )}
+
+      {/* Página de "Voces" */}
+      {showFriends && (
+        <FriendsSpread
+          kicker="Voces"
+          deck="Lo que este capítulo significa para quienes te quieren."
+          entries={[
+            {
+              photo: polaroidImg,
+              quote: "Montse es la persona que pase lo que pase estará para ti, escuchándote, apoyándote y abrazándote, que haría cualquier cosa por ti, su amistad es de las pocas que quedan sin envidias e hipocresías.",
+              name: "Pao",
+            },
+          ]}
+          accentColor={ACCENT}
+          continueLabel="Cerrar capítulo"
+          onContinue={() => navigate('/index')}
         />
       )}
 
-      {/* Polaroids Finales */}
-      {showPolaroid && (
-        <div className="polaroids-section fade-in-chapter">
-          <Polaroid 
-            imageSrc={polaroidImg}
-            message="Montse es la persona que pase lo que pase estará para ti, escuchándote, apoyándote y abrazándote, que haría cualquier cosa por ti, su amistad es de las pocas que quedan sin envidias e hipocresías." 
-            friendName="Pao" 
-          />
-          {/* Botón de cierre para regresar al índice */}
-          <div className="sutil-action-container" style={{ marginTop: '3rem' }}>
-             <span className="sutil-button-dark" onClick={() => window.history.back()}>
-              Cerrar Capítulo
-            </span>
-          </div>
-        </div>
-      )}
+      {/* Folio de cierre */}
+      <div className="day2-folio-footer">
+        <span>{String(CHAPTER_INDEX).padStart(2, '0')}</span>
+        <span className="day2-folio-rule" />
+        <span>de {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
+      </div>
     </div>
   );
 };
