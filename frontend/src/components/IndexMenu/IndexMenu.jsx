@@ -19,7 +19,7 @@ const IndexMenu = () => {
   // Función inteligente para checar si ya es la fecha (sin cambios)
   const checkUnlocked = (dayNumber) => {
     const today = new Date();
-    const releaseDate = new Date(2026, 9, dayNumber);
+    const releaseDate = new Date(2026, 8, dayNumber);
     return today >= releaseDate;
     // return true; // Para pruebas, siempre desbloqueado
   };
