@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BlueBanisters.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
-import ContributorNote from '../../components/ContributorNote/ContributorNote';
-import notePhoto from '../../assets/images/Polaroid1.jpg';
+import FriendsSpread from '../../components/FriendsSpread/FriendsSpread';
+import friendPhoto from '../../assets/images/Polaroid1.jpg';
 
-// Asegúrate de que las rutas a tus imágenes y audio sean correctas
 import coverImg from '../../assets/images/IMG_0105.jpeg';
 import audioFile from '../../assets/music/Blue-Banisters.mp3';
 
 const CHAPTER_INDEX = 1;
 const CHAPTER_TOTAL = 7;
 const ACCENT = '#5A6B7C';
+const LETTER_SEEN_KEY = 'day1_letter_typed';
 
 const pullQuote = "Tú estuviste ahí, me diste un lugar en el que me sentí seguro, en el que podía ser yo.";
 
@@ -80,12 +80,21 @@ const songLrc = `[00:00.000] There's a picture on the wall of me on a John Deere
 
 const BlueBanisters = () => {
   const navigate = useNavigate();
-  const [completedParagraphs, setCompletedParagraphs] = useState([]);
+
+  // Si la carta ya se escribió antes en este dispositivo, no la repetimos
+  const [hasSeenLetter] = useState(() => localStorage.getItem(LETTER_SEEN_KEY) === 'true');
+
+  const [completedParagraphs, setCompletedParagraphs] = useState(() =>
+    hasSeenLetter ? letterParagraphs : []
+  );
   const [currentTypingText, setCurrentTypingText] = useState('');
-  const [paragraphIndex, setParagraphIndex] = useState(0);
-  const [showButton, setShowButton] = useState(false);
+  const [paragraphIndex, setParagraphIndex] = useState(() =>
+    hasSeenLetter ? letterParagraphs.length : 0
+  );
+  const [showButton, setShowButton] = useState(() => hasSeenLetter);
+
   const [showPlayer, setShowPlayer] = useState(false);
-  const [showNote, setShowNote] = useState(false);
+  const [showFriends, setShowFriends] = useState(false);
 
   useEffect(() => {
     if (!localStorage.getItem('notification_sent_day1')) {
@@ -104,8 +113,10 @@ const BlueBanisters = () => {
     }
   }, []);
 
-  // Lógica del Typewriter (sin cambios)
+  // Lógica del Typewriter — solo corre si no se ha visto antes
   useEffect(() => {
+    if (hasSeenLetter) return;
+
     if (paragraphIndex < letterParagraphs.length) {
       const fullText = letterParagraphs[paragraphIndex];
       if (currentTypingText.length < fullText.length) {
@@ -123,8 +134,9 @@ const BlueBanisters = () => {
       }
     } else {
       setShowButton(true);
+      localStorage.setItem(LETTER_SEEN_KEY, 'true');
     }
-  }, [currentTypingText, paragraphIndex]);
+  }, [currentTypingText, paragraphIndex, hasSeenLetter]);
 
   const handleRevealPlayer = () => {
     setShowButton(false);
@@ -133,7 +145,7 @@ const BlueBanisters = () => {
 
   const handleClosePlayer = () => {
     setShowPlayer(false);
-    setShowNote(true);
+    setShowFriends(true);
   };
 
   return (
@@ -145,7 +157,7 @@ const BlueBanisters = () => {
         <span>Blue Banisters</span>
       </div>
 
-      {/* Hero: foto + título superpuesto, como coverline */}
+      {/* Hero: foto + título superpuesto */}
       <div className="day1-hero">
         <img src={coverImg} alt="" className="day1-hero-photo" />
         <div className="day1-hero-gradient" />
@@ -156,13 +168,13 @@ const BlueBanisters = () => {
         </div>
       </div>
 
-      {/* Pull quote, tomada de la propia carta */}
+      {/* Pull quote */}
       <div className="day1-pull-quote">
         <span className="day1-quote-mark" aria-hidden="true">&ldquo;</span>
         <p>{pullQuote}</p>
       </div>
 
-      {/* Contenido de la Carta (typewriter intacto) */}
+      {/* Contenido de la Carta */}
       <div className="letter-content-mobile">
         {completedParagraphs.map((text, index) => (
           <p key={index} className="letra-cursiva-oscura">
@@ -170,15 +182,14 @@ const BlueBanisters = () => {
           </p>
         ))}
 
-        {paragraphIndex < letterParagraphs.length && (
+        {!hasSeenLetter && paragraphIndex < letterParagraphs.length && (
           <p className="letra-cursiva-oscura">
             {currentTypingText}
             <span className="blinking-cursor">|</span>
           </p>
         )}
 
-        {/* CTA tipo boleto/cassette en vez del texto suelto */}
-        {showButton && (
+        {showButton && !showPlayer && (
           <div className="day1-cta-wrap fade-in-button">
             <button className="day1-cta-ticket" onClick={handleRevealPlayer}>
               <span className="day1-ticket-disc" aria-hidden="true">
@@ -215,19 +226,22 @@ const BlueBanisters = () => {
         </div>
       )}
 
-      {/* Nota de revista en vez de la Polaroid */}
-      {showNote && (
-        <div className="day1-note-wrap">
-          <ContributorNote
-            quote="¡Felices 20, Montse! Gracias por siempre venir a ayudarme a pintar mis barandales."
-            name="Pancho"
-            role="Capítulo I — Blue Banisters"
-            photo={notePhoto}
-            accentColor={ACCENT}
-            continueLabel="Cerrar capítulo"
-            onContinue={() => navigate('/index')}
-          />
-        </div>
+      {/* Página de "Voces": foto(s) + lo que significan para tus amigos */}
+      {showFriends && (
+        <FriendsSpread
+          kicker="Voces"
+          deck="Lo que este capítulo significa para quienes te quieren."
+          entries={[
+            {
+              photo: friendPhoto,
+              quote: "¡Felices 20, Montse! Gracias por siempre venir a ayudarme a pintar mis barandales.",
+              name: "Pancho",
+            },
+          ]}
+          accentColor={ACCENT}
+          continueLabel="Cerrar capítulo"
+          onContinue={() => navigate('/index')}
+        />
       )}
 
       {/* Folio de cierre */}
