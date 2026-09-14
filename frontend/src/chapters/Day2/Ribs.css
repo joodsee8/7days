@@ -1,47 +1,137 @@
-/* src/chapters/Day1/BlueBanisters.css */
+/* src/chapters/Day2/Ribs.css */
 
-.chapter-light-container {
+.day2-magazine {
   min-height: 100vh;
   background-color: #f2f3f5;
-  /* Versión segura de la textura */
-  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.05"/></svg>');
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4rem 1.5rem;
+  padding: 0 0 4rem;
   overflow-x: hidden;
 }
 
-/* --- ENCABEZADO --- */
-.chapter-header {
-  text-align: center;
-  margin-bottom: 4rem;
+/* --- FOLIO SUPERIOR --- */
+.day2-folio-bar {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.6rem 1.5rem 1.2rem;
+  box-sizing: border-box;
   font-family: 'Times New Roman', Times, serif;
-  opacity: 0;
-  animation: fadeIn 2s ease-in-out forwards;
-}
-
-.chapter-number {
-  font-size: 0.8rem;
-  letter-spacing: 4px;
-  color: #555;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.chapter-song-title {
-  font-size: 1.2rem;
+  font-size: 0.72rem;
   letter-spacing: 2px;
-  color: #222;
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  padding-bottom: 10px;
+  color: #6b6b6b;
+  opacity: 0;
+  animation: day2FadeIn 1.2s ease forwards;
 }
 
-/* --- TEXTO DE LA CARTA --- */
+/* --- HERO --- */
+.day2-hero {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  opacity: 0;
+  animation: day2FadeIn 1.4s ease forwards;
+  animation-delay: 0.15s;
+}
+
+.day2-hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.day2-hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(20, 20, 20, 0.05) 0%,
+    rgba(20, 20, 20, 0.15) 45%,
+    rgba(20, 20, 20, 0.88) 100%
+  );
+}
+
+.day2-hero-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 1.6rem 1.8rem;
+  color: #f5f1e8;
+}
+
+.day2-hero-eyebrow {
+  margin: 0 0 4px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #cfcfcf;
+}
+
+.day2-hero-title {
+  margin: 0;
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-weight: 800;
+  font-size: clamp(2.1rem, 9vw, 2.8rem);
+  line-height: 1.02;
+}
+
+.day2-hero-artist {
+  margin: 8px 0 0;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #d9dde2;
+}
+
+/* --- PULL QUOTE --- */
+.day2-pull-quote {
+  width: 100%;
+  max-width: 460px;
+  padding: 2.6rem 2rem 0.5rem;
+  box-sizing: border-box;
+  text-align: center;
+  opacity: 0;
+  animation: day2FadeIn 1.4s ease forwards;
+  animation-delay: 0.35s;
+}
+
+.day2-quote-mark {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 1;
+  color: #6b6b6b;
+  opacity: 0.5;
+  margin-bottom: -0.8rem;
+}
+
+.day2-pull-quote p {
+  margin: 0;
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: #1a1c23;
+}
+
+/* --- CARTA --- */
 .letter-content-mobile {
   width: 100%;
   max-width: 500px;
+  padding: 1rem 1.5rem 0;
+  box-sizing: border-box;
 }
 
 .letra-cursiva-oscura {
@@ -63,56 +153,115 @@
   margin-left: 2px;
 }
 
-/* --- ANIMACIONES Y BOTONES --- */
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
+@keyframes day2FadeIn {
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.fade-in-chapter {
-  animation: fadeIn 1.5s ease-in-out forwards;
-}
-
 .fade-in-button {
-  animation: fadeIn 2s ease-in-out forwards;
+  animation: day2FadeIn 1.6s ease forwards;
   opacity: 0;
 }
 
-.sutil-action-container {
+/* --- CTA TIPO BOLETO --- */
+.day2-cta-wrap {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
-  margin-bottom: 3rem;
+  margin: 2.2rem 0 3rem;
 }
 
-.sutil-button-dark {
-  font-family: 'Times New Roman', serif;
-  font-size: 0.9rem;
-  color: #4a5568;
-  opacity: 0.7;
-  cursor: pointer;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  transition: opacity 0.4s ease, letter-spacing 0.4s ease;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 4px;
-}
-
-.sutil-button-dark:hover {
-  opacity: 1;
-  letter-spacing: 3px;
-  border-bottom: 1px solid #4a5568;
-}
-
-.polaroids-section {
+.day2-cta-ticket {
+  display: flex;
+  align-items: center;
+  gap: 14px;
   width: 100%;
+  max-width: 380px;
+  background-color: #f5f1e8;
+  border: 1px solid rgba(26, 28, 35, 0.15);
+  padding: 14px 18px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.day2-cta-ticket:hover {
+  border-color: #6b6b6b;
+  transform: translateY(-2px);
+}
+
+.day2-ticket-disc {
+  flex-shrink: 0;
+  display: flex;
+}
+
+.day2-ticket-divider {
+  width: 1px;
+  align-self: stretch;
+  background-image: linear-gradient(to bottom, rgba(26, 28, 35, 0.25) 50%, transparent 50%);
+  background-size: 1px 8px;
+}
+
+.day2-ticket-text {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
+  text-align: left;
+}
+
+.day2-ticket-title {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1a1c23;
+}
+
+.day2-ticket-subtitle {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  margin-top: 2px;
+}
+
+.day2-ticket-action {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  flex-shrink: 0;
+}
+
+/* --- CONTENEDOR DEL PLAYER --- */
+.day2-player-wrap {
+  width: 100%;
+  max-width: 500px;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+/* --- FOLIO DE CIERRE --- */
+.day2-folio-footer {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
   align-items: center;
-  margin-top: 2rem;
+  gap: 12px;
+  padding: 2.5rem 1.5rem 0;
+  box-sizing: border-box;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  color: #863bff;
+}
+
+.day2-folio-rule {
+  flex-grow: 1;
+  height: 1px;
+  background-color: rgba(134, 59, 255, 0.25);
 }
