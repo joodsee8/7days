@@ -4,6 +4,7 @@ import './BlueBanisters.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
 import FriendsSpread from '../../components/FriendSpread/FriendSpread';
 import friendPhoto from '../../assets/images/Polaroid1.jpg';
+import mainImg from '../../assets/images/Cap1.jpeg';
 
 import coverImg from '../../assets/images/IMG_0105.jpeg';
 import audioFile from '../../assets/music/Blue-Banisters.mp3';
@@ -159,7 +160,7 @@ const BlueBanisters = () => {
 
       {/* Hero: foto + título superpuesto */}
       <div className="day1-hero">
-        <img src={coverImg} alt="" className="day1-hero-photo" />
+        <img src={mainImg} alt="" className="day1-hero-photo" />
         <div className="day1-hero-gradient" />
         <div className="day1-hero-text">
           <p className="day1-hero-eyebrow">Capítulo I</p>
