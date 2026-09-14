@@ -21,25 +21,18 @@ const MusicPlayer = ({
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [showEndMessage, setShowEndMessage] = useState(false);
 
-  // Procesar LRC
   useEffect(() => {
     if (lyrics) {
       const lines = lyrics.split('\n');
       const parsed = lines.map(line => {
         const match = line.match(/\[(\d{2}):(\d{2})\.(\d{2,3})\](.*)/);
-        
         if (match) {
-          // 1. AQUÍ DEFINIMOS EL TIEMPO
           const time = parseInt(match[1]) * 60 + parseInt(match[2]) + parseInt(match[3]) / 1000;
-          
-          // 2. SEPARAMOS EL INGLÉS DEL ESPAÑOL
           const [originalText, translatedText] = match[4].split('|');
-
-          // 3. REGRESAMOS TODO ARMADO
-          return { 
-            time, 
-            text: originalText.trim(), 
-            translation: translatedText ? translatedText.trim() : null 
+          return {
+            time,
+            text: originalText.trim(),
+            translation: translatedText ? translatedText.trim() : null
           };
         }
         return null;
@@ -48,7 +41,6 @@ const MusicPlayer = ({
     }
   }, [lyrics]);
 
-  // Hacer scroll automático centrando la frase (incluso si ocupa varias líneas)
   useEffect(() => {
     if (lyricsContainerRef.current && currentLineIndex >= 0) {
       const container = lyricsContainerRef.current;
@@ -78,7 +70,7 @@ const MusicPlayer = ({
       const nextLine = parsedLyrics[index + 1];
       return current >= line.time && (!nextLine || current < nextLine.time);
     });
-    
+
     if (activeIndex !== -1 && activeIndex !== currentLineIndex) {
       setCurrentLineIndex(activeIndex);
     }
@@ -98,37 +90,24 @@ const MusicPlayer = ({
   return (
     <div className="music-player-dark fade-in" style={{ backgroundColor: bgColor, color: textColor, borderTopColor: accentColor }}>
 
-      {/* Kicker editorial */}
-      <div className="player-kicker" style={{ color: accentColor }}>
-        <span>Ahora suena</span>
-        <span className="player-kicker-line" style={{ backgroundColor: accentColor }}></span>
-      </div>
-
-      {/* Controles y Portada */}
       <div className="player-header">
         <div className="player-album-frame" style={{ borderColor: `${textColor}33` }}>
           <img src={cover} alt="Cover" className="player-album-art" />
         </div>
-        
+
         <div className="player-details">
           <h3 className="song-title" style={{ color: textColor }}>{title}</h3>
-          <p className="song-artist" style={{ color: textColor, opacity: 0.7 }}>{artist}</p>
-          
+          <p className="song-artist" style={{ color: textColor, opacity: 0.65 }}>{artist}</p>
+
           <div className="progress-bar-bg" onClick={handleProgressClick} style={{ backgroundColor: `${textColor}26` }}>
-            <div 
-              className="progress-bar-active" 
-              style={{ width: `${progress}%`, backgroundColor: accentColor }}
-            ></div>
-            <div
-              className="progress-marker"
-              style={{ left: `${progress}%`, backgroundColor: accentColor }}
-            ></div>
+            <div className="progress-bar-active" style={{ width: `${progress}%`, backgroundColor: accentColor }} />
+            <div className="progress-marker" style={{ left: `${progress}%`, backgroundColor: accentColor }} />
           </div>
         </div>
 
-        <button 
-          className="svg-play-btn" 
-          onClick={togglePlay} 
+        <button
+          className="svg-play-btn"
+          onClick={togglePlay}
           style={{ color: accentColor }}
           aria-label={isPlaying ? "Pausar" : "Reproducir"}
         >
@@ -144,45 +123,42 @@ const MusicPlayer = ({
         </button>
       </div>
 
-      {/* Carrete de Letras (Scroll Dinámico) */}
       <div className="lyrics-reel" ref={lyricsContainerRef}>
         {parsedLyrics.map((line, index) => (
-  <div 
-    key={index} 
-    className={`lyric-line ${index === currentLineIndex ? 'active' : ''}`}
-    style={{ 
-      color: index === currentLineIndex ? "#ffffff" : textColor,
-      opacity: index === currentLineIndex ? 1 : 0.15
-    }}
-  >
-    <div className="lyric-original">{line.text}</div>
-    {/* Si hay traducción, la imprimimos debajo */}
-    {line.translation && (
-      <div className="lyric-translation">{line.translation}</div>
-    )}
-  </div>
-))}
+          <div
+            key={index}
+            className={`lyric-line ${index === currentLineIndex ? 'active' : ''}`}
+            style={{
+              color: index === currentLineIndex ? "#ffffff" : textColor,
+              opacity: index === currentLineIndex ? 1 : 0.15
+            }}
+          >
+            <div className="lyric-original">{line.text}</div>
+            {line.translation && (
+              <div className="lyric-translation">{line.translation}</div>
+            )}
+          </div>
+        ))}
       </div>
 
-      {/* Mensaje Final */}
       {showEndMessage && (
         <div className="end-chapter-section fade-in" style={{ borderColor: `${textColor}1a` }}>
-          <p className="end-chapter-kicker" style={{ color: accentColor }}>Fin de la canción</p>
+          <span className="end-chapter-mark" style={{ color: accentColor }} aria-hidden="true">&rdquo;</span>
           <p className="end-chapter-text">{endText}</p>
-          <button 
-            className="continue-btn" 
-            onClick={onClose} 
+          <button
+            className="continue-btn"
+            onClick={onClose}
             style={{ borderBottomColor: accentColor, color: accentColor }}
           >
             Siguiente
           </button>
         </div>
       )}
-      
-      <audio 
-        ref={audioRef} 
-        src={audioSrc} 
-        onTimeUpdate={handleTimeUpdate} 
+
+      <audio
+        ref={audioRef}
+        src={audioSrc}
+        onTimeUpdate={handleTimeUpdate}
         onEnded={handleEnded}
       />
     </div>
