@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Ribs.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
-import FriendsSpread from '../../components/FriendsSpread/FriendsSpread';
+import FriendsSpread from '../../components/FriendSpread/FriendSpread';
 import polaroidImg from '../../assets/images/Polaroid2.jpg';
 import coverImg from '../../assets/images/ribs-cover.jpg';
 import audioFile from '../../assets/music/ribs.mp3';
