@@ -96,20 +96,32 @@ const MusicPlayer = ({
   };
 
   return (
-    <div className="music-player-dark fade-in" style={{ backgroundColor: bgColor, color: textColor }}>
-      
+    <div className="music-player-dark fade-in" style={{ backgroundColor: bgColor, color: textColor, borderTopColor: accentColor }}>
+
+      {/* Kicker editorial */}
+      <div className="player-kicker" style={{ color: accentColor }}>
+        <span>Ahora suena</span>
+        <span className="player-kicker-line" style={{ backgroundColor: accentColor }}></span>
+      </div>
+
       {/* Controles y Portada */}
       <div className="player-header">
-        <img src={cover} alt="Cover" className="player-album-art" />
+        <div className="player-album-frame" style={{ borderColor: `${textColor}33` }}>
+          <img src={cover} alt="Cover" className="player-album-art" />
+        </div>
         
         <div className="player-details">
           <h3 className="song-title" style={{ color: textColor }}>{title}</h3>
           <p className="song-artist" style={{ color: textColor, opacity: 0.7 }}>{artist}</p>
           
-          <div className="progress-bar-bg" onClick={handleProgressClick}>
+          <div className="progress-bar-bg" onClick={handleProgressClick} style={{ backgroundColor: `${textColor}26` }}>
             <div 
               className="progress-bar-active" 
               style={{ width: `${progress}%`, backgroundColor: accentColor }}
+            ></div>
+            <div
+              className="progress-marker"
+              style={{ left: `${progress}%`, backgroundColor: accentColor }}
             ></div>
           </div>
         </div>
@@ -121,11 +133,11 @@ const MusicPlayer = ({
           aria-label={isPlaying ? "Pausar" : "Reproducir"}
         >
           {isPlaying ? (
-            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
               <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
             </svg>
           ) : (
-            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
               <path d="M8 5v14l11-7z" />
             </svg>
           )}
@@ -154,7 +166,8 @@ const MusicPlayer = ({
 
       {/* Mensaje Final */}
       {showEndMessage && (
-        <div className="end-chapter-section fade-in" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+        <div className="end-chapter-section fade-in" style={{ borderColor: `${textColor}1a` }}>
+          <p className="end-chapter-kicker" style={{ color: accentColor }}>Fin de la canción</p>
           <p className="end-chapter-text">{endText}</p>
           <button 
             className="continue-btn" 
