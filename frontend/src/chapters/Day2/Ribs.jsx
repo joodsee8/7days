@@ -6,7 +6,7 @@ import FriendsSpread from '../../components/FriendSpread/FriendSpread';
 import polaroidImg from '../../assets/images/Polaroid2.jpg';
 import coverImg from '../../assets/images/ribs-cover.jpg';
 import audioFile from '../../assets/music/ribs.mp3';
-
+import mainImg from '../../assets/images/Cap2.jpg';
 const CHAPTER_INDEX = 2;
 const CHAPTER_TOTAL = 7;
 const ACCENT = '#aaaaaa';
@@ -162,7 +162,7 @@ const Ribs = () => {
 
       {/* Hero: foto + título superpuesto */}
       <div className="day2-hero">
-        <img src={coverImg} alt="" className="day2-hero-photo" />
+        <img src={mainImg} alt="" className="day2-hero-photo" />
         <div className="day2-hero-gradient" />
         <div className="day2-hero-text">
           <p className="day2-hero-eyebrow">Capítulo II</p>
