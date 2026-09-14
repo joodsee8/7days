@@ -3,7 +3,7 @@ import './BlueBanisters.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
 import Polaroid from '../../components/Polaroid/Polaroid';
 import imageSrc from '../../assets/images/Polaroid1.jpg';
-
+import Cap1 from '../../assets/images/Cap1.jpg';
 // Asegúrate de que las rutas a tus imágenes y audio sean correctas
 import coverImg from '../../assets/images/IMG_0105.jpeg';
 import audioFile from '../../assets/music/Blue-Banisters.mp3';
@@ -148,7 +148,7 @@ const BlueBanisters = () => {
 
       {/* Hero: foto grande con el título superpuesto, como una coverline */}
       <div className="chapter-hero">
-        <img src={coverImg} alt="" className="chapter-hero-photo" />
+        <img src={Cap1} alt="" className="chapter-hero-photo" />
         <div className="chapter-hero-gradient" />
         <div className="chapter-hero-text">
           <p className="chapter-hero-eyebrow">Capítulo I</p>
