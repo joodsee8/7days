@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './BlueBanisters.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
-import Polaroid from '../../components/Polaroid/Polaroid';
-import imageSrc from '../../assets/images/Polaroid1.jpg';
-import Cap1 from '../../assets/images/Cap1.jpg';
+import ContributorNote from '../../components/ContributorNote/ContributorNote';
+import notePhoto from '../../assets/images/Polaroid1.jpg';
+
 // Asegúrate de que las rutas a tus imágenes y audio sean correctas
 import coverImg from '../../assets/images/IMG_0105.jpeg';
 import audioFile from '../../assets/music/Blue-Banisters.mp3';
 
 const CHAPTER_INDEX = 1;
 const CHAPTER_TOTAL = 7;
+const ACCENT = '#5A6B7C';
 
 const pullQuote = "Tú estuviste ahí, me diste un lugar en el que me sentí seguro, en el que podía ser yo.";
 
@@ -77,49 +79,46 @@ const songLrc = `[00:00.000] There's a picture on the wall of me on a John Deere
 [04:15.480] To paint, paint | Para pintar`;
 
 const BlueBanisters = () => {
+  const navigate = useNavigate();
   const [completedParagraphs, setCompletedParagraphs] = useState([]);
   const [currentTypingText, setCurrentTypingText] = useState('');
   const [paragraphIndex, setParagraphIndex] = useState(0);
   const [showButton, setShowButton] = useState(false);
   const [showPlayer, setShowPlayer] = useState(false);
-  const [showPolaroid, setShowPolaroid] = useState(false);
+  const [showNote, setShowNote] = useState(false);
 
   useEffect(() => {
-    // Validamos que no se envíe el correo cada vez que ella recargue la página
     if (!localStorage.getItem('notification_sent_day1')) {
-      
-      // Hacemos el ping silencioso a Formspree
       fetch("https://formspree.io/f/xeeyyoqo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           alerta: "¡Montse acaba de abrir el Capítulo I: Blue Banisters!",
           hora: new Date().toLocaleString()
         })
       })
-      .then(() => {
-        // Marcamos en SU celular que ya te avisó para no saturar tu correo
-        localStorage.setItem('notification_sent_day1', 'true');
-      })
-      .catch((error) => console.log("Error silencioso:", error));
+        .then(() => {
+          localStorage.setItem('notification_sent_day1', 'true');
+        })
+        .catch((error) => console.log("Error silencioso:", error));
     }
   }, []);
 
-  // Lógica del Typewriter
+  // Lógica del Typewriter (sin cambios)
   useEffect(() => {
     if (paragraphIndex < letterParagraphs.length) {
       const fullText = letterParagraphs[paragraphIndex];
       if (currentTypingText.length < fullText.length) {
         const timeout = setTimeout(() => {
           setCurrentTypingText(fullText.slice(0, currentTypingText.length + 1));
-        }, 35); // Velocidad de tipeo
+        }, 35);
         return () => clearTimeout(timeout);
       } else {
         const timeout = setTimeout(() => {
           setCompletedParagraphs((prev) => [...prev, fullText]);
           setCurrentTypingText('');
           setParagraphIndex((prev) => prev + 1);
-        }, 1200); // Pausa entre párrafos
+        }, 1200);
         return () => clearTimeout(timeout);
       }
     } else {
@@ -134,93 +133,107 @@ const BlueBanisters = () => {
 
   const handleClosePlayer = () => {
     setShowPlayer(false);
-    setShowPolaroid(true);
+    setShowNote(true);
   };
 
   return (
-    <div className="chapter-light-container magazine-chapter">
+    <div className="day1-magazine">
 
-      {/* Barra de folio superior, estilo revista */}
-      <div className="folio-bar">
-        <span className="folio-chapter">Cap. {CHAPTER_INDEX} / {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
-        <span className="folio-song">♪ Blue Banisters</span>
+      {/* Folio superior */}
+      <div className="day1-folio-bar">
+        <span>Cap. {CHAPTER_INDEX} / {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
+        <span>Blue Banisters</span>
       </div>
 
-      {/* Hero: foto grande con el título superpuesto, como una coverline */}
-      <div className="chapter-hero">
-        <img src={Cap1} alt="" className="chapter-hero-photo" />
-        <div className="chapter-hero-gradient" />
-        <div className="chapter-hero-text">
-          <p className="chapter-hero-eyebrow">Capítulo I</p>
-          <h1 className="chapter-hero-title">Blue Banisters</h1>
-          <p className="chapter-hero-artist">Lana Del Rey</p>
+      {/* Hero: foto + título superpuesto, como coverline */}
+      <div className="day1-hero">
+        <img src={coverImg} alt="" className="day1-hero-photo" />
+        <div className="day1-hero-gradient" />
+        <div className="day1-hero-text">
+          <p className="day1-hero-eyebrow">Capítulo I</p>
+          <h1 className="day1-hero-title">Blue Banisters</h1>
+          <p className="day1-hero-artist">Lana Del Rey</p>
         </div>
       </div>
 
-      {/* Pull quote editorial, tomada de la propia carta */}
-      <div className="pull-quote">
-        <p>&ldquo;{pullQuote}&rdquo;</p>
+      {/* Pull quote, tomada de la propia carta */}
+      <div className="day1-pull-quote">
+        <span className="day1-quote-mark" aria-hidden="true">&ldquo;</span>
+        <p>{pullQuote}</p>
       </div>
 
-      {/* Contenido de la Carta */}
+      {/* Contenido de la Carta (typewriter intacto) */}
       <div className="letter-content-mobile">
         {completedParagraphs.map((text, index) => (
           <p key={index} className="letra-cursiva-oscura">
             {text}
           </p>
         ))}
-        
+
         {paragraphIndex < letterParagraphs.length && (
           <p className="letra-cursiva-oscura">
             {currentTypingText}
             <span className="blinking-cursor">|</span>
           </p>
         )}
-        
+
+        {/* CTA tipo boleto/cassette en vez del texto suelto */}
         {showButton && (
-          <div className="sutil-action-container fade-in-button">
-            <span className="sutil-button-dark" onClick={handleRevealPlayer}>
-              Escuchar canción
-            </span>
+          <div className="day1-cta-wrap fade-in-button">
+            <button className="day1-cta-ticket" onClick={handleRevealPlayer}>
+              <span className="day1-ticket-disc" aria-hidden="true">
+                <svg viewBox="0 0 40 40" width="28" height="28">
+                  <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
+                  <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
+                  <circle cx="20" cy="20" r="3" fill={ACCENT} />
+                </svg>
+              </span>
+              <span className="day1-ticket-divider" />
+              <span className="day1-ticket-text">
+                <span className="day1-ticket-title">Blue Banisters</span>
+                <span className="day1-ticket-subtitle">Lana Del Rey</span>
+              </span>
+              <span className="day1-ticket-action">Escuchar</span>
+            </button>
           </div>
         )}
       </div>
 
       {/* Reproductor de Música */}
       {showPlayer && (
-        <MusicPlayer
-          title="Blue Banisters"
-          artist="Lana Del Rey"
-          cover={coverImg}
-          audioSrc={audioFile}
-          lyrics={songLrc}
-          endText="Espero que te haya gustado, gracias por estar siempre para mí."
-          accentColor="#5A6B7C" /* Color frío asignado a este día */
-          onClose={handleClosePlayer}
-        />
-      )}
-
-      {/* Polaroids Finales */}
-      {showPolaroid && (
-        <div className="polaroids-section fade-in-chapter">
-          <Polaroid 
-            imageSrc={imageSrc} 
-            message="¡Felices 20, Montse! Gracias por siempre venir a ayudarme a pintar mis barandales." 
-            friendName="Pancho" 
+        <div className="day1-player-wrap">
+          <MusicPlayer
+            title="Blue Banisters"
+            artist="Lana Del Rey"
+            cover={coverImg}
+            audioSrc={audioFile}
+            lyrics={songLrc}
+            endText="Espero que te haya gustado, gracias por estar siempre para mí."
+            accentColor={ACCENT}
+            onClose={handleClosePlayer}
           />
-          {/* Botón de cierre para regresar al índice */}
-          <div className="sutil-action-container" style={{ marginTop: '3rem' }}>
-             <span className="sutil-button-dark" onClick={() => window.history.back()}>
-              Cerrar Capítulo
-            </span>
-          </div>
         </div>
       )}
 
-      {/* Folio de cierre, como pie de artículo */}
-      <div className="folio-footer">
+      {/* Nota de revista en vez de la Polaroid */}
+      {showNote && (
+        <div className="day1-note-wrap">
+          <ContributorNote
+            quote="¡Felices 20, Montse! Gracias por siempre venir a ayudarme a pintar mis barandales."
+            name="Pancho"
+            role="Capítulo I — Blue Banisters"
+            photo={notePhoto}
+            accentColor={ACCENT}
+            continueLabel="Cerrar capítulo"
+            onContinue={() => navigate('/index')}
+          />
+        </div>
+      )}
+
+      {/* Folio de cierre */}
+      <div className="day1-folio-footer">
         <span>{String(CHAPTER_INDEX).padStart(2, '0')}</span>
-        <span className="folio-footer-rule" />
+        <span className="day1-folio-rule" />
         <span>de {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
       </div>
     </div>
