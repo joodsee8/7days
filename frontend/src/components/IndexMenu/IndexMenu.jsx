@@ -20,8 +20,8 @@ const IndexMenu = () => {
   const checkUnlocked = (dayNumber) => {
     const today = new Date();
     const releaseDate = new Date(2026, 8, dayNumber);
-    return today >= releaseDate;
-    // return true; // Para pruebas, siempre desbloqueado
+    //return today >= releaseDate;
+    return true; // Para pruebas, siempre desbloqueado
   };
 
   // Tu lista de capítulos, con la miniatura y el día de liberación real de cada uno
