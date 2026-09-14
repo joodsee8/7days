@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Seven.css';
-import MusicPlayer from '../../components/MusicPlayer/MusicPlayer'; // Importamos el reproductor
-import Polaroid from '../../components/Polaroid/Polaroid';
+import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
+import FriendsSpread from '../../components/FriendsSpread/FriendsSpread';
+import mainImg from '../../assets/images/Cap3.jpg';
 import coverImg from '../../assets/images/folklore.jpg';
 import audioFile from '../../assets/music/Seven.mp3';
 import polaroidImg from '../../assets/images/Polaroid3.jpg';
 import polaroidImg2 from '../../assets/images/Polaroid4.jpg';
+
+const CHAPTER_INDEX = 3;
+const CHAPTER_TOTAL = 7;
+const ACCENT = '#C7C1BC';
+const PLAYER_BG = '#616161';
+const PLAYER_TEXT = '#E5E5E5';
+const LETTER_SEEN_KEY = 'day3_letter_typed';
+
+const pullQuote = "El amor que sentimos por ellas permanece, como una canción antigua que sigue pasando de persona en persona, incluso cuando nadie recuerda cuándo comenzó.";
 
 const letterParagraphs = [
   "Hemos llegado al dia 3, hoy es el turno de seven, esta es la septima canción del álbum folklore de Taylor Swift",
@@ -58,102 +68,103 @@ const songLrc = `[00:01.634] Please picture me | Imagíname
 [02:38.618] Passed down like folk songs | Como una canción antigua que alguien se niega a olvidar
 [02:41.345] Our love lasts so long | Nuestro cariño permanece, incluso después de que pasa el tiempo`;
 
-const handleSaveMemory = (image, fileName) => {
-  const link = document.createElement('a');
-  link.href = image;
-  link.download = fileName;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
-
 const Seven = () => {
-  const [completedParagraphs, setCompletedParagraphs] = useState([]);
+  const navigate = useNavigate();
+
+  const [hasSeenLetter] = useState(() => localStorage.getItem(LETTER_SEEN_KEY) === 'true');
+
+  const [completedParagraphs, setCompletedParagraphs] = useState(() =>
+    hasSeenLetter ? letterParagraphs : []
+  );
   const [currentTypingText, setCurrentTypingText] = useState('');
-  const [paragraphIndex, setParagraphIndex] = useState(0);
-  const [showButton, setShowButton] = useState(false);
+  const [paragraphIndex, setParagraphIndex] = useState(() =>
+    hasSeenLetter ? letterParagraphs.length : 0
+  );
+  const [showButton, setShowButton] = useState(() => hasSeenLetter);
 
-  // NUEVO ESTADO: Controla si se muestra el reproductor de música
   const [showPlayer, setShowPlayer] = useState(false);
+  const [showFriends, setShowFriends] = useState(false);
 
-  // Controla si se muestran las polaroids
-  const [showPolaroid, setShowPolaroid] = useState(false);
-
-  const handleClosePlayer = () => {
-    setShowPlayer(false);
-    setShowPolaroid(true);
-  };
-
-    useEffect(() => {
-      // Validamos que no se envíe el correo cada vez que ella recargue la página
-      if (!localStorage.getItem('notification_sent_day3')) {
-        
-        // Hacemos el ping silencioso a Formspree
-        fetch("https://formspree.io/f/xeeyyoqo", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ 
-            alerta: "¡Montse acaba de abrir el Capítulo III: Seven!",
-            hora: new Date().toLocaleString()
-          })
+  useEffect(() => {
+    if (!localStorage.getItem('notification_sent_day3')) {
+      fetch("https://formspree.io/f/xeeyyoqo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          alerta: "¡Montse acaba de abrir el Capítulo III: Seven!",
+          hora: new Date().toLocaleString()
         })
+      })
         .then(() => {
-          // Marcamos en SU celular que ya te avisó para no saturar tu correo
           localStorage.setItem('notification_sent_day3', 'true');
         })
         .catch((error) => console.log("Error silencioso:", error));
-      }
-    }, []);
-  
+    }
+  }, []);
+
+  // Lógica del Typewriter — solo corre si no se ha visto antes
   useEffect(() => {
+    if (hasSeenLetter) return;
+
     if (paragraphIndex < letterParagraphs.length) {
       const fullText = letterParagraphs[paragraphIndex];
-
       if (currentTypingText.length < fullText.length) {
         const timeout = setTimeout(() => {
-          setCurrentTypingText(
-            fullText.slice(0, currentTypingText.length + 1)
-          );
+          setCurrentTypingText(fullText.slice(0, currentTypingText.length + 1));
         }, 20);
-
         return () => clearTimeout(timeout);
       } else {
         const timeout = setTimeout(() => {
-          setCompletedParagraphs(prev => [...prev, fullText]);
+          setCompletedParagraphs((prev) => [...prev, fullText]);
           setCurrentTypingText('');
-          setParagraphIndex(prev => prev + 1);
+          setParagraphIndex((prev) => prev + 1);
         }, 600);
-
         return () => clearTimeout(timeout);
       }
     } else {
       const timeout = setTimeout(() => {
         setShowButton(true);
+        localStorage.setItem(LETTER_SEEN_KEY, 'true');
       }, 1500);
-
       return () => clearTimeout(timeout);
     }
-  }, [currentTypingText, paragraphIndex]);
+  }, [currentTypingText, paragraphIndex, hasSeenLetter]);
 
-  // Función que se ejecuta al tocar "Escuchar canción"
   const handleRevealPlayer = () => {
-    setShowButton(false); // Ocultamos el botón
-    setShowPlayer(true); // Mostramos el reproductor
+    setShowButton(false);
+    setShowPlayer(true);
   };
 
-  // Función puente (placeholder por ahora) para cuando termine la canción
-  const handleContinueToDay2 = () => {
-    console.log("Aquí conectaremos con el Día 2");
+  const handleClosePlayer = () => {
+    setShowPlayer(false);
+    setShowFriends(true);
   };
 
   return (
-    <div className="chapter-light-container">
+    <div className="day3-magazine">
 
-        {/* Encabezado del Capítulo */}
-      <header className="chapter-header">
-        <div className="chapter-number">Capítulo III</div>
-        <div className="chapter-song-title">seven</div>
-      </header>
+      {/* Folio superior */}
+      <div className="day3-folio-bar">
+        <span>Cap. {CHAPTER_INDEX} / {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
+        <span>Seven</span>
+      </div>
+
+      {/* Hero: foto de portada del capítulo + título superpuesto */}
+      <div className="day3-hero">
+        <img src={mainImg} alt="" className="day3-hero-photo" />
+        <div className="day3-hero-gradient" />
+        <div className="day3-hero-text">
+          <p className="day3-hero-eyebrow">Capítulo III</p>
+          <h1 className="day3-hero-title">Seven</h1>
+          <p className="day3-hero-artist">Taylor Swift</p>
+        </div>
+      </div>
+
+      {/* Pull quote */}
+      <div className="day3-pull-quote">
+        <span className="day3-quote-mark" aria-hidden="true">&ldquo;</span>
+        <p>{pullQuote}</p>
+      </div>
 
       {/* Contenido de la Carta */}
       <div className="letter-content-mobile">
@@ -163,27 +174,37 @@ const Seven = () => {
           </p>
         ))}
 
-           {paragraphIndex < letterParagraphs.length && (
+        {!hasSeenLetter && paragraphIndex < letterParagraphs.length && (
           <p className="letra-cursiva-oscura">
             {currentTypingText}
             <span className="blinking-cursor">|</span>
           </p>
         )}
 
-        {/* El Botón Sutil - Solo se muestra si el reproductor AÚN NO está visible */}
         {showButton && !showPlayer && (
-          <div className="sutil-action-container fade-in-button">
-            <span
-              className="sutil-button-dark"
-              onClick={handleRevealPlayer}
-            >
-              Escuchar canción
-            </span>
+          <div className="day3-cta-wrap fade-in-button">
+            <button className="day3-cta-ticket" onClick={handleRevealPlayer}>
+              <span className="day3-ticket-disc" aria-hidden="true">
+                <svg viewBox="0 0 40 40" width="28" height="28">
+                  <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
+                  <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
+                  <circle cx="20" cy="20" r="3" fill={ACCENT} />
+                </svg>
+              </span>
+              <span className="day3-ticket-divider" />
+              <span className="day3-ticket-text">
+                <span className="day3-ticket-title">Seven</span>
+                <span className="day3-ticket-subtitle">Taylor Swift</span>
+              </span>
+              <span className="day3-ticket-action">Escuchar</span>
+            </button>
           </div>
         )}
+      </div>
 
-        {/* Reproductor de Música */}
-        {showPlayer && (
+      {/* Reproductor de Música */}
+      {showPlayer && (
+        <div className="day3-player-wrap">
           <MusicPlayer
             title="seven"
             artist="Taylor Swift"
@@ -191,48 +212,42 @@ const Seven = () => {
             audioSrc={audioFile}
             lyrics={songLrc}
             endText="No podia faltar Taylor Swift jaja, nos vemos mañana <3"
-            accentColor="#C7C1BC"
-            bgColor="#616161"
-            textColor="#E5E5E5"
+            bgColor={PLAYER_BG}
+            textColor={PLAYER_TEXT}
+            accentColor={ACCENT}
             onClose={handleClosePlayer}
           />
-        )}
+        </div>
+      )}
 
-        {/* Polaroids Finales */}
-        {showPolaroid && (
-          <div className="polaroids-section fade-in-chapter">
-            <Polaroid
-              imageSrc={polaroidImg}
-              message="Montse siempre esta ahi para nosotros, incluso cuando no podemos verla, hace mas bonita la experiencia en la U"
-              friendName="Azael & Pao"
-              onSaveMemory={() =>
-                handleSaveMemory(polaroidImg, 'Polaroid3.jpg')
-              }
-            />
+      {/* Página de "Voces" */}
+      {showFriends && (
+        <FriendsSpread
+          kicker="Voces"
+          deck="Lo que este capítulo significa para quienes te quieren."
+          entries={[
+            {
+              photo: polaroidImg,
+              quote: "Montse siempre esta ahi para nosotros, incluso cuando no podemos verla, hace mas bonita la experiencia en la U",
+              name: "Azael & Pao",
+            },
+            {
+              photo: polaroidImg2,
+              quote: "Soy un zangano y se me olvido pedirle un mensajito a tu familia jeje, pero se que ellos tambien te quieren mucho.",
+              name: "Pancho",
+            },
+          ]}
+          accentColor={ACCENT}
+          continueLabel="Cerrar capítulo"
+          onContinue={() => navigate('/index')}
+        />
+      )}
 
-            <Polaroid
-              imageSrc={polaroidImg2}
-              message="Soy un zangano y se me olvido pedirle un mensajito a tu familia jeje, pero se que ellos tambien te quieren mucho."
-              friendName="Pancho"
-              onSaveMemory={() =>
-                handleSaveMemory(polaroidImg2, 'Polaroid4.jpg')
-              }
-            />
-          
-            {/* Botón de cierre para regresar al índice */}
-            <div
-              className="sutil-action-container"
-              style={{ marginTop: '3rem' }}
-            >
-              <span
-                className="sutil-button-dark"
-                onClick={() => window.location.href = '/index'}
-              >
-                Cerrar Capítulo
-              </span>
-            </div>
-          </div>
-        )}
+      {/* Folio de cierre */}
+      <div className="day3-folio-footer">
+        <span>{String(CHAPTER_INDEX).padStart(2, '0')}</span>
+        <span className="day3-folio-rule" />
+        <span>de {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
       </div>
     </div>
   );
