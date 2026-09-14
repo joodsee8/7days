@@ -8,8 +8,10 @@ import imageSrc from '../../assets/images/Polaroid1.jpg';
 import coverImg from '../../assets/images/IMG_0105.jpeg';
 import audioFile from '../../assets/music/Blue-Banisters.mp3';
 
+const CHAPTER_INDEX = 1;
+const CHAPTER_TOTAL = 7;
 
-
+const pullQuote = "Tú estuviste ahí, me diste un lugar en el que me sentí seguro, en el que podía ser yo.";
 
 const letterParagraphs = [
   "Cuando pensé en la canción que abriría este proyecto, no sabía cuál sería la más adecuada, pero después de escucharla una y otra vez, me di cuenta de que no había otra que pudiera representar mejor lo que quiero decirte.",
@@ -136,13 +138,29 @@ const BlueBanisters = () => {
   };
 
   return (
-    <div className="chapter-light-container">
-      
-      {/* Encabezado del Capítulo */}
-      <header className="chapter-header">
-        <div className="chapter-number">Capítulo I</div>
-        <div className="chapter-song-title">Blue Banisters</div>
-      </header>
+    <div className="chapter-light-container magazine-chapter">
+
+      {/* Barra de folio superior, estilo revista */}
+      <div className="folio-bar">
+        <span className="folio-chapter">Cap. {CHAPTER_INDEX} / {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
+        <span className="folio-song">♪ Blue Banisters</span>
+      </div>
+
+      {/* Hero: foto grande con el título superpuesto, como una coverline */}
+      <div className="chapter-hero">
+        <img src={coverImg} alt="" className="chapter-hero-photo" />
+        <div className="chapter-hero-gradient" />
+        <div className="chapter-hero-text">
+          <p className="chapter-hero-eyebrow">Capítulo I</p>
+          <h1 className="chapter-hero-title">Blue Banisters</h1>
+          <p className="chapter-hero-artist">Lana Del Rey</p>
+        </div>
+      </div>
+
+      {/* Pull quote editorial, tomada de la propia carta */}
+      <div className="pull-quote">
+        <p>&ldquo;{pullQuote}&rdquo;</p>
+      </div>
 
       {/* Contenido de la Carta */}
       <div className="letter-content-mobile">
@@ -198,6 +216,13 @@ const BlueBanisters = () => {
           </div>
         </div>
       )}
+
+      {/* Folio de cierre, como pie de artículo */}
+      <div className="folio-footer">
+        <span>{String(CHAPTER_INDEX).padStart(2, '0')}</span>
+        <span className="folio-footer-rule" />
+        <span>de {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
+      </div>
     </div>
   );
 };
