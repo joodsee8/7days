@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Seven.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
-import FriendsSpread from '../../components/FriendsSpread/FriendsSpread';
+import FriendsSpread from '../../components/FriendSpread/FriendSpread';
 import mainImg from '../../assets/images/Cap3.jpg';
 import coverImg from '../../assets/images/folklore.jpg';
 import audioFile from '../../assets/music/Seven.mp3';
