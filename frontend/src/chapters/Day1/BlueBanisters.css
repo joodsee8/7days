@@ -1,5 +1,7 @@
 /* src/chapters/Day1/BlueBanisters.css */
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&display=swap');
+
 .chapter-light-container {
   min-height: 100vh;
   background-color: #f2f3f5;
@@ -8,40 +10,137 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4rem 1.5rem;
+  padding: 0 0 4rem;
   overflow-x: hidden;
 }
 
-/* --- ENCABEZADO --- */
-.chapter-header {
-  text-align: center;
-  margin-bottom: 4rem;
+/* --- BARRA DE FOLIO SUPERIOR --- */
+.folio-bar {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.6rem 1.5rem 1.2rem;
+  box-sizing: border-box;
   font-family: 'Times New Roman', Times, serif;
-  opacity: 0;
-  animation: fadeIn 2s ease-in-out forwards;
-}
-
-.chapter-number {
-  font-size: 0.8rem;
-  letter-spacing: 4px;
-  color: #555;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.chapter-song-title {
-  font-size: 1.2rem;
+  font-size: 0.75rem;
   letter-spacing: 2px;
-  color: #222;
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  padding-bottom: 10px;
+  color: #5a6b7c;
+  opacity: 0;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+/* --- HERO: FOTO + TÍTULO --- */
+.chapter-hero {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeIn 1.4s ease forwards;
+  animation-delay: 0.15s;
+}
+
+.chapter-hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.chapter-hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 28, 35, 0.05) 0%,
+    rgba(26, 28, 35, 0.15) 45%,
+    rgba(26, 28, 35, 0.88) 100%
+  );
+}
+
+.chapter-hero-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 1.6rem 1.8rem;
+  color: #f5f1e8;
+}
+
+.chapter-hero-eyebrow {
+  margin: 0 0 4px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #b7c4d1;
+}
+
+.chapter-hero-title {
+  margin: 0;
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-weight: 800;
+  font-size: clamp(2.1rem, 9vw, 2.8rem);
+  line-height: 1.02;
+}
+
+.chapter-hero-artist {
+  margin: 8px 0 0;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #d9dde2;
+}
+
+/* --- PULL QUOTE --- */
+.pull-quote {
+  width: 100%;
+  max-width: 500px;
+  padding: 2.6rem 1.8rem 1rem;
+  box-sizing: border-box;
+  opacity: 0;
+  animation: fadeIn 1.4s ease forwards;
+  animation-delay: 0.35s;
+}
+
+.pull-quote p {
+  margin: 0;
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.35;
+  color: #1a1c23;
+  text-align: center;
+  position: relative;
+}
+
+.pull-quote p::before,
+.pull-quote p::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  background-color: #5a6b7c;
+  margin: 14px auto 0;
+}
+
+.pull-quote p::before {
+  order: -1;
+  margin: 0 auto 14px;
 }
 
 /* --- TEXTO DE LA CARTA --- */
 .letter-content-mobile {
   width: 100%;
   max-width: 500px;
+  padding: 1rem 1.5rem 0;
+  box-sizing: border-box;
 }
 
 .letra-cursiva-oscura {
@@ -70,7 +169,7 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -115,4 +214,25 @@
   flex-direction: column;
   align-items: center;
   margin-top: 2rem;
+}
+
+/* --- FOLIO DE CIERRE --- */
+.folio-footer {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 2.5rem 1.5rem 0;
+  box-sizing: border-box;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  color: #863bff;
+}
+
+.folio-footer-rule {
+  flex-grow: 1;
+  height: 1px;
+  background-color: rgba(134, 59, 255, 0.25);
 }
