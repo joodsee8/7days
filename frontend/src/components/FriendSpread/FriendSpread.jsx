@@ -1,5 +1,5 @@
 import React from 'react';
-import './FriendsSpread.css';
+import './FriendSpread.css';
 
 /**
  * Página de revista tipo "Voces": una o varias fotos con lo que
