@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BlueBanisters.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
-import FriendsSpread from '../../components/FriendsSpread/FriendsSpread';
+import FriendsSpread from '../../components/FriendSpread/FriendSpread';
 import friendPhoto from '../../assets/images/Polaroid1.jpg';
 
 import coverImg from '../../assets/images/IMG_0105.jpeg';
