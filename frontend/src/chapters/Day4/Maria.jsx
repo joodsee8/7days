@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Maria.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
 import FriendsSpread from '../../components/FriendSpread/FriendSpread';
-import mainImg from '../../assets/images/Cap4.jpg';
+import mainImg from '../../assets/images/Cap4.JPG';
 import coverImg from '../../assets/images/pajarito.jpg';
 import audioFile from '../../assets/music/Maria.mp3';
 import polaroidImg from '../../assets/images/Polaroid3.jpg';
