@@ -68,7 +68,7 @@ const songLrc = `[01:34.332] Pajarito colibrí, no tengas miedo de salir
 [04:59.263] Todo va a estar bien, pajarito colibrí
 [05:04.249] Tú llegaste al mundo para ser feliz`;
 
-const Maria = () => {
+const Pajarito = () => {
   const navigate = useNavigate();
 
   const [hasSeenLetter] = useState(() => localStorage.getItem(LETTER_SEEN_KEY) === 'true');
@@ -91,7 +91,7 @@ const Maria = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          alerta: "¡Montse acaba de abrir el Capítulo IV: Maria!",
+          alerta: "¡Montse acaba de abrir el Capítulo V: Pajarito Colibrí!",
           hora: new Date().toLocaleString()
         })
       })
