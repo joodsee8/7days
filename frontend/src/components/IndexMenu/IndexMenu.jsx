@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './IndexMenu.css';
 
-import thumbDay1 from '../../assets/images/IMG_0105.jpeg';
-import thumbDay2 from '../../assets/images/ribs-cover.jpg';
-import thumbDay3 from '../../assets/images/folklore.jpg';
-import thumbDay4 from '../../assets/images/pajarito.jpg';
-import thumbDay5 from '../../assets/images/pajarito.jpg';
-import thumbDay6 from '../../assets/images/femme.jpg';
-import thumbDay7 from '../../assets/images/femme.jpg';
+import thumbDay1 from '../../assets/images/Cap1.jpg';
+import thumbDay2 from '../../assets/images/Cap2.jpg';
+import thumbDay3 from '../../assets/images/Cap3.jpg';
+import thumbDay4 from '../../assets/images/Cap4.JPG';
+import thumbDay5 from '../../assets/images/Cap5.jpg';
+import thumbDay6 from '../../assets/images/Cap6.jpg';
+import thumbDay7 from '../../assets/images/Cap7.jpg';
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
 
@@ -50,7 +50,7 @@ const IndexMenu = () => {
 
         {/* Masthead pequeño, igual firma que la portada */}
         <div className="toc-running-head">
-          <span>Septenario</span>
+          <span>E U N O I A</span>
           <span>No. 1</span>
         </div>
 
@@ -103,7 +103,7 @@ const IndexMenu = () => {
         )}
 
         <div className="toc-footer">
-          <span>Agosto · MMXXVI</span>
+          <span>¿Agosto? · MMXXVI</span>
           <span>Edición especial</span>
         </div>
       </div>

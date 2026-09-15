@@ -151,7 +151,7 @@ const Pajarito = () => {
 
       {/* Hero: foto de portada del capítulo + título superpuesto */}
       <div className="day5-hero">
-        <img src={mainImg} alt="" className="day4-hero-photo" />
+        <img src={mainImg} alt="" className="day5-hero-photo" />
         <div className="day5-hero-gradient" />
         <div className="day5-hero-text">
           <p className="day5-hero-eyebrow">Capítulo V</p>
