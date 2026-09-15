@@ -2,10 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Pajarito.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
-import Polaroid from '../../components/Polaroid/Polaroid';
+import FriendsSpread from '../../components/FriendSpread/FriendSpread';
+import mainImg from '../../assets/images/Cap5.jpg';
 import coverImg from '../../assets/images/pajarito.jpg';
 import audioFile from '../../assets/music/Pajarito.mp3';
-import polaroidImg from '../../assets/images/Polaroid1.jpg'; // Asegúrate de tener esta imagen o ajusta la ruta
+import polaroidImg from '../../assets/images/Polaroid3.jpg';
+import polaroidImg2 from '../../assets/images/Polaroid4.jpg';
+
+const CHAPTER_INDEX = 5;
+const CHAPTER_TOTAL = 7;
+const ACCENT = '#887b6a';
+const PLAYER_BG = '#000000';
+const PLAYER_TEXT = '#E5E5E5';
+const LETTER_SEEN_KEY = 'day5_letter_typed';
+
+const pullQuote = "Deseo que nunca olvides el valor que tienes incluso cuando tú misma no puedas verlo.";
 
 const letterParagraphs = [
 "Hay canciones que simplemente son bonitas, y hay otras que llegan justo cuando uno necesita escuchar que todo va a estar bien, Pajarito Colibrí es una de esas para mí.",
@@ -57,53 +68,46 @@ const songLrc = `[01:34.332] Pajarito colibrí, no tengas miedo de salir
 [04:59.263] Todo va a estar bien, pajarito colibrí
 [05:04.249] Tú llegaste al mundo para ser feliz`;
 
-const handleSaveMemory = (image, fileName) => {
-  const link = document.createElement('a');
-  link.href = image;
-  link.download = fileName;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
-
-const Pajarito = () => {
+const Maria = () => {
   const navigate = useNavigate();
-  const [completedParagraphs, setCompletedParagraphs] = useState([]);
-  const [currentTypingText, setCurrentTypingText] = useState('');
-  const [paragraphIndex, setParagraphIndex] = useState(0);
-  const [showButton, setShowButton] = useState(false);
-  
-  // Controles de visibilidad
-  const [showPlayer, setShowPlayer] = useState(false);
-  const [showPolaroid, setShowPolaroid] = useState(false);
 
-  const handleClosePlayer = () => {
-    setShowPlayer(false);
-    setShowPolaroid(true);
-  };
+  const [hasSeenLetter] = useState(() => localStorage.getItem(LETTER_SEEN_KEY) === 'true');
+
+  const [completedParagraphs, setCompletedParagraphs] = useState(() =>
+    hasSeenLetter ? letterParagraphs : []
+  );
+  const [currentTypingText, setCurrentTypingText] = useState('');
+  const [paragraphIndex, setParagraphIndex] = useState(() =>
+    hasSeenLetter ? letterParagraphs.length : 0
+  );
+  const [showButton, setShowButton] = useState(() => hasSeenLetter);
+
+  const [showPlayer, setShowPlayer] = useState(false);
+  const [showFriends, setShowFriends] = useState(false);
 
   useEffect(() => {
-    // Alerta silenciosa a Formspree para el inicio del proyecto
-    if (!localStorage.getItem('notification_sent_day1')) {
+    if (!localStorage.getItem('notification_sent_day3')) {
       fetch("https://formspree.io/f/xeeyyoqo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          alerta: "¡Montse acaba de abrir el Capítulo V: Pajarito Colibrí!",
+        body: JSON.stringify({
+          alerta: "¡Montse acaba de abrir el Capítulo IV: Maria!",
           hora: new Date().toLocaleString()
         })
       })
-      .then(() => {
-        localStorage.setItem('notification_sent_day1', 'true');
-      })
-      .catch((error) => console.log("Error silencioso:", error));
+        .then(() => {
+          localStorage.setItem('notification_sent_day3', 'true');
+        })
+        .catch((error) => console.log("Error silencioso:", error));
     }
   }, []);
 
+  // Lógica del Typewriter — solo corre si no se ha visto antes
   useEffect(() => {
+    if (hasSeenLetter) return;
+
     if (paragraphIndex < letterParagraphs.length) {
       const fullText = letterParagraphs[paragraphIndex];
-      
       if (currentTypingText.length < fullText.length) {
         const timeout = setTimeout(() => {
           setCurrentTypingText(fullText.slice(0, currentTypingText.length + 1));
@@ -111,104 +115,145 @@ const Pajarito = () => {
         return () => clearTimeout(timeout);
       } else {
         const timeout = setTimeout(() => {
-          setCompletedParagraphs(prev => [...prev, fullText]);
+          setCompletedParagraphs((prev) => [...prev, fullText]);
           setCurrentTypingText('');
-          setParagraphIndex(prev => prev + 1);
+          setParagraphIndex((prev) => prev + 1);
         }, 600);
         return () => clearTimeout(timeout);
       }
     } else {
-      setTimeout(() => setShowButton(true), 1500);
+      const timeout = setTimeout(() => {
+        setShowButton(true);
+        localStorage.setItem(LETTER_SEEN_KEY, 'true');
+      }, 1500);
+      return () => clearTimeout(timeout);
     }
-  }, [currentTypingText, paragraphIndex]);
+  }, [currentTypingText, paragraphIndex, hasSeenLetter]);
 
   const handleRevealPlayer = () => {
     setShowButton(false);
     setShowPlayer(true);
   };
 
+  const handleClosePlayer = () => {
+    setShowPlayer(false);
+    setShowFriends(true);
+  };
+
   return (
-    <div className="chapter-light-container fade-in-chapter">
-      
-      {/* Encabezado del Capítulo */}
-      <header className="chapter-header">
-        <div className="chapter-number">Capítulo I</div>
-        <div className="chapter-song-title">Pajarito Colibrí</div>
-      </header>
+    <div className="day5-magazine">
+
+      {/* Folio superior */}
+      <div className="day5-folio-bar">
+        <span>Cap. {CHAPTER_INDEX} / {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
+        <span>Pajarito Colibrí</span>
+      </div>
+
+      {/* Hero: foto de portada del capítulo + título superpuesto */}
+      <div className="day5-hero">
+        <img src={mainImg} alt="" className="day4-hero-photo" />
+        <div className="day5-hero-gradient" />
+        <div className="day5-hero-text">
+          <p className="day5-hero-eyebrow">Capítulo V</p>
+          <h1 className="day5-hero-title">Pajarito Colibrí</h1>
+          <p className="day5-hero-artist">Natalia Lafourcade</p>
+        </div>
+      </div>
+
+      {/* Pull quote */}
+      <div className="day5-pull-quote">
+        <span className="day5-quote-mark" aria-hidden="true">&ldquo;</span>
+        <p>{pullQuote}</p>
+      </div>
 
       {/* Contenido de la Carta */}
       <div className="letter-content-mobile">
-        
         {completedParagraphs.map((text, index) => (
           <p key={index} className="letra-cursiva-oscura">
             {text}
           </p>
         ))}
-        
-        {paragraphIndex < letterParagraphs.length && (
+
+        {!hasSeenLetter && paragraphIndex < letterParagraphs.length && (
           <p className="letra-cursiva-oscura">
             {currentTypingText}
             <span className="blinking-cursor">|</span>
           </p>
         )}
-        
-        <div className="espacio-vacio"></div>
 
-        {/* Botón Sutil */}
         {showButton && !showPlayer && (
-          <div className="sutil-action-container fade-in-button">
-            <span className="sutil-button-dark" onClick={handleRevealPlayer}>
-              Escuchar canción
-            </span>
+          <div className="day5-cta-wrap fade-in-button">
+            <button className="day5-cta-ticket" onClick={handleRevealPlayer}>
+              <span className="day5-ticket-disc" aria-hidden="true">
+                <svg viewBox="0 0 40 40" width="28" height="28">
+                  <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
+                  <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
+                  <circle cx="20" cy="20" r="3" fill={ACCENT} />
+                </svg>
+              </span>
+              <span className="day5-ticket-divider" />
+              <span className="day5-ticket-text">
+                <span className="day5-ticket-title">Pajarito Colibrí</span>
+                <span className="day5-ticket-subtitle">Natalia Lafourcade</span>
+              </span>
+              <span className="day5-ticket-action">Escuchar</span>
+            </button>
           </div>
         )}
+      </div>
 
-        {/* Reproductor de Música */}
-        {showPlayer && (
+      {/* Reproductor de Música */}
+      {showPlayer && (
+        <div className="day5-player-wrap">
           <MusicPlayer
             title="Pajarito Colibrí"
             artist="Natalia Lafourcade"
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="Y no podía empezar con otra canción que no fuera esta..."
-            accentColor="#887b6a"
-            bgColor="#000000"
-            textColor="#E5E5E5"
+            endText="No podia faltar Natalia Lafourcade jaja, nos vemos mañana <3"
+            bgColor={PLAYER_BG}
+            textColor={PLAYER_TEXT}
+            accentColor={ACCENT}
             onClose={handleClosePlayer}
           />
-        )}
+        </div>
+      )}
 
-        {/* Polaroids Finales */}
-        {showPolaroid && (
-          <div className="polaroids-section fade-in-chapter">
-            <Polaroid
-              imageSrc={polaroidImg}
-              message="Porque cada vez que los barandales se volvían azules, tú siempre traías la pintura fresca para que volviera a sentirse como un hogar. ¡Felices 20 años! 🎨✨"
-              friendName="Tú y yo"
-              onSaveMemory={() =>
-                handleSaveMemory(polaroidImg, 'Polaroid1.jpg')
-              }
-            />
-          
-            {/* Botón de cierre para regresar al índice */}
-            <div
-              className="sutil-action-container"
-              style={{ marginTop: '3rem' }}
-            >
-              <span
-                className="sutil-button-dark"
-                onClick={() => navigate('/index')}
-              >
-                Cerrar Capítulo
-              </span>
-            </div>
-          </div>
-        )}
+      {/* Página de "Voces" */}
+      {showFriends && (
+        <FriendsSpread
+          kicker="Voces"
+          deck="Lo que este capítulo significa para quienes te quieren."
+          entries={[
+            {
+              photo: polaroidImg,
+              quote: "Montse siempre esta ahi para nosotros, incluso cuando no podemos verla, hace mas bonita la experiencia en la U",
+              name: "Azael & Pao",
+            },
+            {
+              photo: polaroidImg2,
+              quote: "Soy un zangano y se me olvido pedirle un mensajito a tu familia jeje, pero se que ellos tambien te quieren mucho.",
+              name: "Pancho",
+            },
+          ]}
+          accentColor={ACCENT}
+          continueLabel="Cerrar capítulo"
+          onContinue={() => navigate('/index')}
+        />
+      )}
 
+      {/* Folio de cierre */}
+      <div className="day5-folio-footer">
+        <span>{String(CHAPTER_INDEX).padStart(2, '0')}</span>
+        <span className="day5-folio-rule" />
+        <span>de {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
       </div>
     </div>
   );
 };
 
 export default Pajarito;
+
+
+
