@@ -6,8 +6,8 @@ import FriendsSpread from '../../components/FriendSpread/FriendSpread';
 import mainImg from '../../assets/images/Cap4.JPG';
 import coverImg from '../../assets/images/pajarito.jpg';
 import audioFile from '../../assets/music/Maria.mp3';
-import polaroidImg from '../../assets/images/Polaroid3.jpg';
-import polaroidImg2 from '../../assets/images/Polaroid4.jpg';
+import polaroidImg from '../../assets/images/Polaroid5.jpg';
+import polaroidImg2 from '../../assets/images/Polaroid10.JPG';
 
 const CHAPTER_INDEX = 4;
 const CHAPTER_TOTAL = 7;
@@ -217,7 +217,7 @@ const Maria = () => {
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="No podia faltar Natalia Lafourcade jaja, nos vemos mañana <3"
+            endText="Parece canción de abuelita eda jaja"
             bgColor={PLAYER_BG}
             textColor={PLAYER_TEXT}
             accentColor={ACCENT}
@@ -234,13 +234,13 @@ const Maria = () => {
           entries={[
             {
               photo: polaroidImg,
-              quote: "Montse siempre esta ahi para nosotros, incluso cuando no podemos verla, hace mas bonita la experiencia en la U",
-              name: "Azael & Pao",
+              quote: "Montse es de las amigas mas importantes para mi, es familia, es la mujer con la que puedo ser yo sin ser juzgada, la que está siempre en las buenas y en las malas, y sin duda una de las mujeres más increibles que pueden existir!!💓💓",
+              name: "Romi",
             },
             {
               photo: polaroidImg2,
-              quote: "Soy un zangano y se me olvido pedirle un mensajito a tu familia jeje, pero se que ellos tambien te quieren mucho.",
-              name: "Pancho",
+              quote: "Lo primero que pensé cuando conocí a Montse fue 'Que mamona jaja', lo que mas admiro de ella es lo grandiosa que es, que logra todo lo que se le cruza, es muy lista, carismatica, y muy bella, le deseo mucho amor, mucha felicidad y todo lo bonito en esta vida, es la persona que todos deberian tener como amiga",
+              name: "Lupita",
             },
           ]}
           accentColor={ACCENT}

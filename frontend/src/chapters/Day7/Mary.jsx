@@ -19,8 +19,8 @@ const LETTER_SEEN_KEY = 'day5_letter_typed';
 const pullQuote = "No quiero imaginar una vida sin ti.";
 
 const letterParagraphs = [
-  "Esta canción no necesita tarjeta de presentación, desde la primera vez que la escuché supe que tu eras mi Mary"
-  "Te quiero mucho Montse, Feliz Vida, Ojala la vida te devuelva toda la felicidad que me has dado 💖.",
+  "Esta canción no necesita tarjeta de presentación, desde la primera vez que la escuché supe que tu eras mi Mary",
+  "Te quiero mucho Montse, Feliz Vida, Ojala la vida te devuelva toda la felicidad que me has dado 💖."
 ];
 
 const songLrc = `[00:09.517] (Siempre tienes la razón)

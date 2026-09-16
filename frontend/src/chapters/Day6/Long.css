@@ -1,40 +1,149 @@
-/* src/chapters/Day1/BlueBanisters.css */
+/* src/chapters/Day3/Seven.css */
 
-.chapter-light-container {
+.day3-magazine {
   min-height: 100vh;
-  /* Un gris azulado sumamente claro, casi blanco, manteniendo la vibra "fría" de Blue Banisters */
-  background-color: #C5C6C7; 
+  background-color: #f2f3f5;
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.05"/></svg>');
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3rem 1.5rem; /* Padding pensado en móviles */
+  padding: 0 0 4rem;
   overflow-x: hidden;
 }
 
-.fade-in-chapter {
-  animation: fadeIn 2s ease-in-out forwards;
+/* --- FOLIO SUPERIOR --- */
+.day3-folio-bar {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.6rem 1.5rem 1.2rem;
+  box-sizing: border-box;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #7a766f;
+  opacity: 0;
+  animation: day3FadeIn 1.2s ease forwards;
 }
 
+/* --- HERO --- */
+.day3-hero {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  opacity: 0;
+  animation: day3FadeIn 1.4s ease forwards;
+  animation-delay: 0.15s;
+}
+
+.day3-hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.day3-hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 25, 23, 0.05) 0%,
+    rgba(26, 25, 23, 0.15) 45%,
+    rgba(26, 25, 23, 0.88) 100%
+  );
+}
+
+.day3-hero-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 1.6rem 1.8rem;
+  color: #f5f1e8;
+}
+
+.day3-hero-eyebrow {
+  margin: 0 0 4px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #d6d2c9;
+}
+
+.day3-hero-title {
+  margin: 0;
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-weight: 800;
+  font-size: clamp(2.1rem, 9vw, 2.8rem);
+  line-height: 1.02;
+}
+
+.day3-hero-artist {
+  margin: 8px 0 0;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #d9dde2;
+}
+
+/* --- PULL QUOTE --- */
+.day3-pull-quote {
+  width: 100%;
+  max-width: 460px;
+  padding: 2.6rem 2rem 0.5rem;
+  box-sizing: border-box;
+  text-align: center;
+  opacity: 0;
+  animation: day3FadeIn 1.4s ease forwards;
+  animation-delay: 0.35s;
+}
+
+.day3-quote-mark {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 1;
+  color: #7a766f;
+  opacity: 0.5;
+  margin-bottom: -0.8rem;
+}
+
+.day3-pull-quote p {
+  margin: 0;
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: #1a1c23;
+}
+
+/* --- CARTA --- */
 .letter-content-mobile {
   width: 100%;
-  max-width: 500px; /* Perfecto para móviles y tablets pequeñas */
+  max-width: 500px;
+  padding: 1rem 1.5rem 0;
+  box-sizing: border-box;
 }
 
-/* --- TEXTO DE LA CARTA --- */
 .letra-cursiva-oscura {
   font-family: 'Pinyon Script', 'Great Vibes', 'Shelley Allegro Script', cursive;
-  font-size: 1.2rem; /* Ajustado para no ser masivo en celular */
-  line-height: 1;
-  color: #1a1c23; /* Un azul/negro muy oscuro, más suave que el negro puro */
-  text-align: justify; /* Justificado como solicitaste */
-  hyphens: auto; /* Ayuda a que el justificado no deje huecos gigantes en el móvil */
-}
-
-.letra-cursiva-oscura p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #1a1c23;
+  text-align: justify;
+  hyphens: auto;
   margin-bottom: 1.5rem;
 }
 
-/* El cursor parpadeante que acompaña a la escritura */
 .blinking-cursor {
   font-family: Arial, sans-serif;
   font-weight: 300;
@@ -49,42 +158,110 @@
   50% { opacity: 0; }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* --- BOTÓN SUTIL --- */
-.espacio-vacio {
-  height: 8vh; 
-}
-
-.sutil-action-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 3rem;
+@keyframes day3FadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .fade-in-button {
-  animation: fadeIn 2s ease-in-out forwards;
+  animation: day3FadeIn 1.6s ease forwards;
   opacity: 0;
 }
 
-.sutil-button-dark {
-  font-family: serif;
-  font-size: 0.9rem;
-  color: #4a5568;
-  opacity: 0.7;
-  cursor: pointer;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  transition: opacity 0.4s ease, letter-spacing 0.4s ease;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 4px;
+/* --- CTA TIPO BOLETO --- */
+.day3-cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 2.2rem 0 3rem;
 }
 
-.sutil-button-dark:hover {
-  opacity: 1;
-  letter-spacing: 3px;
-  border-bottom: 1px solid #4a5568;
+.day3-cta-ticket {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 380px;
+  background-color: #f5f1e8;
+  border: 1px solid rgba(26, 28, 35, 0.15);
+  padding: 14px 18px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.day3-cta-ticket:hover {
+  border-color: #7a766f;
+  transform: translateY(-2px);
+}
+
+.day3-ticket-disc {
+  flex-shrink: 0;
+  display: flex;
+}
+
+.day3-ticket-divider {
+  width: 1px;
+  align-self: stretch;
+  background-image: linear-gradient(to bottom, rgba(26, 28, 35, 0.25) 50%, transparent 50%);
+  background-size: 1px 8px;
+}
+
+.day3-ticket-text {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.day3-ticket-title {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1a1c23;
+}
+
+.day3-ticket-subtitle {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  margin-top: 2px;
+}
+
+.day3-ticket-action {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #7a766f;
+  flex-shrink: 0;
+}
+
+/* --- CONTENEDOR DEL PLAYER --- */
+.day3-player-wrap {
+  width: 100%;
+  max-width: 500px;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+/* --- FOLIO DE CIERRE --- */
+.day3-folio-footer {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 2.5rem 1.5rem 0;
+  box-sizing: border-box;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  color: #863bff;
+}
+
+.day3-folio-rule {
+  flex-grow: 1;
+  height: 1px;
+  background-color: rgba(134, 59, 255, 0.25);
 }
