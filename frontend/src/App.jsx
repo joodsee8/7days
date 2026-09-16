@@ -19,23 +19,6 @@ const CoverScreen = () => {
   return <Cover onGoToNext={() => navigate('/index')} />;
 };
 
-const App = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<CoverScreen />} />
-        <Route path="/index" element={<IndexMenu />} />
-        <Route path="/day1" element={<BlueBanisters />} />
-        <Route path="/day2" element={<Ribs />} />
-        <Route path="/day3" element={<Seven />} />
-        <Route path="/day4" element={<Maria />} />
-        <Route path="/day5" element={<Pajarito />} />
-        <Route path="/day6" element={<Long />} />
-        <Route path="/day7" element={<Mary />} />
-      </Routes>
-    </Router>
-  );
-};
 
 const App = () => {
   return (
