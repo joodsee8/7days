@@ -7,12 +7,16 @@ import polaroidImg from '../../assets/images/Polaroid2.jpg';
 import coverImg from '../../assets/images/ribs-cover.jpg';
 import audioFile from '../../assets/music/ribs.mp3';
 import mainImg from '../../assets/images/Cap2.jpg';
+import LockedCard from '../../components/LockedCard/LockedCard';
+
+
 const CHAPTER_INDEX = 2;
 const CHAPTER_TOTAL = 7;
 const ACCENT = '#aaaaaa';
 const PLAYER_BG = '#222121';
 const PLAYER_TEXT = '#f5e6d9';
 const LETTER_SEEN_KEY = 'day2_letter_typed';
+const NEXT_CHAPTER_PATH = '/day3';
 
 const pullQuote = "Si algún día todo cambiara, si las personas se alejaran y terminara sintiéndome solo, saber que todavía te tengo sería suficiente.";
 
@@ -96,7 +100,7 @@ const Ribs = () => {
   );
   const [showButton, setShowButton] = useState(() => hasSeenLetter);
 
-  const [showPlayer, setShowPlayer] = useState(false);
+  const [playerRevealed, setPlayerRevealed] = useState(() => hasSeenLetter);
   const [showFriends, setShowFriends] = useState(false);
 
   useEffect(() => {
@@ -142,14 +146,15 @@ const Ribs = () => {
   }, [currentTypingText, paragraphIndex, hasSeenLetter]);
 
   const handleRevealPlayer = () => {
-    setShowButton(false);
-    setShowPlayer(true);
+    setPlayerRevealed(true);
   };
 
   const handleClosePlayer = () => {
-    setShowPlayer(false);
     setShowFriends(true);
   };
+
+  const goToNextChapter = () => navigate(NEXT_CHAPTER_PATH);
+  const goToIndex = () => navigate('/index');
 
   return (
     <div className="day2-magazine">
@@ -191,45 +196,54 @@ const Ribs = () => {
             <span className="blinking-cursor">|</span>
           </p>
         )}
-
-        {showButton && !showPlayer && (
-          <div className="day2-cta-wrap fade-in-button">
-            <button className="day2-cta-ticket" onClick={handleRevealPlayer}>
-              <span className="day2-ticket-disc" aria-hidden="true">
-                <svg viewBox="0 0 40 40" width="28" height="28">
-                  <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
-                  <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
-                  <circle cx="20" cy="20" r="3" fill={ACCENT} />
-                </svg>
-              </span>
-              <span className="day2-ticket-divider" />
-              <span className="day2-ticket-text">
-                <span className="day2-ticket-title">Ribs</span>
-                <span className="day2-ticket-subtitle">Lorde</span>
-              </span>
-              <span className="day2-ticket-action">Escuchar</span>
-            </button>
-          </div>
-        )}
       </div>
 
-      {/* Reproductor de Música */}
-      {showPlayer && (
-        <div className="day2-player-wrap">
+      {/* Reproductor de Música: SIEMPRE está montado. Mientras no se
+          desbloquee, se cubre con una capa (ticket o candado) encima. */}
+      <div className="day2-player-wrap">
+        <div className={`day2-player-shell ${!playerRevealed ? 'is-locked' : ''}`}>
           <MusicPlayer
             title="Ribs"
             artist="Lorde"
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="Puede que no podamos traducir literalmente una canción y esperar que transmita la misma emoción, creo que fue una idea un poco mala empezar el proyecto con canciones en inglés... pero bueno, nos vemos mañana :D"
+            endText="No podia faltar Lorde jaja, nos vemos mañana <3"
             bgColor={PLAYER_BG}
             textColor={PLAYER_TEXT}
             accentColor={ACCENT}
             onClose={handleClosePlayer}
           />
+ 
+          {!playerRevealed && (
+            <div className="day2-player-overlay">
+              {showButton ? (
+                <button className="day2-cta-ticket" onClick={handleRevealPlayer}>
+                  <span className="day2-ticket-disc" aria-hidden="true">
+                    <svg viewBox="0 0 40 40" width="28" height="28">
+                      <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
+                      <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
+                      <circle cx="20" cy="20" r="3" fill={ACCENT} />
+                    </svg>
+                  </span>
+                  <span className="day2-ticket-divider" />
+                  <span className="day2-ticket-text">
+                    <span className="day2-ticket-title">Ribs</span>
+                    <span className="day2-ticket-subtitle">Lorde</span>
+                  </span>
+                  <span className="day2-ticket-action">Escuchar</span>
+                </button>
+              ) : (
+                <LockedCard
+                  label="Ribs — Lorde"
+                  hint="Se desbloquea al terminar la carta"
+                  accentColor={ACCENT}
+                />
+              )}
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       {/* Página de "Voces" */}
       {showFriends && (
@@ -245,7 +259,9 @@ const Ribs = () => {
           ]}
           accentColor={ACCENT}
           continueLabel="Cerrar capítulo"
-          onContinue={() => navigate('/index')}
+          onContinue={goToIndex}
+          nextLabel="Siguiente capítulo"
+          onNext={goToNextChapter}
         />
       )}
 

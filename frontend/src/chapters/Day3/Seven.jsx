@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Seven.css';
 import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
 import FriendsSpread from '../../components/FriendSpread/FriendSpread';
+import LockedCard from '../../components/LockedCard/LockedCard';
 import mainImg from '../../assets/images/Cap3.jpg';
 import coverImg from '../../assets/images/folklore.jpg';
 import audioFile from '../../assets/music/Seven.mp3';
@@ -15,6 +16,7 @@ const ACCENT = '#C7C1BC';
 const PLAYER_BG = '#616161';
 const PLAYER_TEXT = '#E5E5E5';
 const LETTER_SEEN_KEY = 'day3_letter_typed';
+const NEXT_CHAPTER_PATH = '/day4';
 
 const pullQuote = "El amor que sentimos por ellas permanece, como una canción antigua que sigue pasando de persona en persona, incluso cuando nadie recuerda cuándo comenzó.";
 
@@ -80,9 +82,12 @@ const Seven = () => {
   const [paragraphIndex, setParagraphIndex] = useState(() =>
     hasSeenLetter ? letterParagraphs.length : 0
   );
+  // showButton = ya se puede ver/abrir el reproductor (carta terminada, o ya la habías visto antes)
   const [showButton, setShowButton] = useState(() => hasSeenLetter);
 
-  const [showPlayer, setShowPlayer] = useState(false);
+  // playerRevealed = si la capa de bloqueo sobre el reproductor ya se quitó.
+  // El MusicPlayer SIEMPRE está montado; esto solo controla la capa visual encima.
+  const [playerRevealed, setPlayerRevealed] = useState(() => hasSeenLetter);
   const [showFriends, setShowFriends] = useState(false);
 
   useEffect(() => {
@@ -131,14 +136,15 @@ const Seven = () => {
   }, [currentTypingText, paragraphIndex, hasSeenLetter]);
 
   const handleRevealPlayer = () => {
-    setShowButton(false);
-    setShowPlayer(true);
+    setPlayerRevealed(true);
   };
 
   const handleClosePlayer = () => {
-    setShowPlayer(false);
     setShowFriends(true);
   };
+
+  const goToNextChapter = () => navigate(NEXT_CHAPTER_PATH);
+  const goToIndex = () => navigate('/index');
 
   return (
     <div className="day3-magazine">
@@ -180,31 +186,12 @@ const Seven = () => {
             <span className="blinking-cursor">|</span>
           </p>
         )}
-
-        {showButton && !showPlayer && (
-          <div className="day3-cta-wrap fade-in-button">
-            <button className="day3-cta-ticket" onClick={handleRevealPlayer}>
-              <span className="day3-ticket-disc" aria-hidden="true">
-                <svg viewBox="0 0 40 40" width="28" height="28">
-                  <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
-                  <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
-                  <circle cx="20" cy="20" r="3" fill={ACCENT} />
-                </svg>
-              </span>
-              <span className="day3-ticket-divider" />
-              <span className="day3-ticket-text">
-                <span className="day3-ticket-title">Seven</span>
-                <span className="day3-ticket-subtitle">Taylor Swift</span>
-              </span>
-              <span className="day3-ticket-action">Escuchar</span>
-            </button>
-          </div>
-        )}
       </div>
 
-      {/* Reproductor de Música */}
-      {showPlayer && (
-        <div className="day3-player-wrap">
+      {/* Reproductor de Música: SIEMPRE está montado. Mientras no se
+          desbloquee, se cubre con una capa (ticket o candado) encima. */}
+      <div className="day3-player-wrap">
+        <div className={`day3-player-shell ${!playerRevealed ? 'is-locked' : ''}`}>
           <MusicPlayer
             title="seven"
             artist="Taylor Swift"
@@ -217,8 +204,36 @@ const Seven = () => {
             accentColor={ACCENT}
             onClose={handleClosePlayer}
           />
+
+          {!playerRevealed && (
+            <div className="day3-player-overlay">
+              {showButton ? (
+                <button className="day3-cta-ticket" onClick={handleRevealPlayer}>
+                  <span className="day3-ticket-disc" aria-hidden="true">
+                    <svg viewBox="0 0 40 40" width="28" height="28">
+                      <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
+                      <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
+                      <circle cx="20" cy="20" r="3" fill={ACCENT} />
+                    </svg>
+                  </span>
+                  <span className="day3-ticket-divider" />
+                  <span className="day3-ticket-text">
+                    <span className="day3-ticket-title">Seven</span>
+                    <span className="day3-ticket-subtitle">Taylor Swift</span>
+                  </span>
+                  <span className="day3-ticket-action">Escuchar</span>
+                </button>
+              ) : (
+                <LockedCard
+                  label="Seven — Taylor Swift"
+                  hint="Se desbloquea al terminar la carta"
+                  accentColor={ACCENT}
+                />
+              )}
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       {/* Página de "Voces" */}
       {showFriends && (
@@ -239,7 +254,9 @@ const Seven = () => {
           ]}
           accentColor={ACCENT}
           continueLabel="Cerrar capítulo"
-          onContinue={() => navigate('/index')}
+          onContinue={goToIndex}
+          nextLabel="Siguiente capítulo"
+          onNext={goToNextChapter}
         />
       )}
 

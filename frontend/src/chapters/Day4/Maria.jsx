@@ -8,6 +8,7 @@ import coverImg from '../../assets/images/pajarito.jpg';
 import audioFile from '../../assets/music/Maria.mp3';
 import polaroidImg from '../../assets/images/Polaroid5.jpg';
 import polaroidImg2 from '../../assets/images/Polaroid10.JPG';
+import LockedCard from '../../components/LockedCard/LockedCard';
 
 const CHAPTER_INDEX = 4;
 const CHAPTER_TOTAL = 7;
@@ -15,6 +16,7 @@ const ACCENT = '#887b6a';
 const PLAYER_BG = '#000000';
 const PLAYER_TEXT = '#E5E5E5';
 const LETTER_SEEN_KEY = 'day4_letter_typed';
+const NEXT_CHAPTER_PATH = '/day5';
 
 const pullQuote = "Deseo que nunca olvides el valor que tienes incluso cuando tú misma no puedas verlo.";
 
@@ -88,7 +90,7 @@ const Maria = () => {
   );
   const [showButton, setShowButton] = useState(() => hasSeenLetter);
 
-  const [showPlayer, setShowPlayer] = useState(false);
+  const [playerRevealed, setPlayerRevealed] = useState(() => hasSeenLetter);
   const [showFriends, setShowFriends] = useState(false);
 
   useEffect(() => {
@@ -137,14 +139,15 @@ const Maria = () => {
   }, [currentTypingText, paragraphIndex, hasSeenLetter]);
 
   const handleRevealPlayer = () => {
-    setShowButton(false);
-    setShowPlayer(true);
+    setPlayerRevealed(true);
   };
 
   const handleClosePlayer = () => {
-    setShowPlayer(false);
     setShowFriends(true);
   };
+
+  const goToNextChapter = () => navigate(NEXT_CHAPTER_PATH);
+  const goToIndex = () => navigate('/index');
 
   return (
     <div className="day4-magazine">
@@ -186,45 +189,54 @@ const Maria = () => {
             <span className="blinking-cursor">|</span>
           </p>
         )}
-
-        {showButton && !showPlayer && (
-          <div className="day4-cta-wrap fade-in-button">
-            <button className="day4-cta-ticket" onClick={handleRevealPlayer}>
-              <span className="day4-ticket-disc" aria-hidden="true">
-                <svg viewBox="0 0 40 40" width="28" height="28">
-                  <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
-                  <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
-                  <circle cx="20" cy="20" r="3" fill={ACCENT} />
-                </svg>
-              </span>
-              <span className="day4-ticket-divider" />
-              <span className="day4-ticket-text">
-                <span className="day4-ticket-title">Maria la Curandera</span>
-                <span className="day4-ticket-subtitle">Natalia Lafourcade</span>
-              </span>
-              <span className="day4-ticket-action">Escuchar</span>
-            </button>
-          </div>
-        )}
       </div>
-
-      {/* Reproductor de Música */}
-      {showPlayer && (
-        <div className="day4-player-wrap">
+      
+      {/* Reproductor de Música: SIEMPRE está montado. Mientras no se
+          desbloquee, se cubre con una capa (ticket o candado) encima. */}
+      <div className="day4-player-wrap">
+        <div className={`day4-player-shell ${!playerRevealed ? 'is-locked' : ''}`}>
           <MusicPlayer
             title="Maria la Curandera"
             artist="Natalia Lafourcade"
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="Parece canción de abuelita eda jaja"
+            endText="No podia faltar Natalia Lafourcade jaja, nos vemos mañana <3"
             bgColor={PLAYER_BG}
             textColor={PLAYER_TEXT}
             accentColor={ACCENT}
             onClose={handleClosePlayer}
           />
+ 
+          {!playerRevealed && (
+            <div className="day4-player-overlay">
+              {showButton ? (
+                <button className="day4-cta-ticket" onClick={handleRevealPlayer}>
+                  <span className="day4-ticket-disc" aria-hidden="true">
+                    <svg viewBox="0 0 40 40" width="28" height="28">
+                      <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
+                      <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
+                      <circle cx="20" cy="20" r="3" fill={ACCENT} />
+                    </svg>
+                  </span>
+                  <span className="day4-ticket-divider" />
+                  <span className="day4-ticket-text">
+                    <span className="day4-ticket-title">Maria la Curandera</span>
+                    <span className="day4-ticket-subtitle">Natalia Lafourcade</span>
+                  </span>
+                  <span className="day4-ticket-action">Escuchar</span>
+                </button>
+              ) : (
+                <LockedCard
+                  label="Maria la Curandera — Natalia Lafourcade"
+                  hint="Se desbloquea al terminar la carta"
+                  accentColor={ACCENT}
+                />
+              )}
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       {/* Página de "Voces" */}
       {showFriends && (
@@ -245,7 +257,9 @@ const Maria = () => {
           ]}
           accentColor={ACCENT}
           continueLabel="Cerrar capítulo"
-          onContinue={() => navigate('/index')}
+          onContinue={goToIndex}
+          nextLabel="Siguiente capítulo"
+          onNext={goToNextChapter}
         />
       )}
 
@@ -260,6 +274,3 @@ const Maria = () => {
 };
 
 export default Maria;
-
-
-

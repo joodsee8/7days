@@ -1,6 +1,6 @@
-/* src/chapters/Day3/Seven.css */
+/* src/chapters/Day6/Long.css */
 
-.day3-magazine {
+.day6-magazine {
   min-height: 100vh;
   background-color: #f2f3f5;
   background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.05"/></svg>');
@@ -12,7 +12,7 @@
 }
 
 /* --- FOLIO SUPERIOR --- */
-.day3-folio-bar {
+.day6-folio-bar {
   width: 100%;
   max-width: 560px;
   display: flex;
@@ -24,30 +24,25 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #7a766f;
-  opacity: 0;
-  animation: day3FadeIn 1.2s ease forwards;
 }
 
 /* --- HERO --- */
-.day3-hero {
+.day6-hero {
   position: relative;
   width: 100%;
   max-width: 560px;
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  opacity: 0;
-  animation: day3FadeIn 1.4s ease forwards;
-  animation-delay: 0.15s;
 }
 
-.day3-hero-photo {
+.day6-hero-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
 }
 
-.day3-hero-gradient {
+.day6-hero-gradient {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -58,7 +53,7 @@
   );
 }
 
-.day3-hero-text {
+.day6-hero-text {
   position: absolute;
   left: 0;
   right: 0;
@@ -67,7 +62,7 @@
   color: #f5f1e8;
 }
 
-.day3-hero-eyebrow {
+.day6-hero-eyebrow {
   margin: 0 0 4px;
   font-family: 'Times New Roman', Times, serif;
   font-size: 0.7rem;
@@ -76,7 +71,7 @@
   color: #d6d2c9;
 }
 
-.day3-hero-title {
+.day6-hero-title {
   margin: 0;
   font-family: 'Playfair Display', 'Times New Roman', serif;
   font-weight: 800;
@@ -84,7 +79,7 @@
   line-height: 1.02;
 }
 
-.day3-hero-artist {
+.day6-hero-artist {
   margin: 8px 0 0;
   font-family: 'Times New Roman', Times, serif;
   font-size: 0.8rem;
@@ -94,18 +89,15 @@
 }
 
 /* --- PULL QUOTE --- */
-.day3-pull-quote {
+.day6-pull-quote {
   width: 100%;
   max-width: 460px;
   padding: 2.6rem 2rem 0.5rem;
   box-sizing: border-box;
   text-align: center;
-  opacity: 0;
-  animation: day3FadeIn 1.4s ease forwards;
-  animation-delay: 0.35s;
 }
 
-.day3-quote-mark {
+.day6-quote-mark {
   display: block;
   font-family: 'Playfair Display', serif;
   font-weight: 700;
@@ -116,7 +108,7 @@
   margin-bottom: -0.8rem;
 }
 
-.day3-pull-quote p {
+.day6-pull-quote p {
   margin: 0;
   font-family: 'Playfair Display', 'Times New Roman', serif;
   font-style: italic;
@@ -158,24 +150,14 @@
   50% { opacity: 0; }
 }
 
-@keyframes day3FadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in-button {
-  animation: day3FadeIn 1.6s ease forwards;
-  opacity: 0;
-}
-
 /* --- CTA TIPO BOLETO --- */
-.day3-cta-wrap {
+.day6-cta-wrap {
   display: flex;
   justify-content: center;
   margin: 2.2rem 0 3rem;
 }
 
-.day3-cta-ticket {
+.day6-cta-ticket {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -188,38 +170,38 @@
   transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
-.day3-cta-ticket:hover {
+.day6-cta-ticket:hover {
   border-color: #7a766f;
   transform: translateY(-2px);
 }
 
-.day3-ticket-disc {
+.day6-ticket-disc {
   flex-shrink: 0;
   display: flex;
 }
 
-.day3-ticket-divider {
+.day6-ticket-divider {
   width: 1px;
   align-self: stretch;
   background-image: linear-gradient(to bottom, rgba(26, 28, 35, 0.25) 50%, transparent 50%);
   background-size: 1px 8px;
 }
 
-.day3-ticket-text {
+.day6-ticket-text {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   text-align: left;
 }
 
-.day3-ticket-title {
+.day6-ticket-title {
   font-family: 'Playfair Display', 'Times New Roman', serif;
   font-weight: 700;
   font-size: 0.95rem;
   color: #1a1c23;
 }
 
-.day3-ticket-subtitle {
+.day6-ticket-subtitle {
   font-family: 'Times New Roman', Times, serif;
   font-size: 0.7rem;
   letter-spacing: 1px;
@@ -228,7 +210,7 @@
   margin-top: 2px;
 }
 
-.day3-ticket-action {
+.day6-ticket-action {
   font-family: 'Times New Roman', Times, serif;
   font-size: 0.7rem;
   letter-spacing: 2px;
@@ -238,7 +220,7 @@
 }
 
 /* --- CONTENEDOR DEL PLAYER --- */
-.day3-player-wrap {
+.day6-player-wrap {
   width: 100%;
   max-width: 500px;
   padding: 0 1.5rem;
@@ -246,7 +228,7 @@
 }
 
 /* --- FOLIO DE CIERRE --- */
-.day3-folio-footer {
+.day6-folio-footer {
   width: 100%;
   max-width: 500px;
   display: flex;
@@ -260,8 +242,32 @@
   color: #863bff;
 }
 
-.day3-folio-rule {
+.day6-folio-rule {
   flex-grow: 1;
   height: 1px;
   background-color: rgba(134, 59, 255, 0.25);
+}
+
+
+/* El reproductor SIEMPRE está en el DOM; esta capa solo lo cubre
+   visualmente (blur + candado o ticket) hasta que se desbloquea. */
+.day6-player-shell {
+  position: relative;
+}
+ 
+.day6-player-shell.is-locked > .mp-editorial {
+  filter: blur(10px);
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
+ 
+.day6-player-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  box-sizing: border-box;
 }

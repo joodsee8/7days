@@ -8,13 +8,16 @@ import coverImg from '../../assets/images/long.jpg';
 import audioFile from '../../assets/music/Long.mp3';
 import polaroidImg from '../../assets/images/Polaroid11.jpg';
 import polaroidImg2 from '../../assets/images/Polaroid12.jpg';
+import LockedCard from '../../components/LockedCard/LockedCard';
+
 
 const CHAPTER_INDEX = 6;
 const CHAPTER_TOTAL = 7;
 const ACCENT = '#C7C1BC';
 const PLAYER_BG = '#7600bc';
 const PLAYER_TEXT = '#E5E5E5';
-const LETTER_SEEN_KEY = 'day3_letter_typed';
+const LETTER_SEEN_KEY = 'day6_letter_typed';
+const NEXT_CHAPTER_PATH = '/day7';
 
 const pullQuote = "Larga vida a todo lo que hemos sido juntos, y a todo lo que nos falta por vivir.";
 
@@ -107,7 +110,7 @@ const Long = () => {
   );
   const [showButton, setShowButton] = useState(() => hasSeenLetter);
 
-  const [showPlayer, setShowPlayer] = useState(false);
+   const [playerRevealed, setPlayerRevealed] = useState(() => hasSeenLetter);
   const [showFriends, setShowFriends] = useState(false);
 
   useEffect(() => {
@@ -156,38 +159,39 @@ const Long = () => {
   }, [currentTypingText, paragraphIndex, hasSeenLetter]);
 
   const handleRevealPlayer = () => {
-    setShowButton(false);
-    setShowPlayer(true);
+    setPlayerRevealed(true);
   };
 
   const handleClosePlayer = () => {
-    setShowPlayer(false);
     setShowFriends(true);
   };
 
+  const goToNextChapter = () => navigate(NEXT_CHAPTER_PATH);
+  const goToIndex = () => navigate('/index');
+
   return (
-    <div className="day3-magazine">
+    <div className="day6-magazine">
 
       {/* Folio superior */}
-      <div className="day3-folio-bar">
+      <div className="day6-folio-bar">
         <span>Cap. {CHAPTER_INDEX} / {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
         <span>Seven</span>
       </div>
 
       {/* Hero: foto de portada del capítulo + título superpuesto */}
-      <div className="day3-hero">
-        <img src={mainImg} alt="" className="day3-hero-photo" />
-        <div className="day3-hero-gradient" />
-        <div className="day3-hero-text">
-          <p className="day3-hero-eyebrow">Capítulo III</p>
-          <h1 className="day3-hero-title">Seven</h1>
-          <p className="day3-hero-artist">Taylor Swift</p>
+      <div className="day6-hero">
+        <img src={mainImg} alt="" className="day6-hero-photo" />
+        <div className="day6-hero-gradient" />
+        <div className="day6-hero-text">
+          <p className="day6-hero-eyebrow">Capítulo VI</p>
+          <h1 className="day6-hero-title">Seven</h1>
+          <p className="day6-hero-artist">Taylor Swift</p>
         </div>
       </div>
 
       {/* Pull quote */}
-      <div className="day3-pull-quote">
-        <span className="day3-quote-mark" aria-hidden="true">&ldquo;</span>
+      <div className="day6-pull-quote">
+        <span className="day6-quote-mark" aria-hidden="true">&ldquo;</span>
         <p>{pullQuote}</p>
       </div>
 
@@ -205,45 +209,55 @@ const Long = () => {
             <span className="blinking-cursor">|</span>
           </p>
         )}
+        </div>
+    
 
-        {showButton && !showPlayer && (
-          <div className="day3-cta-wrap fade-in-button">
-            <button className="day3-cta-ticket" onClick={handleRevealPlayer}>
-              <span className="day3-ticket-disc" aria-hidden="true">
-                <svg viewBox="0 0 40 40" width="28" height="28">
-                  <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
-                  <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
-                  <circle cx="20" cy="20" r="3" fill={ACCENT} />
-                </svg>
-              </span>
-              <span className="day3-ticket-divider" />
-              <span className="day3-ticket-text">
-                <span className="day3-ticket-title">Seven</span>
-                <span className="day3-ticket-subtitle">Taylor Swift</span>
-              </span>
-              <span className="day3-ticket-action">Escuchar</span>
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* Reproductor de Música */}
-      {showPlayer && (
-        <div className="day3-player-wrap">
+      {/* Reproductor de Música: SIEMPRE está montado. Mientras no se
+          desbloquee, se cubre con una capa (ticket o candado) encima. */}
+      <div className="day6-player-wrap">
+        <div className={`day6-player-shell ${!playerRevealed ? 'is-locked' : ''}`}>
           <MusicPlayer
             title="Long Live"
             artist="Taylor Swift"
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="No puedo Martha ya me cansé de escribir"
+            endText="No podia faltar Taylor Swift jaja, nos vemos mañana <3"
             bgColor={PLAYER_BG}
             textColor={PLAYER_TEXT}
             accentColor={ACCENT}
             onClose={handleClosePlayer}
           />
+ 
+          {!playerRevealed && (
+            <div className="day6-player-overlay">
+              {showButton ? (
+                <button className="day6-cta-ticket" onClick={handleRevealPlayer}>
+                  <span className="day6-ticket-disc" aria-hidden="true">
+                    <svg viewBox="0 0 40 40" width="28" height="28">
+                      <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
+                      <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
+                      <circle cx="20" cy="20" r="3" fill={ACCENT} />
+                    </svg>
+                  </span>
+                  <span className="day6-ticket-divider" />
+                  <span className="day6-ticket-text">
+                    <span className="day6-ticket-title">Long Live</span>
+                    <span className="day6-ticket-subtitle">Taylor Swift</span>
+                  </span>
+                  <span className="day6-ticket-action">Escuchar</span>
+                </button>
+              ) : (
+                <LockedCard
+                  label="Long Live — Taylor Swift"
+                  hint="Se desbloquea al terminar la carta"
+                  accentColor={ACCENT}
+                />
+              )}
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       {/* Página de "Voces" */}
       {showFriends && (
@@ -264,14 +278,16 @@ const Long = () => {
           ]}
           accentColor={ACCENT}
           continueLabel="Cerrar capítulo"
-          onContinue={() => navigate('/index')}
+          onContinue={goToIndex}
+          nextLabel="Siguiente capítulo"
+          onNext={goToNextChapter}
         />
       )}
 
       {/* Folio de cierre */}
-      <div className="day3-folio-footer">
+      <div className="day6-folio-footer">
         <span>{String(CHAPTER_INDEX).padStart(2, '0')}</span>
-        <span className="day3-folio-rule" />
+        <span className="day6-folio-rule" />
         <span>de {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
       </div>
     </div>

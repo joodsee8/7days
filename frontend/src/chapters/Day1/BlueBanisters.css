@@ -23,9 +23,7 @@
   font-size: 0.72rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #5a6b7c;
-  opacity: 0;
-  animation: day1FadeIn 1.2s ease forwards;
+  color: #7a766f;
 }
 
 /* --- HERO --- */
@@ -35,9 +33,6 @@
   max-width: 560px;
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  opacity: 0;
-  animation: day1FadeIn 1.4s ease forwards;
-  animation-delay: 0.15s;
 }
 
 .day1-hero-photo {
@@ -52,9 +47,9 @@
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(26, 28, 35, 0.05) 0%,
-    rgba(26, 28, 35, 0.15) 45%,
-    rgba(26, 28, 35, 0.88) 100%
+    rgba(26, 25, 23, 0.05) 0%,
+    rgba(26, 25, 23, 0.15) 45%,
+    rgba(26, 25, 23, 0.88) 100%
   );
 }
 
@@ -73,7 +68,7 @@
   font-size: 0.7rem;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #b7c4d1;
+  color: #d6d2c9;
 }
 
 .day1-hero-title {
@@ -100,9 +95,6 @@
   padding: 2.6rem 2rem 0.5rem;
   box-sizing: border-box;
   text-align: center;
-  opacity: 0;
-  animation: day1FadeIn 1.4s ease forwards;
-  animation-delay: 0.35s;
 }
 
 .day1-quote-mark {
@@ -111,7 +103,7 @@
   font-weight: 700;
   font-size: 3.2rem;
   line-height: 1;
-  color: #5a6b7c;
+  color: #7a766f;
   opacity: 0.5;
   margin-bottom: -0.8rem;
 }
@@ -126,7 +118,7 @@
   color: #1a1c23;
 }
 
-/* --- CARTA (sin cambios de fondo) --- */
+/* --- CARTA --- */
 .letter-content-mobile {
   width: 100%;
   max-width: 500px;
@@ -158,16 +150,6 @@
   50% { opacity: 0; }
 }
 
-@keyframes day1FadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in-button {
-  animation: day1FadeIn 1.6s ease forwards;
-  opacity: 0;
-}
-
 /* --- CTA TIPO BOLETO --- */
 .day1-cta-wrap {
   display: flex;
@@ -189,7 +171,7 @@
 }
 
 .day1-cta-ticket:hover {
-  border-color: #5a6b7c;
+  border-color: #7a766f;
   transform: translateY(-2px);
 }
 
@@ -233,13 +215,12 @@
   font-size: 0.7rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #5a6b7c;
+  color: #7a766f;
   flex-shrink: 0;
 }
 
-/* --- CONTENEDORES DEL PLAYER Y LA NOTA --- */
-.day1-player-wrap,
-.day1-note-wrap {
+/* --- CONTENEDOR DEL PLAYER --- */
+.day1-player-wrap {
   width: 100%;
   max-width: 500px;
   padding: 0 1.5rem;
@@ -265,4 +246,28 @@
   flex-grow: 1;
   height: 1px;
   background-color: rgba(134, 59, 255, 0.25);
+}
+
+
+/* El reproductor SIEMPRE está en el DOM; esta capa solo lo cubre
+   visualmente (blur + candado o ticket) hasta que se desbloquea. */
+.day1-player-shell {
+  position: relative;
+}
+ 
+.day1-player-shell.is-locked > .mp-editorial {
+  filter: blur(10px);
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
+ 
+.day1-player-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  box-sizing: border-box;
 }

@@ -5,14 +5,17 @@ import MusicPlayer from '../../components/MusicPlayer/MusicPlayer';
 import FriendsSpread from '../../components/FriendSpread/FriendSpread';
 import friendPhoto from '../../assets/images/Polaroid1.jpg';
 import mainImg from '../../assets/images/Cap1.jpg';
-
+import LockedCard from '../../components/LockedCard/LockedCard';
 import coverImg from '../../assets/images/IMG_0105.jpeg';
 import audioFile from '../../assets/music/Blue-Banisters.mp3';
 
 const CHAPTER_INDEX = 1;
 const CHAPTER_TOTAL = 7;
-const ACCENT = '#5A6B7C';
+const ACCENT = '#aaaaaa';
+const PLAYER_BG = '#222121';
+const PLAYER_TEXT = '#f5e6d9';
 const LETTER_SEEN_KEY = 'day1_letter_typed';
+const NEXT_CHAPTER_PATH = '/day2';
 
 const pullQuote = "Tú estuviste ahí, me diste un lugar en el que me sentí seguro, en el que podía ser yo.";
 
@@ -94,8 +97,8 @@ const BlueBanisters = () => {
   );
   const [showButton, setShowButton] = useState(() => hasSeenLetter);
 
-  const [showPlayer, setShowPlayer] = useState(false);
-  const [showFriends, setShowFriends] = useState(false);
+ const [playerRevealed, setPlayerRevealed] = useState(() => hasSeenLetter);
+ const [showFriends, setShowFriends] = useState(false);
 
   useEffect(() => {
     if (!localStorage.getItem('notification_sent_day1')) {
@@ -140,14 +143,15 @@ const BlueBanisters = () => {
   }, [currentTypingText, paragraphIndex, hasSeenLetter]);
 
   const handleRevealPlayer = () => {
-    setShowButton(false);
-    setShowPlayer(true);
+    setPlayerRevealed(true);
   };
 
   const handleClosePlayer = () => {
-    setShowPlayer(false);
     setShowFriends(true);
   };
+
+  const goToNextChapter = () => navigate(NEXT_CHAPTER_PATH);
+  const goToIndex = () => navigate('/index');
 
   return (
     <div className="day1-magazine">
@@ -189,43 +193,53 @@ const BlueBanisters = () => {
             <span className="blinking-cursor">|</span>
           </p>
         )}
-
-        {showButton && !showPlayer && (
-          <div className="day1-cta-wrap fade-in-button">
-            <button className="day1-cta-ticket" onClick={handleRevealPlayer}>
-              <span className="day1-ticket-disc" aria-hidden="true">
-                <svg viewBox="0 0 40 40" width="28" height="28">
-                  <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
-                  <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
-                  <circle cx="20" cy="20" r="3" fill={ACCENT} />
-                </svg>
-              </span>
-              <span className="day1-ticket-divider" />
-              <span className="day1-ticket-text">
-                <span className="day1-ticket-title">Blue Banisters</span>
-                <span className="day1-ticket-subtitle">Lana Del Rey</span>
-              </span>
-              <span className="day1-ticket-action">Escuchar</span>
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* Reproductor de Música */}
-      {showPlayer && (
-        <div className="day1-player-wrap">
+        </div>
+ {/* Reproductor de Música: SIEMPRE está montado. Mientras no se
+          desbloquee, se cubre con una capa (ticket o candado) encima. */}
+      <div className="day1-player-wrap">
+        <div className={`day1-player-shell ${!playerRevealed ? 'is-locked' : ''}`}>
           <MusicPlayer
             title="Blue Banisters"
             artist="Lana Del Rey"
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="Espero que te haya gustado, gracias por estar siempre para mí."
+            endText="No podia faltar Lana Del Rey jaja, nos vemos mañana <3"
+            bgColor={PLAYER_BG}
+            textColor={PLAYER_TEXT}
             accentColor={ACCENT}
             onClose={handleClosePlayer}
           />
+ 
+          {!playerRevealed && (
+            <div className="day1-player-overlay">
+              {showButton ? (
+                <button className="day1-cta-ticket" onClick={handleRevealPlayer}>
+                  <span className="day1-ticket-disc" aria-hidden="true">
+                    <svg viewBox="0 0 40 40" width="28" height="28">
+                      <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
+                      <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
+                      <circle cx="20" cy="20" r="3" fill={ACCENT} />
+                    </svg>
+                  </span>
+                  <span className="day1-ticket-divider" />
+                  <span className="day1-ticket-text">
+                    <span className="day1-ticket-title">Blue Banisters</span>
+                    <span className="day1-ticket-subtitle">Lana Del Rey</span>
+                  </span>
+                  <span className="day1-ticket-action">Escuchar</span>
+                </button>
+              ) : (
+                <LockedCard
+                  label="Blue Banisters — Lana Del Rey"
+                  hint="Se desbloquea al terminar la carta"
+                  accentColor={ACCENT}
+                />
+              )}
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       {/* Página de "Voces": foto(s) + lo que significan para tus amigos */}
       {showFriends && (
@@ -241,7 +255,9 @@ const BlueBanisters = () => {
           ]}
           accentColor={ACCENT}
           continueLabel="Cerrar capítulo"
-          onContinue={() => navigate('/index')}
+          onContinue={goToIndex}
+          nextLabel="Siguiente capítulo"
+          onNext={goToNextChapter}
         />
       )}
 

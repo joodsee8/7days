@@ -1,0 +1,40 @@
+.locked-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  background-color: rgba(26, 28, 35, 0.04);
+  border: 1px dashed;
+  padding: 14px 18px;
+  box-sizing: border-box;
+}
+
+.locked-card-icon {
+  flex-shrink: 0;
+  display: flex;
+  opacity: 0.85;
+}
+
+.locked-card-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.locked-card-label {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #1a1c23;
+}
+
+.locked-card-hint {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.68rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #8a8a84;
+  margin-top: 2px;
+}

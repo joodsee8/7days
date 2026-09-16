@@ -8,6 +8,8 @@ import coverImg from '../../assets/images/pajarito.jpg';
 import audioFile from '../../assets/music/Pajarito.mp3';
 import polaroidImg from '../../assets/images/Polaroid3.jpg';
 import polaroidImg2 from '../../assets/images/Polaroid4.jpg';
+import LockedCard from '../../components/LockedCard/LockedCard';
+
 
 const CHAPTER_INDEX = 5;
 const CHAPTER_TOTAL = 7;
@@ -15,6 +17,7 @@ const ACCENT = '#887b6a';
 const PLAYER_BG = '#000000';
 const PLAYER_TEXT = '#E5E5E5';
 const LETTER_SEEN_KEY = 'day5_letter_typed';
+const NEXT_CHAPTER_PATH = '/day6';
 
 const pullQuote = "Deseo que nunca olvides el valor que tienes incluso cuando tú misma no puedas verlo.";
 
@@ -82,7 +85,7 @@ const Pajarito = () => {
   );
   const [showButton, setShowButton] = useState(() => hasSeenLetter);
 
-  const [showPlayer, setShowPlayer] = useState(false);
+   const [playerRevealed, setPlayerRevealed] = useState(() => hasSeenLetter);
   const [showFriends, setShowFriends] = useState(false);
 
   useEffect(() => {
@@ -131,14 +134,15 @@ const Pajarito = () => {
   }, [currentTypingText, paragraphIndex, hasSeenLetter]);
 
   const handleRevealPlayer = () => {
-    setShowButton(false);
-    setShowPlayer(true);
+    setPlayerRevealed(true);
   };
 
   const handleClosePlayer = () => {
-    setShowPlayer(false);
     setShowFriends(true);
   };
+
+  const goToNextChapter = () => navigate(NEXT_CHAPTER_PATH);
+  const goToIndex = () => navigate('/index');
 
   return (
     <div className="day5-magazine">
@@ -173,6 +177,7 @@ const Pajarito = () => {
             {text}
           </p>
         ))}
+        
 
         {!hasSeenLetter && paragraphIndex < letterParagraphs.length && (
           <p className="letra-cursiva-oscura">
@@ -180,31 +185,12 @@ const Pajarito = () => {
             <span className="blinking-cursor">|</span>
           </p>
         )}
-
-        {showButton && !showPlayer && (
-          <div className="day5-cta-wrap fade-in-button">
-            <button className="day5-cta-ticket" onClick={handleRevealPlayer}>
-              <span className="day5-ticket-disc" aria-hidden="true">
-                <svg viewBox="0 0 40 40" width="28" height="28">
-                  <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
-                  <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
-                  <circle cx="20" cy="20" r="3" fill={ACCENT} />
-                </svg>
-              </span>
-              <span className="day5-ticket-divider" />
-              <span className="day5-ticket-text">
-                <span className="day5-ticket-title">Pajarito Colibrí</span>
-                <span className="day5-ticket-subtitle">Natalia Lafourcade</span>
-              </span>
-              <span className="day5-ticket-action">Escuchar</span>
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* Reproductor de Música */}
-      {showPlayer && (
-        <div className="day5-player-wrap">
+</div>
+     
+     {/* Reproductor de Música: SIEMPRE está montado. Mientras no se
+          desbloquee, se cubre con una capa (ticket o candado) encima. */}
+      <div className="day5-player-wrap">
+        <div className={`day5-player-shell ${!playerRevealed ? 'is-locked' : ''}`}>
           <MusicPlayer
             title="Pajarito Colibrí"
             artist="Natalia Lafourcade"
@@ -217,8 +203,36 @@ const Pajarito = () => {
             accentColor={ACCENT}
             onClose={handleClosePlayer}
           />
+ 
+          {!playerRevealed && (
+            <div className="day5-player-overlay">
+              {showButton ? (
+                <button className="day5-cta-ticket" onClick={handleRevealPlayer}>
+                  <span className="day5-ticket-disc" aria-hidden="true">
+                    <svg viewBox="0 0 40 40" width="28" height="28">
+                      <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
+                      <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
+                      <circle cx="20" cy="20" r="3" fill={ACCENT} />
+                    </svg>
+                  </span>
+                  <span className="day5-ticket-divider" />
+                  <span className="day5-ticket-text">
+                    <span className="day5-ticket-title">Pajarito Colibrí</span>
+                    <span className="day5-ticket-subtitle">Natalia Lafourcade</span>
+                  </span>
+                  <span className="day5-ticket-action">Escuchar</span>
+                </button>
+              ) : (
+                <LockedCard
+                  label="Pajarito Colibrí — Natalia Lafourcade"
+                  hint="Se desbloquea al terminar la carta"
+                  accentColor={ACCENT}
+                />
+              )}
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       {/* Página de "Voces" */}
       {showFriends && (
@@ -239,7 +253,9 @@ const Pajarito = () => {
           ]}
           accentColor={ACCENT}
           continueLabel="Cerrar capítulo"
-          onContinue={() => navigate('/index')}
+          onContinue={goToIndex}
+          nextLabel="Siguiente capítulo"
+          onNext={goToNextChapter}
         />
       )}
 

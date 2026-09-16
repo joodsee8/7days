@@ -4,7 +4,6 @@
   margin: 0 auto;
   padding: 3.2rem 1.5rem 0;
   box-sizing: border-box;
-  opacity: 0;
 }
 
 .friends-spread-header {
@@ -82,6 +81,7 @@
   font-size: 1.08rem;
   line-height: 1.48;
   color: #1a1c23;
+  white-space: pre-line;
 }
 
 .friends-spread-byline {
@@ -103,11 +103,41 @@
   color: #8a8a8a;
 }
 
-.fade-in-soft {
-  animation: friendsFadeIn 1.2s ease forwards;
+/* --- ACCIONES DE CIERRE --- */
+.friends-spread-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-bottom: 1rem;
 }
 
-@keyframes friendsFadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.friends-spread-btn {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 12px 22px;
+  cursor: pointer;
+  background: none;
+  transition: opacity 0.25s ease;
+}
+
+.friends-spread-btn:hover {
+  opacity: 0.75;
+}
+
+.friends-spread-btn-primary {
+  border: 1px solid #1a1c23;
+  color: #1a1c23;
+  background-color: rgba(26, 28, 35, 0.04);
+}
+
+.friends-spread-btn-outline {
+  border: none;
+  border-bottom: 1px solid #1a1c23;
+  color: #1a1c23;
+  padding-left: 4px;
+  padding-right: 4px;
 }

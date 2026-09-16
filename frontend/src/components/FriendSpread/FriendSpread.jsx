@@ -5,6 +5,10 @@ import './FriendSpread.css';
  * Página de revista tipo "Voces": una o varias fotos con lo que
  * significan para cada amigo, en vez de una Polaroid o nota suelta.
  * `entries`: [{ photo, quote, name, role }]
+ *
+ * Al final se pueden mostrar hasta dos acciones:
+ * - onNext / nextLabel: ir directo al siguiente capítulo.
+ * - onContinue / continueLabel: cerrar el capítulo y volver al índice.
  */
 const FriendsSpread = ({
   kicker = 'Voces',
@@ -13,11 +17,13 @@ const FriendsSpread = ({
   accentColor = '#5A6B7C',
   continueLabel = 'Cerrar capítulo',
   onContinue,
+  nextLabel = 'Siguiente capítulo',
+  onNext,
 }) => {
   if (!entries.length) return null;
 
   return (
-    <section className="friends-spread fade-in-soft">
+    <section className="friends-spread">
       <header className="friends-spread-header">
         <p className="friends-spread-kicker" style={{ color: accentColor }}>{kicker}</p>
         {deck && <p className="friends-spread-deck">{deck}</p>}
@@ -44,11 +50,18 @@ const FriendsSpread = ({
         ))}
       </div>
 
-      {onContinue && (
-        <div className="sutil-action-container" style={{ marginTop: '1rem' }}>
-          <span className="sutil-button-dark" onClick={onContinue}>
-            {continueLabel}
-          </span>
+      {(onNext || onContinue) && (
+        <div className="friends-spread-actions">
+          {onNext && (
+            <button className="friends-spread-btn friends-spread-btn-primary" onClick={onNext}>
+              {nextLabel}
+            </button>
+          )}
+          {onContinue && (
+            <button className="friends-spread-btn friends-spread-btn-outline" onClick={onContinue}>
+              {continueLabel}
+            </button>
+          )}
         </div>
       )}
     </section>

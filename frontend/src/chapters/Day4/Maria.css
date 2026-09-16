@@ -24,8 +24,6 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #7a766f;
-  opacity: 0;
-  animation: day4FadeIn 1.2s ease forwards;
 }
 
 /* --- HERO --- */
@@ -35,9 +33,6 @@
   max-width: 560px;
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  opacity: 0;
-  animation: day4FadeIn 1.4s ease forwards;
-  animation-delay: 0.15s;
 }
 
 .day4-hero-photo {
@@ -100,9 +95,6 @@
   padding: 2.6rem 2rem 0.5rem;
   box-sizing: border-box;
   text-align: center;
-  opacity: 0;
-  animation: day4FadeIn 1.4s ease forwards;
-  animation-delay: 0.35s;
 }
 
 .day4-quote-mark {
@@ -156,16 +148,6 @@
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
-}
-
-@keyframes day4FadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in-button {
-  animation: day4FadeIn 1.6s ease forwards;
-  opacity: 0;
 }
 
 /* --- CTA TIPO BOLETO --- */
@@ -264,4 +246,28 @@
   flex-grow: 1;
   height: 1px;
   background-color: rgba(134, 59, 255, 0.25);
+}
+
+
+/* El reproductor SIEMPRE está en el DOM; esta capa solo lo cubre
+   visualmente (blur + candado o ticket) hasta que se desbloquea. */
+.day4-player-shell {
+  position: relative;
+}
+ 
+.day4-player-shell.is-locked > .mp-editorial {
+  filter: blur(10px);
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
+ 
+.day4-player-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  box-sizing: border-box;
 }

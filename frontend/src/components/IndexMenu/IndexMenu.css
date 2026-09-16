@@ -73,7 +73,6 @@
   gap: 14px;
   padding: 1.1rem 0;
   border-bottom: 1px solid rgba(245, 241, 232, 0.08);
-  transition: opacity 0.4s ease;
 }
 
 .toc-row.unlocked {
@@ -109,11 +108,31 @@
   height: 100%;
   object-fit: cover;
   filter: grayscale(15%);
-  transition: transform 0.4s ease;
 }
 
 .toc-row.unlocked:hover .toc-thumb {
   transform: scale(1.06);
+}
+
+/* Miniatura bloqueada: primera vez que se ve el capítulo en el índice */
+.toc-thumb-locked {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.toc-thumb-blurred {
+  filter: grayscale(70%) blur(1.5px) brightness(0.5);
+}
+
+.toc-thumb-lock-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f5f1e8;
 }
 
 .toc-thumb-placeholder {
@@ -176,11 +195,9 @@
   font-family: 'Playfair Display', serif;
   font-size: 1.3rem;
   color: #6b6b66;
-  transition: transform 0.3s ease;
 }
 
 .toc-row.unlocked:hover .toc-chevron {
-  transform: translateX(3px);
   color: #863bff;
 }
 
@@ -192,7 +209,6 @@
   font-style: italic;
   font-size: 0.82rem;
   color: #a39f98;
-  animation: tocFadeIn 0.5s ease forwards;
 }
 
 /* --- PIE --- */
@@ -207,14 +223,4 @@
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #55534d;
-}
-
-/* --- ANIMACIÓN DE ENTRADA --- */
-.fade-in {
-  animation: tocFadeIn 1.2s ease-in-out forwards;
-}
-
-@keyframes tocFadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
 }

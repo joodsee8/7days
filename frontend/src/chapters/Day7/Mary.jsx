@@ -6,16 +6,17 @@ import FriendsSpread from '../../components/FriendSpread/FriendSpread';
 import mainImg from '../../assets/images/Cap7.jpg';
 import coverImg from '../../assets/images/femme.jpg';
 import audioFile from '../../assets/music/Mary.mp3';
-import polaroidImg from '../../assets/images/Polaroid5.jpg';
+import polaroidImg from '../../assets/images/Polaroid8.jpg';
 import polaroidImg2 from '../../assets/images/Polaroid4.jpg';
+import LockedCard from '../../components/LockedCard/LockedCard';
 
 const CHAPTER_INDEX = 7;
 const CHAPTER_TOTAL = 7;
 const ACCENT = '#887b6a';
 const PLAYER_BG = '#000000';
 const PLAYER_TEXT = '#E5E5E5';
-const LETTER_SEEN_KEY = 'day5_letter_typed';
-
+const LETTER_SEEN_KEY = 'day7_letter_typed';
+const NEXT_CHAPTER_PATH = '/index';
 const pullQuote = "No quiero imaginar una vida sin ti.";
 
 const letterParagraphs = [
@@ -61,7 +62,7 @@ const Mary = () => {
   );
   const [showButton, setShowButton] = useState(() => hasSeenLetter);
 
-  const [showPlayer, setShowPlayer] = useState(false);
+  const [playerRevealed, setPlayerRevealed] = useState(() => hasSeenLetter);
   const [showFriends, setShowFriends] = useState(false);
 
   useEffect(() => {
@@ -110,38 +111,39 @@ const Mary = () => {
   }, [currentTypingText, paragraphIndex, hasSeenLetter]);
 
   const handleRevealPlayer = () => {
-    setShowButton(false);
-    setShowPlayer(true);
+    setPlayerRevealed(true);
   };
 
   const handleClosePlayer = () => {
-    setShowPlayer(false);
     setShowFriends(true);
   };
 
+  const goToNextChapter = () => navigate(NEXT_CHAPTER_PATH);
+  const goToIndex = () => navigate('/index');
+
   return (
-    <div className="day5-magazine">
+    <div className="day7-magazine">
 
       {/* Folio superior */}
-      <div className="day5-folio-bar">
+      <div className="day7-folio-bar">
         <span>Cap. {CHAPTER_INDEX} / {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
         <span>Mary</span>
       </div>
 
       {/* Hero: foto de portada del capítulo + título superpuesto */}
-      <div className="day5-hero">
-        <img src={mainImg} alt="" className="day5-hero-photo" />
-        <div className="day5-hero-gradient" />
-        <div className="day5-hero-text">
-          <p className="day5-hero-eyebrow">Capítulo VII</p>
-          <h1 className="day5-hero-title">Mary</h1>
-          <p className="day5-hero-artist">Mon Laferte</p>
+      <div className="day7-hero">
+        <img src={mainImg} alt="" className="day7-hero-photo" />
+        <div className="day7-hero-gradient" />
+        <div className="day7-hero-text">
+          <p className="day7-hero-eyebrow">Capítulo VII</p>
+          <h1 className="day7-hero-title">Mary</h1>
+          <p className="day7-hero-artist">Mon Laferte</p>
         </div>
       </div>
 
       {/* Pull quote */}
-      <div className="day5-pull-quote">
-        <span className="day5-quote-mark" aria-hidden="true">&ldquo;</span>
+      <div className="day7-pull-quote">
+        <span className="day7-quote-mark" aria-hidden="true">&ldquo;</span>
         <p>{pullQuote}</p>
       </div>
 
@@ -159,45 +161,54 @@ const Mary = () => {
             <span className="blinking-cursor">|</span>
           </p>
         )}
-
-        {showButton && !showPlayer && (
-          <div className="day5-cta-wrap fade-in-button">
-            <button className="day5-cta-ticket" onClick={handleRevealPlayer}>
-              <span className="day5-ticket-disc" aria-hidden="true">
-                <svg viewBox="0 0 40 40" width="28" height="28">
-                  <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
-                  <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
-                  <circle cx="20" cy="20" r="3" fill={ACCENT} />
-                </svg>
-              </span>
-              <span className="day5-ticket-divider" />
-              <span className="day5-ticket-text">
-                <span className="day5-ticket-title">Mary</span>
-                <span className="day5-ticket-subtitle">Mon Laferte</span>
-              </span>
-              <span className="day5-ticket-action">Escuchar</span>
-            </button>
-          </div>
-        )}
       </div>
 
-      {/* Reproductor de Música */}
-      {showPlayer && (
-        <div className="day5-player-wrap">
+     {/* Reproductor de Música: SIEMPRE está montado. Mientras no se
+          desbloquee, se cubre con una capa (ticket o candado) encima. */}
+      <div className="day7-player-wrap">
+        <div className={`day7-player-shell ${!playerRevealed ? 'is-locked' : ''}`}>
           <MusicPlayer
             title="Mary"
             artist="Mon Laferte"
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="No podia faltar Natalia Lafourcade jaja, nos vemos mañana <3"
+            endText="No podia faltar Mon Laferte jaja, nos vemos mañana <3"
             bgColor={PLAYER_BG}
             textColor={PLAYER_TEXT}
             accentColor={ACCENT}
             onClose={handleClosePlayer}
           />
+ 
+          {!playerRevealed && (
+            <div className="day7-player-overlay">
+              {showButton ? (
+                <button className="day7-cta-ticket" onClick={handleRevealPlayer}>
+                  <span className="day7-ticket-disc" aria-hidden="true">
+                    <svg viewBox="0 0 40 40" width="28" height="28">
+                      <circle cx="20" cy="20" r="18" fill="none" stroke={ACCENT} strokeWidth="1.2" />
+                      <circle cx="20" cy="20" r="11" fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.6" />
+                      <circle cx="20" cy="20" r="3" fill={ACCENT} />
+                    </svg>
+                  </span>
+                  <span className="day7-ticket-divider" />
+                  <span className="day7-ticket-text">
+                    <span className="day7-ticket-title">Mary</span>
+                    <span className="day7-ticket-subtitle">Mon Laferte</span>
+                  </span>
+                  <span className="day7-ticket-action">Escuchar</span>
+                </button>
+              ) : (
+                <LockedCard
+                  label="Mary — Mon Laferte"
+                  hint="Se desbloquea al terminar la carta"
+                  accentColor={ACCENT}
+                />
+              )}
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       {/* Página de "Voces" */}
       {showFriends && (
@@ -207,25 +218,22 @@ const Mary = () => {
           entries={[
             {
               photo: polaroidImg,
-              quote: "Montse siempre esta ahi para nosotros, incluso cuando no podemos verla, hace mas bonita la experiencia en la U",
-              name: "Azael & Pao",
-            },
-            {
-              photo: polaroidImg2,
-              quote: "Soy un zangano y se me olvido pedirle un mensajito a tu familia jeje, pero se que ellos tambien te quieren mucho.",
+              quote: "Habrá cosas que hoy parecen enormes y que mañana apenas recordarász, personas que alguna vez ocuparon tus pensamientos y que terminarán siendo parte del paisaje, no necesitas vencer cada batalla; algunas simplemente desaparecen cuando decides seguir adelante.\nY tú tienes demasiada vida por delante para quedarte mirando hacia atrás.",
               name: "Pancho",
             },
           ]}
           accentColor={ACCENT}
           continueLabel="Cerrar capítulo"
-          onContinue={() => navigate('/index')}
+          onContinue={goToIndex}
+          nextLabel="Índice"
+          onNext={goToIndex}
         />
       )}
 
       {/* Folio de cierre */}
-      <div className="day5-folio-footer">
+      <div className="day7-folio-footer">
         <span>{String(CHAPTER_INDEX).padStart(2, '0')}</span>
-        <span className="day5-folio-rule" />
+        <span className="day7-folio-rule" />
         <span>de {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
       </div>
     </div>
