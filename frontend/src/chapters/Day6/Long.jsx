@@ -6,8 +6,8 @@ import FriendsSpread from '../../components/FriendSpread/FriendSpread';
 import mainImg from '../../assets/images/Cap6.jpg';
 import coverImg from '../../assets/images/long.jpg';
 import audioFile from '../../assets/music/Long.mp3';
-import polaroidImg from '../../assets/images/Polaroid11.jpg';
-import polaroidImg2 from '../../assets/images/Polaroid12.jpg';
+import polaroidImg from '../../assets/images/Polaroid11.JPG';
+import polaroidImg2 from '../../assets/images/Polaroid12.JPG';
 import LockedCard from '../../components/LockedCard/LockedCard';
 
 
