@@ -6,7 +6,7 @@ import FriendsSpread from '../../components/FriendSpread/FriendSpread';
 import friendPhoto from '../../assets/images/Polaroid1.jpg';
 import mainImg from '../../assets/images/Cap1.jpg';
 import LockedCard from '../../components/LockedCard/LockedCard';
-import coverImg from '../../assets/images/IMG_0105.jpeg';
+import coverImg from '../../assets/images/IMG_0989.jpg';
 import audioFile from '../../assets/music/Blue-Banisters.mp3';
 
 const CHAPTER_INDEX = 1;
