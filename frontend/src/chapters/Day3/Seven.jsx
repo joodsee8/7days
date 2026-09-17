@@ -13,7 +13,7 @@ import polaroidImg2 from '../../assets/images/Polaroid4.jpg';
 const CHAPTER_INDEX = 3;
 const CHAPTER_TOTAL = 7;
 const ACCENT = '#C7C1BC';
-const PLAYER_BG = '#616161';
+const PLAYER_BG = '#000000';
 const PLAYER_TEXT = '#E5E5E5';
 const LETTER_SEEN_KEY = 'day3_letter_typed';
 const NEXT_CHAPTER_PATH = '/day4';
