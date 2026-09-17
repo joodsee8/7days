@@ -201,7 +201,7 @@ const Maria = () => {
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="No podia faltar Natalia Lafourcade jaja, nos vemos mañana <3"
+            endText="Parece cancion de abuela eda"
             bgColor={PLAYER_BG}
             textColor={PLAYER_TEXT}
             accentColor={ACCENT}
