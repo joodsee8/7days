@@ -14,7 +14,7 @@ import LockedCard from '../../components/LockedCard/LockedCard';
 const CHAPTER_INDEX = 6;
 const CHAPTER_TOTAL = 7;
 const ACCENT = '#C7C1BC';
-const PLAYER_BG = '#7600bc';
+const PLAYER_BG = '#000000';
 const PLAYER_TEXT = '#E5E5E5';
 const LETTER_SEEN_KEY = 'day6_letter_typed';
 const NEXT_CHAPTER_PATH = '/day7';
