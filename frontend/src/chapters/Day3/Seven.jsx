@@ -198,7 +198,7 @@ const Seven = () => {
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="No podia faltar Taylor Swift jaja, nos vemos mañana <3"
+            endText="No podia faltar Taylor Swift jaja dale pa arriba 🗣️🔥"
             bgColor={PLAYER_BG}
             textColor={PLAYER_TEXT}
             accentColor={ACCENT}
