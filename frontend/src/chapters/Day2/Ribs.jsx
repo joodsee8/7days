@@ -208,7 +208,7 @@ const Ribs = () => {
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="No podia faltar Lorde jaja, nos vemos mañana <3"
+            endText="Pues lo mismo que en el otro w jaja si no hace nada dale pa arriba o pa abajo? no se abajo hay mas cosas"
             bgColor={PLAYER_BG}
             textColor={PLAYER_TEXT}
             accentColor={ACCENT}
