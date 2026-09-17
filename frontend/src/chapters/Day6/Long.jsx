@@ -222,7 +222,7 @@ const Long = () => {
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="No podia faltar Taylor Swift jaja, nos vemos mañana <3"
+            endText="No puedo Martha, ya me cansé de escribir"
             bgColor={PLAYER_BG}
             textColor={PLAYER_TEXT}
             accentColor={ACCENT}
