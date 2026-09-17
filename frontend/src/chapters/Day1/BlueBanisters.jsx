@@ -11,8 +11,8 @@ import audioFile from '../../assets/music/Blue-Banisters.mp3';
 
 const CHAPTER_INDEX = 1;
 const CHAPTER_TOTAL = 7;
-const ACCENT = '#aaaaaa';
-const PLAYER_BG = '#222121';
+const ACCENT = '#652A0E';
+const PLAYER_BG = '#000000';
 const PLAYER_TEXT = '#f5e6d9';
 const LETTER_SEEN_KEY = 'day1_letter_typed';
 const NEXT_CHAPTER_PATH = '/day2';
