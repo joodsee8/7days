@@ -6,8 +6,7 @@ import FriendsSpread from '../../components/FriendSpread/FriendSpread';
 import mainImg from '../../assets/images/Cap5.jpg';
 import coverImg from '../../assets/images/pajarito.jpg';
 import audioFile from '../../assets/music/Pajarito.mp3';
-import polaroidImg from '../../assets/images/Polaroid3.jpg';
-import polaroidImg2 from '../../assets/images/Polaroid4.jpg';
+import polaroidImg from '../../assets/images/Polaroid13.JPG';
 import LockedCard from '../../components/LockedCard/LockedCard';
 
 
@@ -242,13 +241,8 @@ const Pajarito = () => {
           entries={[
             {
               photo: polaroidImg,
-              quote: "Montse siempre esta ahi para nosotros, incluso cuando no podemos verla, hace mas bonita la experiencia en la U",
-              name: "Azael & Pao",
-            },
-            {
-              photo: polaroidImg2,
-              quote: "Soy un zangano y se me olvido pedirle un mensajito a tu familia jeje, pero se que ellos tambien te quieren mucho.",
-              name: "Pancho",
+              quote: "Bueno como nadie respondio, la respuesta era Atlantic Records",
+              name: "fer",
             },
           ]}
           accentColor={ACCENT}
