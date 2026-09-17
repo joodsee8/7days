@@ -173,7 +173,7 @@ const Mary = () => {
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="No podia faltar Mon Laferte jaja, nos vemos mañana <3"
+            endText="Y pues ya, fue todo w, dale pa arriba ya te la you know"
             bgColor={PLAYER_BG}
             textColor={PLAYER_TEXT}
             accentColor={ACCENT}
