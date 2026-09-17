@@ -19,7 +19,7 @@ const PLAYER_TEXT = '#E5E5E5';
 const LETTER_SEEN_KEY = 'day5_letter_typed';
 const NEXT_CHAPTER_PATH = '/day6';
 
-const pullQuote = "Deseo que nunca olvides el valor que tienes incluso cuando tú misma no puedas verlo.";
+const pullQuote = "Espero que nunca pierdas esa forma tan tuya de hacer senti cómodas a las personas.";
 
 const letterParagraphs = [
 "Hay canciones que simplemente son bonitas, y hay otras que llegan justo cuando uno necesita escuchar que todo va a estar bien, Pajarito Colibrí es una de esas para mí.",
