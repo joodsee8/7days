@@ -12,7 +12,7 @@ import LockedCard from '../../components/LockedCard/LockedCard';
 
 const CHAPTER_INDEX = 7;
 const CHAPTER_TOTAL = 7;
-const ACCENT = '#887b6a';
+const ACCENT = '#F9CDC4';
 const PLAYER_BG = '#000000';
 const PLAYER_TEXT = '#E5E5E5';
 const LETTER_SEEN_KEY = 'day7_letter_typed';
