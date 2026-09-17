@@ -204,7 +204,7 @@ const BlueBanisters = () => {
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="No podia faltar Lana Del Rey jaja, nos vemos mañana <3"
+            endText="Finalmente lo terminé 🗣️, despues de darle a 'siguiente' muy probablemente no pase nada jajaja, errorsitos, pero desliza hacia arriba abajo hay mas cosas"
             bgColor={PLAYER_BG}
             textColor={PLAYER_TEXT}
             accentColor={ACCENT}
