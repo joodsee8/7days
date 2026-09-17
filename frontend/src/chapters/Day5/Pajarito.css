@@ -99,7 +99,7 @@
 
 .day5-quote-mark {
   display: block;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Times New Roman';
   font-weight: 700;
   font-size: 3.2rem;
   line-height: 1;
@@ -110,7 +110,7 @@
 
 .day5-pull-quote {
   margin: 0;
-  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-family:'Times New Roman';
   font-style: italic;
   font-weight: 600;
   font-size: 1.3rem;
