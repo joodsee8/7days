@@ -175,7 +175,7 @@ const Long = () => {
       {/* Folio superior */}
       <div className="day6-folio-bar">
         <span>Cap. {CHAPTER_INDEX} / {String(CHAPTER_TOTAL).padStart(2, '0')}</span>
-        <span>Seven</span>
+        <span>Long Live</span>
       </div>
 
       {/* Hero: foto de portada del capítulo + título superpuesto */}
@@ -184,7 +184,7 @@ const Long = () => {
         <div className="day6-hero-gradient" />
         <div className="day6-hero-text">
           <p className="day6-hero-eyebrow">Capítulo VI</p>
-          <h1 className="day6-hero-title">Seven</h1>
+          <h1 className="day6-hero-title">Long Live</h1>
           <p className="day6-hero-artist">Taylor Swift</p>
         </div>
       </div>
