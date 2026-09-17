@@ -197,7 +197,7 @@ const Pajarito = () => {
             cover={coverImg}
             audioSrc={audioFile}
             lyrics={songLrc}
-            endText="No podia faltar Natalia Lafourcade jaja, nos vemos mañana <3"
+            endText="Hola, si ves esto dime Hola 🤓"
             bgColor={PLAYER_BG}
             textColor={PLAYER_TEXT}
             accentColor={ACCENT}
